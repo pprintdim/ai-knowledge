@@ -1,4 +1,4 @@
 # ai-knowledge
 
 Obsidian vault — Shared Knowledge Layer для AI-агентної розробки (Claude Code + Codex).
-Карта: [00 - INDEX](00%20-%20INDEX.md). Правила: 00-System/.
+Карта: [INDEX](00-System/INDEX.md). Структура: Agents (як працюємо) / Knowledge (що знаємо) / Projects (память проєктів) / Workflows (типові процеси) / 00-System (правила). Правила: 00-System/.

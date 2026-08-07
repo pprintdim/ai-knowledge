@@ -18,4 +18,4 @@
 Ще нема (створювати при першій реальній потребі, не завчасно):
 imports, cron, api-integrations, caching, security, performance, debugging, catalog, admin-modules.
 
-Повний процес натяжки: [[Натяжка OpenCart 3 — чеклист]].
+Повний процес натяжки: [[natyazhka-opencart|Натяжка OC3 — чеклист]].
