@@ -14,7 +14,7 @@ Shared Knowledge Layer (`~/AI-Workspace/knowledge` = repo `pprintdim/ai-knowledg
 
 ## Agents
 
-[[Agents/INDEX|Бібліотека 15 ролей]] (architect, opencart3, wordpress, frontend, backend-php, database, importer, api-integration, debug, qa, security, performance, seo, git, cleanup) + автороутинг задач + `Agents/натяжки/` (5 виконавців-субагентів).
+[[Agents/INDEX|Бібліотека 15 ролей]] у групах за роллю в циклі: `core/` (architect, git, cleanup) · `specialists/` (opencart3, wordpress, frontend, backend-php, database) · `routine/` (importer, api-integration, debug, seo) · `review/` (qa, security, performance) · `натяжки/` (5 виконавців-субагентів) + автороутинг задач.
 
 ## Knowledge
 
