@@ -23,7 +23,7 @@ GitHub → bare mirror (fetch) → worktree (гілка agent/TASK-ID-name) →
 робота → перевірка → commit → push → verify remote → видалити worktree + manifest
 ```
 
-Скрипти: [[scripts|00-System/scripts/]]:
+Скрипти: `00-System/scripts/`:
 - `task-start.sh <repo-url|name> <TASK-ID> <short-name>` — mirror fetch/clone → worktree + гілка + manifest у tmp/
 - `task-done.sh <TASK-ID>` — перевірки (clean? запушено?) → видалення worktree+manifest; `--abandon` — викинути без push (тільки clean)
 - `workspace-status.sh` — огляд усіх worktrees: гілка, стан, синк з remote
