@@ -32,4 +32,10 @@
 | vakhiyo | статика | pprintdim/vakhiyo | GitHub Actions деплой |
 | sitesHub | ? | не git | має handoff.md |
 
+## Імпортовані службові .md (2026-08-07)
+
+Усі handoff/project/AGENTS/analysis-нотатки з проєктів зібрані сюди й санітизовані ([[DOCS-POLICY]]): hydrophob.net · hydrophob.ua · hydrophob-landing · well · nadel · stocrm · stores.crm · shokstore · sitesHub · pprintdim · freelanceAuto · webprogressor · starlife · shoker.in.ua. Секрети замінені на `<REDACTED→secrets/ACCESS.md>`.
+
+Оригінальний шлях указаний у callout-шапці кожної нотатки. `handoff.md` в активних проєктах більше не ведеться — актуальний стан у `MEMORY.md` + `TASKS.md` тут.
+
 Правило: у теки 03-Projects/ НЕ копіювати код/vendor/images/дампи — тільки PROJECT/MEMORY/DECISIONS/TASKS (+ARCHITECTURE за потреби). Компактно.
