@@ -51,3 +51,13 @@
 - Агенти групуються по доменах: `Agents/<домен>/` (зараз — `натяжки`); нові домени (wordpress, laravel…) — своя тека зі своїм набором.
 - Перед задачею: [[WORKFLOW]] (repo → project memory → targeted knowledge search → код).
 - Після задачі: harvesting за [[MEMORY-RULES]].
+
+## Схема репозиторіїв (план, узгоджено 2026-08-07)
+
+```
+GitHub: ai-knowledge (цей vault) + project-a/b/c…
+Mac:    ~/AI-Workspace/knowledge/  ← clone ai-knowledge
+        ~/AI-Workspace/worktrees/  ← тимчасові shallow clone / git worktree під задачу
+```
+
+Не тримати 20 повних постійних копій: оркестратор бере потрібну репку → shallow clone/worktree → агент працює в ній (гілка `agent/<TASK>-<коротко>`) → commit/push → робоча тека видаляється. Схема приблизна, уточнюється в міру використання.
