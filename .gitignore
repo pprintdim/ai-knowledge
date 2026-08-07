@@ -4,3 +4,7 @@
 .obsidian/cache
 .trash/
 .obsidian/graph.json
+
+# секрети ніколи не в repo
+secrets/
+ACCESS.md

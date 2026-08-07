@@ -3,7 +3,7 @@
 ## Активні
 - [ ] OTP email-код (як shokeru): бекенд `common/user_popup` sendCode/verifyCode + вбудувати в login/register/checkout (фронт-матеріали в scratchpad, план у handoff 2026-08-07)
 - [ ] СЕО-фільтри/пагінація/сортування в path-слагах без GET (еталон — живий shokeru.in.ua)
-- [ ] Змінити тимчасовий admin-пароль (admin123)
+- [ ] Змінити тимчасовий admin-пароль (<REDACTED→secrets/ACCESS.md>)
 
 ## Завершені (ключове)
 - [x] Checkout 1:1 з main — коміт 9a07049, E2E на проді
