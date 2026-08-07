@@ -9,6 +9,7 @@ Shared Knowledge Layer (`~/AI-Workspace/knowledge` = repo `pprintdim/ai-knowledg
 - [[WORKFLOW]] — порядок задачі: repo → память → targeted search → код; пріоритет істини
 - [[WORKSPACE]] — GitHub=truth, mirrors/worktrees, push-first, cleanup, безпека видалення
 - [[MEMORY-RULES]] — harvesting: що у vault, що ні (секрети — ніколи)
+- [[DOCS-POLICY]] — службові .md ТІЛЬКИ тут, project repo = продукт
 - `scripts/` — task-start.sh / task-done.sh / workspace-status.sh
 
 ## Agents
