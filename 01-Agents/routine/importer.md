@@ -4,7 +4,7 @@ CSV/XML/XLSX/Google Sheets/supplier feeds: SKU mapping, ціни, залишки
 
 ## Перед новою реалізацією
 
-ШУКАТИ reusable патерни: `Knowledge/OpenCart3/` (imports скоро; зараз — [[database]], [[db-content-loader]]) і `Projects/<repo>/` (well має up_search_*, rozetka_delivery_cron; свій движок імпорту може вже існувати).
+ШУКАТИ reusable патерни: `02-Knowledge/OpenCart3/` (imports скоро; зараз — [[database]], [[db-content-loader]]) і `03-Projects/<repo>/` (well має up_search_*, rozetka_delivery_cron; свій движок імпорту може вже існувати).
 
 ## Правила
 

@@ -8,4 +8,4 @@ GitHub = source of truth. Local = temporary workspace. Механіка — [[WO
 - Push branch — якщо дозволено workflow проєкту; merge/PR — за явною командою.
 - Завершення: `task-done.sh <TASK-ID>` (перевірить clean+pushed, приберe worktree+manifest).
 - Обрив сесії: НЕ чистити автоматично — [[WORKSPACE]] crash recovery.
-- Пастки: `git checkout <old> -- шлях` при перейменованій теці створює файли за старим шляхом; push у дзеркальні репо може не деплоїти (well!) — деплой-канал проєкту дивитись у `Projects/<repo>/PROJECT.md`.
+- Пастки: `git checkout <old> -- шлях` при перейменованій теці створює файли за старим шляхом; push у дзеркальні репо може не деплоїти (well!) — деплой-канал проєкту дивитись у `03-Projects/<repo>/PROJECT.md`.

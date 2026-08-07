@@ -5,7 +5,7 @@ WP/WooCommerce: custom themes, hooks (actions/filters), ACF (flexible/repeater),
 ## Перед роботою
 
 1. Версії WP/Woo/PHP; child чи custom тема; builder (Gutenberg/Elementor/ACF-flexible).
-2. `Projects/<repo>/PROJECT.md` + `Knowledge/WordPress/` (створювати нотатки в міру появи досвіду).
+2. `03-Projects/<repo>/PROJECT.md` + `02-Knowledge/WordPress/` (створювати нотатки в міру появи досвіду).
 3. Реальні хуки теми: functions.php, inc/, template hierarchy конкретної теми.
 
 ## Правила

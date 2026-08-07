@@ -6,4 +6,4 @@
 - Перед зміною схеми: подивитись реальну схему (`SHOW CREATE TABLE`), не покладатись на память.
 - Оптимізація: EXPLAIN до/після; індекси під реальні WHERE/JOIN; N+1 → [[performance]].
 - Міграції ідемпотентні (`IF NOT EXISTS`, guarded UPDATE); на прод — той самий файл, що тестувався локально.
-- Бекап перед destructive-операцією — обовʼязково; для OC3 таблиць — [[Knowledge/OpenCart3/database|нотатка]].
+- Бекап перед destructive-операцією — обовʼязково; для OC3 таблиць — [[02-Knowledge/OpenCart3/database|нотатка]].

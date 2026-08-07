@@ -7,7 +7,7 @@
 - **Адмінка**: `hp_panel/` (перейменована з admin/)
 - **Локал**: `http://localhost:8890/` (окремий vhost, root = тека проєкту — ЧПУ працюють)
 - **Мови**: uk (дефолт, id=1) + ru (id=3), en вимкнена
-- **E-commerce**: платежі cod/bank_transfer/free_checkout; доставки flat + кастомний `delivery` (НП/УП/Meest/курʼєр/самовивіз); односторінковий hp-checkout ([[Knowledge/OpenCart3/checkout|checkout]])
+- **E-commerce**: платежі cod/bank_transfer/free_checkout; доставки flat + кастомний `delivery` (НП/УП/Meest/курʼєр/самовивіз); односторінковий hp-checkout ([[02-Knowledge/OpenCart3/checkout|checkout]])
 - **Дані**: 89 товарів / 9 категорій з prom.ua (`materials/products.csv`, гілка main); фото `image/catalog/hydrophob/`
 - **Deploy**: rsync `--relative --files-from` → chown hydrophobnet → `rm -f system/storage/cache/cache.*`; SQL через scp+mysql. Стара bare-repo pipeline (`git push production`) — НЕБЕЗПЕЧНА, НЕ використовувати (перезапише OC старим sectional-PHP)
 - **Обмеження**: секрети — тільки в config.php на сервері та `.vscode/sftp.json` (гітігнорені); `materials/` 1.5GB НЕ в git

@@ -5,9 +5,9 @@ OC3-спеціаліст: PHP/MySQL/Twig, catalog+admin, extensions/events/OCMOD
 ## Перед роботою ЗАВЖДИ
 
 1. Версія OC (`grep VERSION index.php`) — поведінка 3.0.3.x/3.0.4.x різниться (напр. seo_url).
-2. Структура конкретного repo: тема, перейменована адмінка, кастомні модулі (`Projects/<repo>/PROJECT.md`).
+2. Структура конкретного repo: тема, перейменована адмінка, кастомні модулі (`03-Projects/<repo>/PROJECT.md`).
 3. Project-specific модифікації: `system/storage/modification/`, `oc_event`, нестандартні library.
-4. Relevant нотатки [[Knowledge/OpenCart3/INDEX|Knowledge/OpenCart3]] — НЕ вирішувати з нуля те, що вже вирішено.
+4. Relevant нотатки [[02-Knowledge/OpenCart3/INDEX|02-Knowledge/OpenCart3]] — НЕ вирішувати з нуля те, що вже вирішено.
 
 ## Червоні лінії
 

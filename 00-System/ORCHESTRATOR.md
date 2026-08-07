@@ -48,7 +48,7 @@
 
 ## Knowledge Layer (Obsidian vault = ця тека)
 
-- Агенти групуються по доменах: `Agents/<домен>/` (зараз — `натяжки`); нові домени (wordpress, laravel…) — своя тека зі своїм набором.
+- Агенти групуються по доменах: `01-Agents/<домен>/` (зараз — `натяжки`); нові домени (wordpress, laravel…) — своя тека зі своїм набором.
 - Перед задачею: [[WORKFLOW]] (repo → project memory → targeted knowledge search → код).
 - Після задачі: harvesting за [[MEMORY-RULES]].
 

@@ -6,12 +6,12 @@
 
 | Проєкт | Стек | Repo | Локально | Стан |
 |---|---|---|---|---|
-| [[Projects/hydrophob.net/PROJECT\|hydrophob.net]] | OC 3.0.3.9, тема hydrophob | pprintdim/hydrophob.net (`openCart`) | htdocs/hydrophob.net | ПРОД живий; сьогодні: WayForPay порт з well |
-| [[Projects/well/PROJECT\|well]] | OC 3.0.4.1, Lightning+Cloudflare | pprintdim/wellua (+дзеркало shcherbaks) | vs_projects/well (symlink htdocs/well) | блокер доступу; OCFilter SEO задача |
-| [[Projects/nadel/PROJECT\|nadel]] | OC 3.0.3.9, тема nadel | NadelWeb/gmp-landing | htdocs/nadel | активний: specbrief, SMS, OTP |
-| [[Projects/stocrm/PROJECT\|stocrm]] | Laravel+Inertia+React | pprintdim/stocrm | htdocs/stocrm | CRM Mechora; Hetzner+CloudPanel |
-| [[Projects/webprogressor/PROJECT\|webprogressor]] | WordPress+ACF | pprintdim/webprogressor | vs_projects/webprogressor | студійний сайт; Figma DS |
-| [[Projects/shokeru/PROJECT\|shokeru]] | OC3 (донор-патерни) | — (локально лише db backup) | htdocs/shokeru | ЕТАЛОН: OTP, path-фільтри, shk_panel |
+| [[03-Projects/hydrophob.net/PROJECT\|hydrophob.net]] | OC 3.0.3.9, тема hydrophob | pprintdim/hydrophob.net (`openCart`) | htdocs/hydrophob.net | ПРОД живий; сьогодні: WayForPay порт з well |
+| [[03-Projects/well/PROJECT\|well]] | OC 3.0.4.1, Lightning+Cloudflare | pprintdim/wellua (+дзеркало shcherbaks) | vs_projects/well (symlink htdocs/well) | блокер доступу; OCFilter SEO задача |
+| [[03-Projects/nadel/PROJECT\|nadel]] | OC 3.0.3.9, тема nadel | NadelWeb/gmp-landing | htdocs/nadel | активний: specbrief, SMS, OTP |
+| [[03-Projects/stocrm/PROJECT\|stocrm]] | Laravel+Inertia+React | pprintdim/stocrm | htdocs/stocrm | CRM Mechora; Hetzner+CloudPanel |
+| [[03-Projects/webprogressor/PROJECT\|webprogressor]] | WordPress+ACF | pprintdim/webprogressor | vs_projects/webprogressor | студійний сайт; Figma DS |
+| [[03-Projects/shokeru/PROJECT\|shokeru]] | OC3 (донор-патерни) | — (локально лише db backup) | htdocs/shokeru | ЕТАЛОН: OTP, path-фільтри, shk_panel |
 
 ## Решта (рядок = вся память поки що)
 
@@ -32,4 +32,4 @@
 | vakhiyo | статика | pprintdim/vakhiyo | GitHub Actions деплой |
 | sitesHub | ? | не git | має handoff.md |
 
-Правило: у теки Projects/ НЕ копіювати код/vendor/images/дампи — тільки PROJECT/MEMORY/DECISIONS/TASKS (+ARCHITECTURE за потреби). Компактно.
+Правило: у теки 03-Projects/ НЕ копіювати код/vendor/images/дампи — тільки PROJECT/MEMORY/DECISIONS/TASKS (+ARCHITECTURE за потреби). Компактно.

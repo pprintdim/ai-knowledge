@@ -14,19 +14,19 @@ Shared Knowledge Layer (`~/AI-Workspace/knowledge` = repo `pprintdim/ai-knowledg
 
 ## Agents
 
-[[Agents/INDEX|Бібліотека 15 ролей]] у групах за роллю в циклі: `core/` (architect, git, cleanup) · `specialists/` (opencart3, wordpress, frontend, backend-php, database) · `routine/` (importer, api-integration, debug, seo) · `review/` (qa, security, performance) · `натяжки/` (5 виконавців-субагентів) + автороутинг задач.
+[[01-Agents/INDEX|Бібліотека 15 ролей]] у групах за роллю в циклі: `core/` (architect, git, cleanup) · `specialists/` (opencart3, wordpress, frontend, backend-php, database) · `routine/` (importer, api-integration, debug, seo) · `review/` (qa, security, performance) · `натяжки/` (5 виконавців-субагентів) + автороутинг задач.
 
 ## Knowledge
 
-[[Knowledge/OpenCart3/INDEX|OpenCart3]] — 10 нотаток (архітектура→checkout→пастки). WordPress/Laravel — при перших задачах.
+[[02-Knowledge/OpenCart3/INDEX|OpenCart3]] — 10 нотаток (архітектура→checkout→пастки). WordPress/Laravel — при перших задачах.
 
 ## Projects
 
-[[Projects/INDEX|Всі проєкти]] (скан 2026-08-07): память для hydrophob.net, well, nadel, stocrm, webprogressor, shokeru; решта — таблицею.
+[[03-Projects/INDEX|Всі проєкти]] (скан 2026-08-07): память для hydrophob.net, well, nadel, stocrm, webprogressor, shokeru; решта — таблицею.
 
 ## Workflows
 
-[[Workflows/INDEX|10 шорткатів]]: /fix /debug /feature /import /frontend /api /seo /performance /review /test (slash-команди в `~/.claude/commands/`) + [[natyazhka-opencart]].
+[[04-Workflows/INDEX|10 шорткатів]]: /fix /debug /feature /import /frontend /api /seo /performance /review /test (slash-команди в `~/.claude/commands/`) + [[natyazhka-opencart]].
 
 ## Цикл
 

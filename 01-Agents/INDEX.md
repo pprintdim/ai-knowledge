@@ -1,7 +1,7 @@
 # Agents — глобальна бібліотека
 
 **Agents = ЯК працювати · Knowledge = ЩО знаємо · Projects = що знаємо про КОНКРЕТНИЙ проєкт.** Не змішувати.
-Агенти reusable для будь-якого repo: без project-specific коду і секретів. Специфіка проєкту — `Projects/<repo>/AGENTS.md` (вищий пріоритет за глобального агента).
+Агенти reusable для будь-якого repo: без project-specific коду і секретів. Специфіка проєкту — `03-Projects/<repo>/AGENTS.md` (вищий пріоритет за глобального агента).
 
 ## Групи (за роллю в циклі задачі)
 
@@ -51,13 +51,13 @@
 | «нова фіча» | architect → спеціаліст (+frontend паралельно) → qa → cleanup |
 | «повільно працює» | performance → спеціаліст → qa |
 | «перевір/ревʼю» | qa → security → performance (за потреби) |
-| «натяжка/порт верстки» | [[natyazhka-opencart|Workflows/natyazhka]] + натяжки/ |
+| «натяжка/порт верстки» | [[natyazhka-opencart|04-Workflows/natyazhka]] + натяжки/ |
 
-Шорткати: `/fix /debug /feature /import /frontend /api /seo /performance /review /test` → `Workflows/` (= slash-команди `~/.claude/commands/`).
+Шорткати: `/fix /debug /feature /import /frontend /api /seo /performance /review /test` → `04-Workflows/` (= slash-команди `~/.claude/commands/`).
 
 ## Правила виконання
 
 - **Context diet**: агенту — тільки task + project rules + релевантна память + релевантні нотатки Knowledge + потрібні файли. НЕ весь vault / НЕ весь repo.
 - **Паралельність**: незалежні частини (backend ∥ frontend) — паралельно; ті самі файли двом агентам без координації — ЗАБОРОНЕНО.
-- **Learning**: нове ТЕХНІЧНЕ знання → `Knowledge/`; інструкції агентів міняти ТІЛЬКИ при новому глобальному правилі роботи (не після кожної задачі).
+- **Learning**: нове ТЕХНІЧНЕ знання → `02-Knowledge/`; інструкції агентів міняти ТІЛЬКИ при новому глобальному правилі роботи (не після кожної задачі).
 - Спільне: інкрементальний запис на диск; не комітити і не виконувати SQL на проді самостійно; «success»-звіт перевіряється оркестратором.

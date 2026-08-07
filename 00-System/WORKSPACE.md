@@ -57,7 +57,7 @@ Worktree не створювати без потреби: git show з mirror / G
 
 ## Логи і звіт задачі
 
-Сирі debug-логи після успіху — видаляти. В Obsidian — тільки короткий summary у `Projects/<repo>/TASKS.md`. Фінальний звіт кожної задачі:
+Сирі debug-логи після успіху — видаляти. В Obsidian — тільки короткий summary у `03-Projects/<repo>/TASKS.md`. Фінальний звіт кожної задачі:
 
 ```
 Repository / Branch / Commit / Remote status / Tests / Knowledge updated / Cleanup
