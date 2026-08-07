@@ -10,8 +10,11 @@
 ├── knowledge/    ← цей vault (clone ai-knowledge) — Obsidian + MCP
 ├── mirrors/      ← bare-репозиторії (кеш обʼєктів): well.git, nadel.git…
 ├── worktrees/    ← ТИМЧАСОВІ робочі копії під задачі
-└── tmp/          ← manifest-и задач, тимчасові файли
+├── tmp/          ← manifest-и задач, тимчасові файли
+└── secrets/      ← ACCESS.md: єдине місце паролів/ключів (0600, ПОЗА git) — НЕ видаляти
 ```
+
+**Секрети**: у vault на місці значення стоїть `<REDACTED→secrets/ACCESS.md>`; реальні — тільки в `~/AI-Workspace/secrets/ACCESS.md` і першоджерелах проєкту (config.php, `.vscode/sftp.json`, CloudPanel). У git — ніколи.
 
 Також не чіпати: SSH keys, git/MCP/Claude config, credentials, production-дані, user-created теки, невідомі теки, файли поза AI-Workspace, чужі незакомічені зміни. **Не впевнений, що файл створив поточний workflow — НЕ видаляй.**
 Існуючі повні копії проєктів у `/Applications/MAMP/htdocs/` (MAMP їх СЕРВІТЬ — робочі стенди) і `~/Desktop/vs_projects/` — user-created, лишаються.
