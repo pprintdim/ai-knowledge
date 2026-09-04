@@ -12,6 +12,7 @@
 | [[03-Projects/stocrm/PROJECT\|stocrm]] | Laravel+Inertia+React | pprintdim/stocrm | htdocs/stocrm | CRM Mechora; Hetzner+CloudPanel |
 | [[03-Projects/webprogressor/PROJECT\|webprogressor]] | WordPress+ACF | pprintdim/webprogressor | vs_projects/webprogressor | студійний сайт; Figma DS |
 | [[03-Projects/shokeru/PROJECT\|shokeru]] | OC3 (донор-патерни) | — (локально лише db backup) | htdocs/shokeru | ЕТАЛОН: OTP, path-фільтри, shk_panel |
+| [[03-Projects/ofmarketing/MEMORY\|ofmarketing]] | Lovable/TanStack Start (`main`) + PHP-верстка (`html`) | pprintdim/ofmarketing | htdocs/ofmarketing | верстка залита на www762; блокер — A-запис html.ofmarketing.net (зона на Wix) |
 
 ## Решта (рядок = вся память поки що)
 

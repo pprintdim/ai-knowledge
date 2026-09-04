@@ -7,5 +7,6 @@
 - **Ключова архітектура**: `WorkOrderCalculatorService` — ЄДИНЕ джерело фінансових формул (не дублювати на фронті); `WorkOrderStatusService` (переходи+снапшот); `SequenceGenerator` (лочена нумерація WO-YYYY-NNNNNN); `InventoryService` з `lockForUpdate`; закупівельна ціна прихована від ролі механіка
 - **Реалізовано**: Client, Vehicle (VIN/держномер дублікати з override), Appointment (конфлікт-детекція механіка, COALESCE для NULL end_at), RepairWork, Supplier, Part/Stock, WorkOrder повний цикл, Expense/Finance
 - Демо живе під `/demo` основного застосунку (Revert-коміт 08-03)
+- Бренд перейменовано Mechora → **AutoVibe** (2026-08-07): вся видима UI-назва, `Settings.php` company_name, README, package.json. Email-домен демо-логінів (`@mechora.ua`) навмисно НЕ змінено — живі креденшли на спільній БД.
 
-Актуальний стан — `handoff.md` в корені repo (першоджерело, детальний).
+Актуальний стан — тут, `MEMORY.md` + `TASKS.md`. `handoff.md` у цій же теці — legacy-знімок станом на 2026-08-06, вже не оновлюється (root-файл видалено при імпорті DOCS-POLICY 2026-08-07).

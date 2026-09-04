@@ -37,7 +37,7 @@
 | [[performance]] | запити/кеш/N+1/asset-и |
 
 ### натяжки/ — домен-виконавці (готові субагенти `~/.claude/agents/`)
-[[layout-porter]] · [[content-translator]] · [[seo-filler]] · [[db-content-loader]] · [[page-auditor]]
+[[layout-porter]] · [[content-translator]] · [[seo-filler]] · [[db-content-loader]] · [[page-auditor]] · [[materials-structurer]]
 Нові домени задач = нова тека зі своїм набором.
 
 ## Автоматичний вибір (оркестратор класифікує сам)

@@ -14,6 +14,9 @@
 | [[database]] | Ключові таблиці, category_path, permissions JSON, сесії | ✅ |
 | [[ajax]] | JSON-ендпоінти: live search, cart, форми | ✅ |
 | [[common-bugs]] | Пастки OC3 — короткий довідник граблів | ✅ |
+| [[theme-launch]] | Еталон натяжки: склад модулів, лого/webp, мови, адмінка, обовʼязкові дрібниці | ✅ |
+| [[performance]] | Продуктивність теми: відео/зображення/шрифти/3rd-party, шум Lighthouse | ✅ |
+| [[sitemap]] | Sitemap-індекс + секції, hreflang, XSL-вигляд, граблі nginx/&amp; | ✅ |
 
 Ще нема (створювати при першій реальній потребі, не завчасно):
 imports, cron, api-integrations, caching, security, performance, debugging, catalog, admin-modules.
