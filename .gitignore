@@ -8,3 +8,4 @@
 # секрети ніколи не в repo
 secrets/
 ACCESS.md
+.obsidian/plugins/*/data.json
