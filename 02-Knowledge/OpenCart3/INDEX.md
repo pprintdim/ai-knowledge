@@ -22,3 +22,4 @@
 imports, cron, api-integrations, caching, security, performance, debugging, catalog, admin-modules.
 
 Повний процес натяжки: [[natyazhka-opencart|Натяжка OC3 — чеклист]].
+- [[functional-standard]] — ЄДИНИЙ функціональний стандарт натяжки (OTP-auth, плитки, відгуки, чекаут, СЕО з фільтрами, оверлеї) — читати ПЕРШИМ перед будь-якою натяжкою
