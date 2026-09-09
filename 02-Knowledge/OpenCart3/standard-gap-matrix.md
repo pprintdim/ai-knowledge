@@ -119,7 +119,7 @@
 ## Знайдені баги (живі)
 1. **realchem.com.ua = HTTP 500** з 2026-08-14: у прод-корені лежить OpenCart-скелет, `config.php` → БД `realchem-oc`, в якій нема таблиць (`oc_translation doesn't exist`). Верстки на домені більше нема. Рішення за користувачем: повернути верстку з `main` або залити БД.
 2. **autochemicals**: `wayforpay.php` редіректить на неіснуючий `checkout/payment_retry` → 404 після відхиленої оплати (перевірено живим curl). Плюс noindex на рівні nginx — уточнити, чи свідомо.
-3. **hydrophob.com.ua**: `/sitemap.xml` віддає HTML (потрібен nginx `location = /sitemap.xml { rewrite ^ /sitemap.php; }`); у робочому дереві незакомічений `TEST_MARKER_12345` у `hydrophob_product.php:29`.
+3. **hydrophob.com.ua**: `/sitemap.xml` віддавав HTML — ВИПРАВЛЕНО 2026-09-09 (nginx `location = /sitemap.xml { rewrite ^ /sitemap.php last; }` у 8080-блоці, бекап у /root/vhost-backups/); у робочому дереві незакомічений `TEST_MARKER_12345` у `hydrophob_product.php:29`.
 4. **hydrophob.net.ua**: `config_noindex` не читається в catalog (гейт мертвий), `uk-ua/common/home.php` нема.
 5. **shokeru.in.ua**: прод-пароль БД у `app_config.php` в git, `cookie.txt`, zip 29 МБ.
 6. **hydrophob.ua**: `origin/main` (171 коміт «Changes») без спільної історії з локальним `main` (=verstka-legacy) — чужа лінія у тому ж репо.
