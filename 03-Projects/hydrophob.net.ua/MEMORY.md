@@ -249,3 +249,13 @@
 - Верстка = гілка `html` репо **pprintdim/hydrophob.net.ua** (знімок `ee2f57d`, css розлінковано з теми — файли, не симлінки). УВАГА: локальний origin раніше вказував на `hydrophob.com.ua.git` (це перейменований hydrohub-landing) — виправлено на `hydrophob.net.ua.git`. OpenCart-робота (950 файлів) закомічена `c69c828` у main.
 - Сайт `html.hydrophob.net.ua` видалено з CloudPanel (site user теж), A-запис `html` у зоні Hetzner видалено. Локальний worktree верстки прибрано; deploy.sh верстки більше нема.
 - Верстку дивитись через git: `git show <гілка>:<файл>` або тимчасовий `git worktree add /tmp/wt <гілка>` (прибрати після).
+
+## 2026-09-09 — СЕО зведено до спільного стандарту
+- **Гейт індексації ожив**: ключа `config_noindex` не було в `oc_setting` взагалі, тому селект у Дизайн → СЕО-мета робив UPDATE «в нікуди», а `catalog/controller/common/header.php` його не читав. Тепер ключ є (INSERT), header віддає meta robots + `X-Robots-Tag`, а перемикач продубльовано в Налаштування → Сервер. `robots-live.txt` створено (копія бойового robots.txt).
+- **Canonical-політика фільтрів** (як у hydrophob.ua): 0 фільтрів — self-canonical; 1 — self-canonical + власні title/description від назви фільтра (`meta_title_filter`/`meta_description_filter` в обох мовах); 2+ — `X-Robots-Tag: noindex, follow` + canonical на `/katalog`. Перевірено живим curl обома мовами.
+- `seo_meta::apply` більше не перетирає строгіше правило контролера: якщо в реєстрі вже стоїть noindex, шаблонне «index» його не замінює.
+- 404 віддає явний `noindex, follow` (і в meta, і в заголовку).
+- **Sitemap**: у секцію pages додано 9 сторінок одиночних фільтрів. hreflang для ru у карті вже був (`xhtml:link` на кожному URL) — тривога про «ru поза картою» не підтвердилась.
+- **Мовні файли**: додано 6 ключів, яких не було в ЖОДНІЙ мові, хоча контролери їх запитують (`information/contact` text_message, `product/product` + `extension/total/shipping` error_product, `common/header` text_logged, `account/address` text_login, `account/account` error_login_required).
+- `tools/unify-seo-20260909.sql` — ідемпотентний (ключ config_noindex, таблиці seo_meta_robots/canonical, право design/seo_meta). Застосовано на проді.
+- Бекап БД перед роботою: `backups/backup-db-hydrophobnetua-20260909*.sql.gz` (локально, md5 звірено, з сервера прибрано).
