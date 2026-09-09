@@ -244,3 +244,8 @@
   шар ::after в хедері).
 - Відступи вирівняно: секції 64/104 (search-page, faq-page підтягнуті), глобальний
   бекстоп .main > .container:last-child{padding-bottom:104px} замість подвійного 72.
+
+## 2026-09-09 — html-сабдомен верстки знято
+- Верстка = гілка `html` репо **pprintdim/hydrophob.net.ua** (знімок `ee2f57d`, css розлінковано з теми — файли, не симлінки). УВАГА: локальний origin раніше вказував на `hydrophob.com.ua.git` (це перейменований hydrohub-landing) — виправлено на `hydrophob.net.ua.git`. OpenCart-робота (950 файлів) закомічена `c69c828` у main.
+- Сайт `html.hydrophob.net.ua` видалено з CloudPanel (site user теж), A-запис `html` у зоні Hetzner видалено. Локальний worktree верстки прибрано; deploy.sh верстки більше нема.
+- Верстку дивитись через git: `git show <гілка>:<файл>` або тимчасовий `git worktree add /tmp/wt <гілка>` (прибрати після).

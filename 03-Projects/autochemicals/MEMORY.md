@@ -181,3 +181,8 @@
 - Логін-чекбокс: «У мене вже є акаунт» показується ЛИШЕ якщо registration_required (config_checkout_guest=0). При чеку — ховає [data-order-form] (Ім'я/Прізвище/Телефон/Пошта) і показує інлайн email+кнопку «Надіслати код» (input-group).
 - Контролер: додано $data['totals'], $data['coupon'], $data['coupon_action'], $data['registration_required']; метод coupon() (валідація через model extension/total/coupon).
 - АДМІНКА: sale/fast_order (Продажі → Швидкі замовлення) — список заявок fast_order (товар/к-ть/ціна/тел/email/статус/дата), кнопки «опрацьовано»/видалити, пагінація. Меню в column_left (обидві копії), право sale/fast_order у user_group 1 (обидві БД). Контролер сам створює таблицю (ensureTable).
+
+## 2026-09-09 — html-сабдомен верстки знято
+- Верстка = гілка `main` репо pprintdim/autochemicals (`1952e26`), worktree `/Applications/MAMP/htdocs/autochemicals-html` прибрано.
+- Сайт `html.autochemicals.com.ua` видалено з CloudPanel (site user теж), A-запис `html` у зоні Hetzner видалено. Локальний worktree верстки прибрано; deploy.sh верстки більше нема.
+- Верстку дивитись через git: `git show <гілка>:<файл>` або тимчасовий `git worktree add /tmp/wt <гілка>` (прибрати після).

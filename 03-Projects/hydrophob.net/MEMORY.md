@@ -56,3 +56,8 @@
 - **Автокомпліт по товарах у проєкті ВЖЕ Є**: `catalog/controller/product/search_suggest.php` (title/price/image/href, ліміт 6) + фронт у home.js із дебаунсом 250 мс і розміткою `.hp-suggest`. Для форм із вибором товару переносити нізвідки не треба — лише додати `product_id` у відповідь.
 - **Рішення по Merchant (5849192445)**: фід не подавати, поки ціни неактуальні — розбіжність ціни фід/сторінка дає `Mismatched value (price)`, а системна — ризик блокування за misrepresentation. Порядок: код + верифікація домену зараз, подача фіда потім. Доступ мені — через сервісний акаунт Google Cloud (Content API for Shopping), доданий користувачем у Merchant; ключ у `~/AI-Workspace/secrets/`.
 - Дрібне: у `vendor/intlTelInput.css` шлях до прапорців був відносним і подвоювався (`vendor/catalog/view/.../vendor/img/`) — прапорці в телефонному полі не вантажились ніколи. Виправлено на `img/`.
+
+## 2026-09-09 — html-сабдомен верстки знято
+- Верстка = гілка `main` цього репо (pprintdim/hydrophob.net), останній знімок `22fbfb3` (+ hero-video.mp4 тепер у git).
+- Сайт `html.hydrophob.net` видалено з CloudPanel (site user теж), A-запис `html` у зоні Hetzner видалено. Локальний worktree верстки прибрано; deploy.sh верстки більше нема.
+- Верстку дивитись через git: `git show <гілка>:<файл>` або тимчасовий `git worktree add /tmp/wt <гілка>` (прибрати після).

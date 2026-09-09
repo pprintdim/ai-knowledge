@@ -29,3 +29,8 @@
 - PHP 8 deprecation `preg_replace(null)` у `system/engine/action.php:64-65` — закастовано `(string)$this->route`; `config_error_display=0`, лог лишається (`system/storage/logs/error.log`).
 - Fable-субагенти впираються в session limit (429) — порт lovable→main робити через Codex CLI з попередньо встановленим `node_modules` у scratchpad-копії lovable (npm install робить головна сесія, бо Codex без мережі).
 - **Порт lovable → секційний PHP (`main`) зроблено Codex CLI 2026-09-03** (4 коміти b313d0f..afedd5e): 14 сторінок + product.php?slug + info.php?slug (8 товарів, 9 статей — в lovable їх 9, не 11), `data/*.json`, `helper/general.php` (json, картка, іконки lucide inline), Tailwind v4 збирається `html/build-css.sh` (CLI з scratchpad-копії lovable з node_modules; у репо `css/tailwind.css` джерело + `css/style.css` збірка 30 КБ). Шрифти Playfair Display + Manrope. Задеплоєно на html.shoker.in.ua. Рецепт запуску Codex: `npx --yes @openai/codex exec "$(cat brief.md)" --cd <html> -s workspace-write < /dev/null` — БЕЗ `< /dev/null` він висить на «Reading additional input from stdin».
+
+## 2026-09-09 — html-сабдомен верстки знято
+- Верстка = гілка `main` репо pprintdim/shoker.in.ua (`afedd5e`), worktree `html/` прибрано (метадані worktree були биті після переносу теки в shokeru/). Коментар у .gitignore про html.shoker.in.ua застарів.
+- Сайт `html.shoker.in.ua` видалено з CloudPanel (site user теж), A-запис `html` у зоні Hetzner видалено. Локальний worktree верстки прибрано; deploy.sh верстки більше нема.
+- Верстку дивитись через git: `git show <гілка>:<файл>` або тимчасовий `git worktree add /tmp/wt <гілка>` (прибрати після).

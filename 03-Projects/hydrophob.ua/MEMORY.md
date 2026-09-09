@@ -43,3 +43,8 @@
 - **Пастка (наступали двічі)**: rsync/gitignore-патерни `config.php` БЕЗ `/` матчаться на будь-якій глибині й зносять `system/library/config.php` → «Class Config not found». Завжди `/config.php` і `/hp_panel/config.php`.
 - **Пастка (фото)**: вихідні фото товарів до 60 Мп; GD тримає кадр розпакованим (~4 байти/піксель), тож 256M не вистачає. `product/shop` сам піднімає memory_limit до 1024M (php.ini у корені під MAMP/FastCGI НЕ читається). Після деплою прогрівати кеш: `curl -A Googlebot https://hydrophob.ua/katalog` з сервера (перший прогін ~600 файлів).
 - Рендер фото: головне 1200px, галерея/лайтбокс 1600px, webp q90 — свідомо «максимальна якість» на прохання користувача; оригінали з .net не зменшуються.
+
+## 2026-09-09 — html-сабдомен верстки знято
+- Верстка = гілка `verstka-v2` (знімок `9d21d20`, worktree `html-v2/` прибрано); стара — `verstka-legacy`. Тема більше не тягне асети з html.hydrophob.ua/html.hydrophob.net.ua: фони/іконки з `../image/`, відео інтро `theme/media/porsche.mp4` (коміт `329460a`, задеплоєно). Стрей-тека `html-v2/` у прод-корені видалена. NB: `origin/main` (171 коміт «Changes», без спільної історії з локальним main=verstka-legacy) — чужа лінія, не чіпав.
+- Сайт `html.hydrophob.ua` видалено з CloudPanel (site user теж), A-запис `html` у зоні Hetzner видалено. Локальний worktree верстки прибрано; deploy.sh верстки більше нема.
+- Верстку дивитись через git: `git show <гілка>:<файл>` або тимчасовий `git worktree add /tmp/wt <гілка>` (прибрати після).
