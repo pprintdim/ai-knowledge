@@ -17,3 +17,10 @@
 - Верстка (знімок 92 сторінок) = гілка `html` репо pprintdim/hydrophob.com.ua (ex hydrohub-landing; origin перепрописано на нову назву), запушена `343d6a4`.
 - Сайт `html.hydrophob.com.ua` видалено з CloudPanel (site user теж), A-запис `html` у зоні Hetzner видалено. Локальний worktree верстки прибрано; deploy.sh верстки більше нема.
 - Верстку дивитись через git: `git show <гілка>:<файл>` або тимчасовий `git worktree add /tmp/wt <гілка>` (прибрати після).
+
+## 2026-09-09 — лендінг не працював далі головної
+- **Критично**: nginx мав лише `try_files … /index.php?$args`, ЧПУ OpenCart вимкнені (`config_seo_url=0`, `oc_seo_url` порожня) — БУДЬ-ЯКА адреса (`/checkout`, `/ru`, `/en`, `/privacy`…) віддавала українську головну з кодом 200. Оформлення замовлення не працювало. Додано явні `location = /…` правила у 8080-блок vhost (ru/en → `?hl=`, privacy/returns/offer → `information/legal&page=`, checkout/success → `checkout/hydro_*`) і fallback на `error/not_found` (справжній 404 + X-Robots-Tag). Бекапи vhost у `/root/vhost-backups/`.
+- `/sitemap.xml` віддавав HTML — nginx `location = /sitemap.xml { rewrite ^ /sitemap.php last; }`.
+- `img/og-image.jpg` не існував (og:image бив у 404) — згенеровано брендовану картку 1200×630 (headless Chrome з html), закомічено.
+- Незакомічений `TEST_MARKER_12345` у `hydrophob_product.php` замінено на задуманий `shortDescr()`.
+- seo_meta на лендінг НЕ ставимо (рішення користувача).

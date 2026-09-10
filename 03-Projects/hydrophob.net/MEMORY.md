@@ -61,3 +61,11 @@
 - Верстка = гілка `main` цього репо (pprintdim/hydrophob.net), останній знімок `22fbfb3` (+ hero-video.mp4 тепер у git).
 - Сайт `html.hydrophob.net` видалено з CloudPanel (site user теж), A-запис `html` у зоні Hetzner видалено. Локальний worktree верстки прибрано; deploy.sh верстки більше нема.
 - Верстку дивитись через git: `git show <гілка>:<файл>` або тимчасовий `git worktree add /tmp/wt <гілка>` (прибрати після).
+
+## 2026-09-09 — СЕО зведено до спільного стандарту (24/24 інваріанти)
+- seo_meta ожив: подія `catalog/controller/common/header/before → extension/module/seo_meta/apply`, вирізано well-специфіку (ocfilter/components ~310 рядків), таблиці `oc_seo_meta_robots/canonical` створено, `module_seo_meta_status=1`, стандартні шаблони, право `design/seo_meta`. SQL — `tools/unify-seo-20260909.sql` (ідемпотентний, застосовано).
+- header.php: одне рішення про robots — гейт `config_noindex` → реєстр seo_meta → прямий виклик модуля; meta і X-Robots-Tag узгоджені. Перемикач індексації продубльовано в Налаштування → Сервер (без нього ключ зникав при збереженні налаштувань).
+- shop.php: 1 фільтр = self-canonical, 2+/пошук/ціновий діапазон = noindex,follow + canonical на чистий каталог; пагінація в категорії більше не веде на весь каталог.
+- seo_url.php: 301 з `?language=ru-ru` на `/ru/…` (ajax з `route=` не чіпає), ЧПУ `/poshuk/<запит>`. 404 з noindex. Мета головної — `catalog/language/*/common/home.php`.
+- Каталог: у ua з net синхронізовано назви (65 рядків uk/ru), 2 ціни, 6 meta_title; у net з ua — 100 prom-шаблонних meta_description і 9 порожніх описів категорій.
+- **Деплой**: `deploy.sh` у корені (gitignored, пароль site user береться з `.vscode/sftp.json`), rsync як `hydrophobnet`. Пастка: модуль читає таблиці seo_meta — при перенесенні на інший магазин спершу CREATE TABLE, потім файли, інакше 500 на каталозі.
