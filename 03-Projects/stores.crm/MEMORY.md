@@ -5,3 +5,6 @@
 - Підключення магазину до групи: CRM → «Клієнти групи» → «Магазини» → додати (key, назва, домен, base_url) → токен → у `config.php` магазину: `GROUP_API_URL='https://46.224.100.254:8442/crm/api/group'`, `GROUP_API_TOKEN`, `GROUP_API_INSECURE=true` → «Повна звірка».
 - Поточні магазини групи Hydrophob: hydrophob.net, hydrophob.ua, hydrophob.net.ua (лендінг hydrophob.com.ua без кабінету — не підключений).
 - Токени магазинів — тільки в БД CRM (зашифровано) і в `config.php` магазинів; у чаті/репо/нотатках не зберігати.
+- 2026-09-13 прод: група Hydrophob підключена (3 магазини, токени в config.php), повна звірка пройшла (14 людей, 11 акаунтів, 13 замовлень, 5 пар на розгляд — усе тестові акаунти з одним телефоном). Пароль адміна CRM замінено — у ACCESS.md.
+- Граблі деплою: autoload на проді authoritative — deploy.sh робить `composer dump-autoload`; tinker не працює (psysh не має куди писати) — разові скрипти через `php` з bootstrap; `Http::get($url, [query])` у Guzzle ЗАМІНЮЄ query-рядок URL (route= губився) — збирати URL вручну.
+- fail2ban банить мій IP за `nc -z` проби порту 22 (preauth-disconnect) і серії rsync: whitelist у `jail.d/zz-ignore-dev.conf` (секція [sshd], бо [DEFAULT] у jail.d не перекриває jail.local).
