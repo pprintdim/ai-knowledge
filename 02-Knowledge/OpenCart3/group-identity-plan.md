@@ -1,6 +1,6 @@
 # Спільна ідентичність клієнтів для групи OpenCart-магазинів
 
-План (2026-09-12). Нічого ще не реалізовано. Приклад групи — Hydrophob
+План (2026-09-12), реалізовано 2026-09-13 — стан і відхилення від плану: див. розділ «Як зроблено» внизу. Приклад групи — Hydrophob
 (hydrophob.net, hydrophob.ua, hydrophob.net.ua, лендінг hydrophob.com.ua),
 але схема робиться універсальною: будь-яка група OpenCart-проєктів.
 
@@ -174,3 +174,41 @@ DELETE /api/identity/{id}/consent                     -> відкликання 
   власником своїх даних (від цього залежить напрям синхронізації).
 
 Пов'язане: [[functional-standard]], [[standard-gap-matrix]].
+
+
+## Як зроблено (2026-09-13)
+
+Реалізовано в `stores.crm` (репо `pprintdim/opencart-hub`, Laravel-бекенд +
+TanStack-фронт) і в трьох магазинах (hydrophob.net / .ua / .net.ua).
+
+Відхилення від плану:
+- **CRM не ходить у БД магазинів за ідентичністю.** Замість read-only MySQL-
+  користувачів магазин має експорт-ендпоінт
+  `index.php?route=extension/module/group_identity/export&type=customers|addresses|orders&page=&since=`
+  за Bearer-токеном; команда `group:sync` (щогодини) тягне звідти сторінками.
+  Тому підключати новий магазин = створити його в CRM («Клієнти групи →
+  Магазини») і вписати константи в його `config.php`.
+- Один токен на обидва напрямки: магазин → CRM (перевірка за sha256-хешем)
+  і CRM → магазин (лежить зашифрованим у `group_sites.token`, як паролі БД).
+- Гостьові замовлення теж дають профіль (за поштою/телефоном) — інакше
+  плашки не працювали б для людей, які купували без входу.
+- Згода — на рівні людини: достатньо дати її в будь-якому магазині групи;
+  дається автоматично при вході кодом (текст під полем коду), відкликається
+  через `extension/module/group_identity/consent` (перемикач у кабінеті ще
+  не зроблено).
+
+Бік магазину (однаковий код у трьох репо):
+- `system/library/group.php` — клієнт CRM, усі виклики мʼякі (2с connect /
+  4с total, помилка → лог і порожній результат). Константи `GROUP_API_URL`,
+  `GROUP_API_TOKEN`, `GROUP_API_INSECURE` (CRM на IP із самопідписаним
+  сертифікатом) — у `config.php` магазину на сервері, не в репо.
+- `catalog/controller/extension/module/group_identity.php` — export / orders
+  (блок для кабінету) / consent.
+- Хуки: `common/user_popup::verifyCode` (resolve перед створенням акаунта,
+  link + імпорт адрес після входу), `account/order::index`
+  (`{{ group_orders }}` у `order_list.twig`), `model/checkout/order::addOrderHistory`
+  (push плашки), `common/code_modal` (текст згоди).
+
+Граблі: `$this->load->library('group')` вимагає файл `system/library/group.php`
+і клас `Group` з конструктором `($registry)`; в OpenCart 3.0.3.x у `oc_address`
+немає телефону — у спільній адресі phone = null.

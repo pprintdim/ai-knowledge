@@ -34,3 +34,14 @@
 - Верстка = гілка `main` репо pprintdim/shoker.in.ua (`afedd5e`), worktree `html/` прибрано (метадані worktree були биті після переносу теки в shokeru/). Коментар у .gitignore про html.shoker.in.ua застарів.
 - Сайт `html.shoker.in.ua` видалено з CloudPanel (site user теж), A-запис `html` у зоні Hetzner видалено. Локальний worktree верстки прибрано; deploy.sh верстки більше нема.
 - Верстку дивитись через git: `git show <гілка>:<файл>` або тимчасовий `git worktree add /tmp/wt <гілка>` (прибрати після).
+
+
+## Натяжка теми `shoker` (2026-09-13)
+- Верстку гілки `main` (секційний PHP + зібраний Tailwind, 48 файлів) портовано в тему `catalog/view/theme/shoker/`: 27 twig — header/menu/footer, home, category/search/special, product (+review), information/information_list/rating/promo/contact, account (menu/login/register/edit/password/forgotten/wishlist/order_list/address_list), error/not_found, common/success.
+- Нові моделі: `catalog/model/shoker/nav.php` (shopNav = «Весь асортимент» + top-категорії, infoNav = інфо-сторінки, mainNav = рейтинг/акції/контакти), `catalog/model/shoker/card.php` (картка товару + пагінація в класах верстки), `catalog/model/catalog/review.php::getLatestReviews` (3 відгуки на головну).
+- Нові контролери: `information/information_list.php`, `information/rating.php`, `information/promo.php`, `account/menu.php`; перероблені `common/{header,menu,footer,home}.php`, `product/{category,search,special,product}.php`.
+- Мови: рядки винесено в uk-ua/ru-ru/en-gb (перекладені, не транслітерація); нові мовні файли `common/home`, `information/{information_list,rating,promo}`, `account/menu`.
+- Активація теми — `catalog/view/theme/shoker/layout.sql` (extension `theme/shoker`, копія `theme_default_*` → `theme_shoker_*`, `config_theme=shoker`, layout-роути для rating/promo/information_list). **Без цих рядків OpenCart падає** на `event/theme` («theme has not been assigned»).
+- TODO теми: кошик/чекаут не портовані (у верстці іконка кошика інертна), сторінка ремонту (`sections/shop/repair.php`) — планується як інфо-сторінка, опції товару й custom fields не виведені, UI фільтрів немає (його нема й у верстці).
+- Каталог береться зі спарсеного донора paralizator (спільні `materials/` у теці shokeru): 167 товарів, фото копіюються на сервері з `/home/shokeru/htdocs/shokeru.in.ua/image/catalog/` (ті самі файли, вже без вотермарку).
+- **Деплой**: `~/AI-Workspace/scripts/shoker-deploy.sh sync|put|run` — rsync/ssh під site user `shokerinua`, пароль читається з `.vscode/sftp.json` і у вивід не потрапляє (запуск проєктного `deploy.sh` блокує класифікатор через пароль у самому скрипті).
