@@ -127,3 +127,23 @@ google_sitemap-фід не лишати.
 шрифтів з інлайном @font-face, відкладені теплокарти.
 
 Пов'язане: [[modules]], [[multilingual]], [[seo-url]], [[sitemap]], [[performance]], [[common-bugs]]
+
+
+### Вітальна сторінка групи Hydrophob (2026-09-15)
+
+- `common/welcome` є на net / ua / net.ua (у стилі кожної теми), ленд має лише прелоадер.
+  Показує `common/home` через `shouldShowWelcome()`: перший візит завжди, далі протягом
+  30 днів ще до 3 випадкових показів (20% на завантаження головної, не частіше ніж раз
+  на 6 год). Стан — кука `hydro_welcome = shows|last|first`, ставить сервер. Ботам —
+  ніколи (UA-регекс, включно з headlesschrome — тому puppeteer треба з підміною UA).
+  `?welcome=1` — примусово, `?welcome=0` — пропустити.
+- Гостьовий сторінковий кеш hydrophob.net (`index.php`, `X-HP-Cache`) головну не кешує —
+  вона вирішує по куці, що віддати.
+- На hydrophob.ua є ще стартова «Обери свій магазин» (`common/intro`, `intro_status`);
+  router ставить `hydro_welcome` при показі intro, тож вітальна не стає в чергу одразу за нею.
+- Модулі на вітальну вішаються через макет з маршрутом `common/welcome` (render() підміняє
+  `request->get['route']` навколо content_top/bottom); сам макет треба завести в Дизайн → Макети.
+- Відео вітальних: `image/video/welcome/{welcome.mp4,welcome-mobile.mp4,poster.webp}` (ffmpeg
+  crf 27 1080p ≈3 МБ), mp4 поза git — заливати rsync-ом окремо (deploy.sh виключає image/).
+- Мобільний автоплей hero: атрибути `muted playsinline autoplay` ставити ДО вставки в DOM,
+  повторювати play() при першому дотику/скролі та visibilitychange.
