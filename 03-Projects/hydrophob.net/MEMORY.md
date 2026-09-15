@@ -69,3 +69,4 @@
 - seo_url.php: 301 з `?language=ru-ru` на `/ru/…` (ajax з `route=` не чіпає), ЧПУ `/poshuk/<запит>`. 404 з noindex. Мета головної — `catalog/language/*/common/home.php`.
 - Каталог: у ua з net синхронізовано назви (65 рядків uk/ru), 2 ціни, 6 meta_title; у net з ua — 100 prom-шаблонних meta_description і 9 порожніх описів категорій.
 - **Деплой**: `deploy.sh` у корені (gitignored, пароль site user береться з `.vscode/sftp.json`), rsync як `hydrophobnet`. Пастка: модуль читає таблиці seo_meta — при перенесенні на інший магазин спершу CREATE TABLE, потім файли, інакше 500 на каталозі.
+- 2026-09-15: усі відео `image/video/*.mp4` перетиснуто (743 МБ → 122 МБ, ffmpeg crf 26, 1080p), оригінали в `backups/video-originals-20260915`; mp4 поза git — на прод заливати rsync-ом від root (deploy.sh виключає image/). Блог-showcase (модуль 44) має 9 роликів. Лайтбокс: відео в боксі 16:9 з постером плитки одразу.
