@@ -51,3 +51,9 @@
 - Головна = 8 модулів `extension/module/shoker_*` (hero, panel, categories, hits, advantages, reviews, faq, cta) на лейауті Home/content_top; тексти в налаштуваннях модулів (три мови), посів — `catalog/view/theme/shoker/modules.sql`. Спільні адмін-асети: `admin/view/javascript/shoker_module.js`, `admin/view/stylesheet/shoker_module.css`.
 - `model/shoker/card.php::getPagination` сам розкодовує `%7Bpage%7D` (url->link кодує плейсхолдер); лінки товарів у лістингу — без `path` (канонічні `/slug`).
 - Сидер інфо-сторінок `materials/parser/tools/add_info_pages.php` бере бренд із `config_name`, має `--only=` і `--update` (перезапис існуючих за uk-слагом); є сторінка «Ремонт шокерів» (`remont-shokeriv`) з текстами верстки `sections/shop/repair.php`.
+
+## Доставки і чекаут як у hydrophob (2026-09-15)
+- Модуль `extension/shipping/delivery` (НП/Укрпошта/Meest/кур'єр 150 ₴/самовивіз в одному getQuote) портовано з hydrophob.net (`hp_panel` → `admin`), три мови; стоковий `flat` вимкнено (`shipping_flat_status=0`), `free`/`pickup` не встановлені. Платежі: cod + free_checkout (bank_transfer не встановлений — без реквізитів). `config_checkout_guest=1`.
+- Чекаут односторінковий (`checkout/checkout.twig`, 3 панелі + підсумок), без jQuery; сабміт — fetch-ланцюг стокових ендпоінтів за `02-Knowledge/OpenCart3/checkout.md` (guest/save з `shipping_address=1` → GET shipping_method → save → GET payment_method → save → GET confirm → POST extension/payment/<code>/confirm). Власні мовні ключі з префіксом `co_*` (43 шт/мова). Стокові покрокові twig і `js/checkout.js` лишились як fallback.
+- Посів — `catalog/view/theme/shoker/shipping.sql` (ідемпотентно). Перевірено HTTP-ланцюгом на проді: 5 способів доставки + cod у формі.
+- 2026-09-15: `html.shoker.in.ua` повернуто (DNS A html у зоні 1462714, сайт CloudPanel, LE, верстка з гілки `main` репо `/Applications/MAMP/htdocs/shokeru/ shoker.in.ua` — у назві теки є пробіл на початку); креди в ACCESS.md.
