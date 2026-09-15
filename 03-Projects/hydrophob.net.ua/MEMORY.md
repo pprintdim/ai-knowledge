@@ -259,3 +259,7 @@
 - **Мовні файли**: додано 6 ключів, яких не було в ЖОДНІЙ мові, хоча контролери їх запитують (`information/contact` text_message, `product/product` + `extension/total/shipping` error_product, `common/header` text_logged, `account/address` text_login, `account/account` error_login_required).
 - `tools/unify-seo-20260909.sql` — ідемпотентний (ключ config_noindex, таблиці seo_meta_robots/canonical, право design/seo_meta). Застосовано на проді.
 - Бекап БД перед роботою: `backups/backup-db-hydrophobnetua-20260909*.sql.gz` (локально, md5 звірено, з сервера прибрано).
+- 2026-09-15: версії css/js більше не зашиті (`?v=20260906n`) — `ControllerCommonHeader::assetVersion()` рахує найсвіжіший filemtime теми; раніше через це правки CSS не доходили до відвідувача з кешем. Те саме в `common/welcome.php`.
+- Карти: тайли з CARTO (`basemaps.cartocdn.com/light_all`), бо публічні сервери OSM блокують продакшн-сайти («Tile access blocked»); атрибуція OSM+CARTO увімкнена, стилі в pages.css.
+- На головній модулі тримають ритм лише верхнім падінгом (`main.main > … :has(~ …) { padding-bottom: 0 }`), але `.seo-desc` має власне тло — їй нижнє повітря повернуто окремим правилом.
+- fail2ban банить за `nc -z` проби порту 22: НЕ ставити вотчери, що стукають у порт. Whitelist тепер по /24 (у провайдера рухомий IP): 79.106.203, 185.156.14, 109.234.233, 193.163.187, 141.98.143.
