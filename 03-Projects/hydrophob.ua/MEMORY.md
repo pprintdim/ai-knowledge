@@ -62,3 +62,4 @@
 - Відеовідгуки перетиснуто на сервері (367 МБ → 165 МБ, crf 30, 960px, `+faststart`). Без faststart навіть `preload="metadata"` тягнув файл цілком. Оригінали: `backups/reviews-originals-20260916` (локально, звірено md5).
 - Зони дотику 44×44 зроблено накладкою `::after`, бо `box-sizing: border-box` робить padding марним при фіксованій ширині. Виняток — `.menu-toggle`: у нього ::before/::after це смужки бургера, тому ростимо сам бокс + `margin: -7px`; на ≤430px перебивати треба правилом `.header .menu-toggle` (специфічність 0,2,0).
 - `.footer { overflow-x: clip }` — декоративний `footer__wordmark` (256px, nowrap) давав горизонтальний скрол.
+- 2026-09-16: `storage` перенесено за межі веб-кореня → `/home/hydrophobua/storage/` (у config.php і hp_panel/config.php абсолютний шлях). Стара тека видалена, ззовні 404, попередження в адмінці зникло.

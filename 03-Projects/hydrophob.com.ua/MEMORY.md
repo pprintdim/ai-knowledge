@@ -24,3 +24,4 @@
 - `img/og-image.jpg` не існував (og:image бив у 404) — згенеровано брендовану картку 1200×630 (headless Chrome з html), закомічено.
 - Незакомічений `TEST_MARKER_12345` у `hydrophob_product.php` замінено на задуманий `shortDescr()`.
 - seo_meta на лендінг НЕ ставимо (рішення користувача).
+- 2026-09-16: `storage` перенесено за межі веб-кореня → `/home/hydrophob/storage/` (у config.php і hp_panel/config.php абсолютний шлях). Стара тека видалена, ззовні 404, попередження в адмінці зникло.

@@ -167,3 +167,17 @@ google_sitemap-фід не лишати.
   боксу з компенсацією `margin`.
 - Накладку зрізає батьківський `overflow: hidden` — там треба збільшувати сам елемент.
 - Перевіряти `document.elementFromPoint()` на ±21px від центру, а не розмір елемента.
+
+
+### storage поза веб-коренем (обовʼязково, 2026-09-16)
+
+- Стандарт: `/home/<site-user>/storage/` (сусідня до `htdocs`). У `config.php` і
+  `<admin>/config.php` — абсолютний шлях `define('DIR_STORAGE', '/home/<site-user>/storage/');`
+- Перевірка проблеми: `curl -o /dev/null -w "%{http_code}" https://<домен>/system/storage/logs/error.log`
+  (або `/storage/logs/error.log`). 200 означає, що логи читає будь-хто.
+- Попередження в адмінці показується рівно за умовою `DIR_STORAGE == DIR_SYSTEM . 'storage/'`
+  (`admin/controller/common/dashboard.php`), тож після переносу воно зникає саме.
+- Порядок на живому сайті: `rsync -a old/ new/` → звірити `find -type f | wc -l` →
+  `chown -R <user>:<user>` → `sed -i` по обох config.php → перевірити сторінки і запис
+  у cache/logs/session/upload/modification від імені site user → аж тоді `rm -rf` стару.
+- На групі hydrophob (2026-09-16) перенесено всі чотири: net, ua, net.ua, com.ua.
