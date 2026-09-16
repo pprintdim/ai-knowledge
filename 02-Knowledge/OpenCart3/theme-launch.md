@@ -160,6 +160,55 @@ google_sitemap-фід не лишати.
   дають приблизно дворазове зменшення без помітної втрати для відгуків/інструкцій.
 - Перевірка: puppeteer + `page.on('response')` з фільтром по `.mp4` показує реальні байти.
 
+### Вітальна сторінка — правильна архітектура (2026-09-16, realChem, виправлено після першої спроби)
+
+**Це ОКРЕМА самостійна сторінка (`common/welcome`), НЕ модальне вікно/оверлей всередині `common/home`.** Перша спроба зробити її як `{% if rc_show_welcome %}<div overlay>{% endif %}` прямо в `home.twig` — неправильна, довелось переробляти.
+- `common/home` на самому ПОЧАТКУ `index()` короткозамикає: `if (RCWelcome::apply()) { $this->response->setOutput($this->load->controller('common/welcome')); return; }` — і ВСЕ, решта коду `index()` не виконується.
+- `common/welcome` — свій контролер, повертає ПОВНИЙ самостійний HTML (власний `<head>`, фавікони, лого, hero, плитки категорій, перки, контакти) БЕЗ `common/header`/`common/footer` магазину.
+- Показами керує окрема кука (напр. `rc_welcome`/`hydro_welcome` = `shows|last|first`): перший візит завжди, далі до 30 днів ще кілька випадкових показів (20% шанс, мін. 6 год між показами), боти — ніколи, `?welcome=1/0` — форс/скіп.
+- Це стосується ОБОХ рівнів натяжки: якщо є окрема sectional-PHP верстка (гілка `main`) — там теж робити `welcome.php` як окремий root-файл (не інклуд у `home.php`), яку `home.php` вимагає й одразу `return` на самому верху, а не оверлей-фрагмент.
+
+### Перемикач валют — власна розмітка, не stock `currency.twig` (2026-09-16, realChem)
+
+Stock OC3 `{{ currency }}` (виклик `common/currency` контролера) віддає Bootstrap-форму, яка не пасує під кастомну Tailwind/BEM тему — НЕ рендерити напряму. Патерн з hydrophob:
+- У `common/header.php`: `$this->load->model('localisation/currency')`, зібрати `currency_links` (code/label/active) циклом по `getCurrencies()` де `status=1`, `currency_action = $this->url->link('common/currency/currency')`, `currency_redirect = $this->request->server['REQUEST_URI']`.
+- У шаблоні — прості кнопки/лінки `<form method="post" action="{{ currency_action }}"><input type="hidden" name="redirect"><button name="code" value="{{ c.code }}">{{ c.label }}</button></form>` (лейбл — символ, напр. `₴`/`$`/`€`; стокова route `common/currency/currency` сама читає POST і редіректить).
+- Валюта за замовчуванням — **UAH**, а не стокові GBP/USD/EUR: додати рядок в `oc_currency` (title/code/symbol_right=' грн.'/value=1.0/status=1), вимкнути GBP, виставити реалістичні курси USD/EUR відносно UAH (напр. USD≈0.024, EUR≈0.022 — це "скільки UAH-одиниць в 1 USD/EUR" при базовій валюті-множнику 1.0 для UAH), `config_currency=UAH`. Аналогічно мова — тільки `uk-ua` активна, `en-gb` вимкнена (`status=0`), файли лишаються на диску про запас.
+
+### CloudPanel nginx: OC3 pretty-URL routing (2026-09-16, критична пастка)
+
+**CloudPanel генерує generic `try_files $uri $uri/ /index.php?$args;` для нового PHP-сайту — це ЛАМАЄ OpenCart SEO-урли мовчки.** `/gel` (без query-параметрів) резолвиться в `/index.php` БЕЗ жодного `_route_`, тому OC3 мовчки віддає `common/home` (200 OK!) замість товару чи 404 — виглядає ніби працює, але показує не той контент. Виявлено тільки коли SEO-фільр видав "200" для всіх урлів, а насправді то була всюди головна.
+
+Правильний патерн (звірено з робочого autochemicals на тому самому сервері):
+```nginx
+try_files $uri $uri/ @opencart;
+index index.php index.html;
+
+location @opencart {
+    rewrite ^/(.+)$ /index.php?_route_=$1 last;
+}
+
+location ~* ^/(system|storage)/ { deny all; }
+location ~* ^/(catalog|rc_panel)/(controller|model|language)/ { deny all; }
+```
+**Обов'язково перевіряти після кожної посадки нового OC3-проєкту** через curl на 2-3 реальних SEO-урли (`/product-slug`, `/category-slug`, `/about-page`) і звіряти `<title>` — не просто HTTP-код (200 нічого не гарантує, треба зміст).
+
+### DIR_STORAGE — не rsync-ити стару `system/storage/` назад у веб-корінь
+
+Після перенесення `DIR_STORAGE` в `htdocs/storage/` (див. [[common-bugs]]) локальна git-тека ВСЕ ЩЕ містить `system/storage/` (vendor-бібліотеки тощо, як джерело). Якщо деплоїш rsync-ом весь `system/` без exclude — стара тека `system/storage/` (веб-доступна!) повертається назад на сервер, скасовуючи security-фікс. Завжди `--exclude='system/storage'` в деплой-скрипті OC3-проєктів, або деплоїти `system/` вибірково (library/ config/ engine/ тощо, без storage/).
+
+### PHP 8.1+ deprecation в `system/engine/action.php`
+
+Коли роут взагалі не резолвиться (жоден префікс шляху не відповідає файлу контролера), `Action::execute()` лишає `$this->route = null` і викликає `preg_replace('/[^a-zA-Z0-9]/', '', $this->route)` — на PHP 8.1+ це deprecation-нотис в лог на КОЖЕН такий запит (боти на биті урли, старі посилання). Фікс — `(string)`-каст: `preg_replace(..., (string)$this->route)`, той самий патерн вже є в конструкторі для вхідного параметра, просто не був застосований у `execute()`. Універсальний фікс для будь-якого OC3.0.3.9-проєкту на PHP 8.1+.
+
+### Права адмінки на нові кастомні модулі — не забути `oc_user_group.permission`
+
+Кожен новий `extension/module/<code>` роут (наші інстансні секції теми) ПОТРІБНО додати в JSON `oc_user_group.permission` (`access` І `modify` масиви) для групи Administrator, інакше в адмінці на них "permission denied" навіть залогінившись під адміном. Стокові роути (catalog/product, design/theme тощо) вже в дефолтному permission-списку `cli_install`, кастомні — ні. Фікс через PHP `json_decode`→додати недостаючі роути в обидва масиви→`json_encode`→UPDATE (НЕ ламати SQL-рядками, JSON великий).
+
+### Адмінка: чистка "чужого" брендингу в шапці (2026-09-16)
+
+Стокова `common/header.twig` в дропдауні "Довідка" має 3 зовнішні посилання на opencart.com/docs.opencart.com/forum.opencart.com — прибирати повністю (як в hydrophob, де замість цього — свій `common/docs`, або просто прибрати секцію якщо свого docs нема). Лого `alt`/`title` часто підхоплює generic "OpenCart" замість бренду — прописувати явно назву проєкту. Фавікон в адмінці стоковий OC3 взагалі не додає — треба власноруч додати `<link rel="icon">` в `common/header.twig` (шлях відносний до `<base>`, напр. `../catalog/view/theme/<тема>/image/favicon.svg`).
+
 ### Зони дотику
 
 - `padding` не збільшує зону, коли у елемента фіксовані width/height і `box-sizing: border-box`.
@@ -181,3 +230,15 @@ google_sitemap-фід не лишати.
   `chown -R <user>:<user>` → `sed -i` по обох config.php → перевірити сторінки і запис
   у cache/logs/session/upload/modification від імені site user → аж тоді `rm -rf` стару.
 - На групі hydrophob (2026-09-16) перенесено всі чотири: net, ua, net.ua, com.ua.
+
+
+### Граблі: розширення зони дотику через ::after (2026-09-16)
+
+Накладка `::after` 44×44 потребує, щоб елемент був позиційованим. Але ставити
+`position: relative` усім підряд НЕ можна: у теми повно кнопок з `position: absolute`
+(кнопка «в обране» в кутку картки, стрілки слайдера, крапки), і `relative` вибиває їх
+із їхнього місця, вони падають у потік. Симптом: «кнопки поз'їжджали всюди».
+
+Правило: `position: relative` додавати ЛИШЕ статичним елементам. Абсолютні вже є
+контейнером для власного `::after`, їм нічого не треба. Перевіряти оригінальне
+значення в базовому CSS до правки, а не припускати.
