@@ -1,0 +1,418 @@
+<style>
+/* Медіатека: сітка карток замість бутстрапових рядків — однакові кадри,
+   видно що саме за файл, вибране підсвічено, ролики програються на ховері. */
+#filemanager.modal-dialog { width: min(1120px, 94vw); margin: 24px auto; }
+#filemanager .modal-content { border: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,.28); }
+#filemanager .modal-header { padding: 16px 20px; border-bottom: 1px solid #e6e8eb; background: #fafbfc; }
+#filemanager .modal-title { font-size: 16px; font-weight: 600; color: #22262a; }
+#filemanager .modal-header .close { font-size: 26px; opacity: .45; margin-top: -2px; }
+#filemanager .modal-header .close:hover { opacity: .9; }
+#filemanager .modal-body { padding: 16px 20px; background: #fff; }
+#filemanager .modal-footer { padding: 10px 20px; background: #fafbfc; border-top: 1px solid #e6e8eb; }
+#filemanager .modal-footer .pagination { margin: 0; }
+#filemanager .modal-footer .text-right { display: none; }
+
+#filemanager .fm-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+#filemanager .fm-bar .btn { height: 36px; padding: 0 12px; border-radius: 8px; display: inline-flex; align-items: center; gap: 7px; font-size: 13px; }
+#filemanager .fm-bar .btn i { font-size: 14px; }
+#filemanager .fm-search { margin-left: auto; position: relative; }
+#filemanager .fm-search input { height: 36px; width: 240px; padding: 0 36px 0 14px; border: 1px solid #d9dde1; border-radius: 8px; box-shadow: none; font-size: 13px; }
+#filemanager .fm-search input:focus { border-color: #4a90d9; outline: none; }
+#filemanager .fm-search button { position: absolute; top: 0; right: 0; width: 36px; height: 36px; border: 0; background: none; color: #7b8489; }
+#filemanager .fm-search button:hover { color: #22262a; }
+
+#filemanager .fm-note { display: none; margin-bottom: 12px; padding: 9px 12px; border-radius: 8px; font-size: 13px; }
+#filemanager .fm-note.is-ok { display: block; background: #eaf6ec; color: #256b34; }
+#filemanager .fm-note.is-err { display: block; background: #fdeced; color: #98232c; }
+
+#filemanager .fm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 14px; max-height: calc(100vh - 300px); overflow-y: auto; padding: 2px; }
+#filemanager .fm-grid.is-drop { outline: 2px dashed #4a90d9; outline-offset: 6px; border-radius: 10px; }
+#filemanager .fm-item { position: relative; border: 1px solid #e3e6e9; border-radius: 10px; background: #fff; overflow: hidden; transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease; }
+#filemanager .fm-item:hover { border-color: #c3cad1; box-shadow: 0 8px 20px rgba(16,24,32,.1); transform: translateY(-1px); }
+#filemanager .fm-item.is-checked { border-color: #4a90d9; box-shadow: 0 0 0 2px rgba(74,144,217,.22); }
+#filemanager .fm-pick { display: block; position: relative; aspect-ratio: 4 / 3; background: #f3f4f6; overflow: hidden; }
+#filemanager .fm-pick img { width: 100%; height: 100%; object-fit: contain; display: block; padding: 6px; background: repeating-conic-gradient(#f7f8f9 0 25%, #eef0f2 0 50%) 0 0/16px 16px; }
+#filemanager .fm-pick video { width: 100%; height: 100%; object-fit: cover; display: block; background: #15181b; }
+#filemanager .fm-pick.is-folder { display: grid; place-items: center; color: #e0b34a; font-size: 44px; background: #fffdf6; }
+#filemanager .fm-pick.is-file { display: grid; place-items: center; color: #8d969d; font-size: 40px; }
+#filemanager .fm-play { position: absolute; left: 50%; top: 50%; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; background: rgba(12,14,16,.55); pointer-events: none; transition: opacity .15s ease; }
+#filemanager .fm-play::after { content: ''; position: absolute; left: 13px; top: 10px; border-style: solid; border-width: 7px 0 7px 11px; border-color: transparent transparent transparent #fff; }
+#filemanager .fm-item:hover .fm-play { opacity: 0; }
+#filemanager .fm-check { position: absolute; top: 7px; left: 7px; z-index: 2; width: 20px; height: 20px; margin: 0; cursor: pointer; border: 1px solid rgba(20,26,32,.22); border-radius: 6px; background: rgba(255,255,255,.94); box-shadow: 0 1px 4px rgba(0,0,0,.18); appearance: none; -webkit-appearance: none; transition: background .15s ease, border-color .15s ease; }
+#filemanager .fm-check:checked { background: #4a90d9; }
+#filemanager .fm-check:checked { border-color: #4a90d9; }
+#filemanager .fm-check:checked::after { content: ''; position: absolute; left: 6px; top: 2px; width: 5px; height: 10px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(42deg); }
+#filemanager .fm-name { display: block; padding: 8px 9px; font-size: 12px; line-height: 1.35; color: #3c4348; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-top: 1px solid #f0f2f4; }
+#filemanager .fm-empty { padding: 40px 0; text-align: center; color: #8d969d; font-size: 14px; }
+#filemanager .fm-hint { margin: 12px 2px 0; font-size: 12px; color: #97a0a6; }
+#filemanager .fm-path { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; font-size: 13px; }
+#filemanager .fm-path a { color: #4a90d9; text-decoration: none; }
+#filemanager .fm-path a:hover { text-decoration: underline; }
+#filemanager .fm-path b { color: #3c4348; font-weight: 600; }
+#filemanager .fm-path span { color: #b6bcc1; }
+#filemanager .fm-sel { display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 10px; border: 1px solid #e3e6e9; border-radius: 8px; font-size: 13px; font-weight: 400; color: #6b747a; margin: 0; cursor: pointer; }
+#filemanager .fm-sel input { margin: 0; }
+#filemanager .fm-sort { height: 36px; padding: 0 10px; border: 1px solid #d9dde1; border-radius: 8px; background: #fff; font-size: 13px; color: #3c4348; }
+#filemanager .fm-progress { display: none; height: 4px; margin-bottom: 12px; border-radius: 3px; background: #e9edf0; overflow: hidden; }
+#filemanager .fm-progress.is-on { display: block; }
+#filemanager .fm-progress i { display: block; height: 100%; width: 0; background: #4a90d9; transition: width .2s ease; }
+#filemanager .fm-meta { display: block; padding: 0 9px 8px; font-size: 11px; color: #9aa2a8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#filemanager .fm-name + .fm-meta { margin-top: -2px; }
+</style>
+<div id="filemanager" class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title">{{ heading_title }}</h4>
+    </div>
+    <div class="modal-body">
+      <div class="fm-bar">
+        <a href="{{ parent }}" title="{{ button_parent }}" id="button-parent" class="btn btn-default"><i class="fa fa-level-up"></i></a>
+        <a href="{{ refresh }}" title="{{ button_refresh }}" id="button-refresh" class="btn btn-default"><i class="fa fa-refresh"></i></a>
+        <button type="button" id="button-upload" class="btn btn-primary"><i class="fa fa-upload"></i> {{ button_upload }}</button>
+        <button type="button" id="button-folder" class="btn btn-default"><i class="fa fa-folder"></i> {{ button_folder }}</button>
+        <button type="button" id="button-delete" class="btn btn-danger"><i class="fa fa-trash-o"></i> {{ button_delete }}</button>
+        <label class="fm-sel" title="{{ text_select_all|default('Позначити все') }}"><input type="checkbox" data-fm-all> <span data-fm-count>{{ text_select_all|default('Все') }}</span></label>
+        <select class="fm-sort" data-fm-sort>
+          <option value="{{ sort_date }}"{% if sort != 'name' %} selected{% endif %}>{{ text_sort_date|default('Спочатку нові') }}</option>
+          <option value="{{ sort_name }}"{% if sort == 'name' %} selected{% endif %}>{{ text_sort_name|default('За назвою') }}</option>
+        </select>
+        <div class="fm-search">
+          <input type="text" name="search" value="{{ filter_name }}" placeholder="{{ entry_search }}" class="form-control">
+          <button type="button" id="button-search" title="{{ button_search }}"><i class="fa fa-search"></i></button>
+        </div>
+      </div>
+      <div class="fm-path">
+        {% for crumb in crumbs %}
+        {% if loop.last %}<b>{% if crumb.name %}{{ crumb.name }}{% else %}<i class="fa fa-home"></i>{% endif %}</b>
+        {% else %}<a href="{{ crumb.href }}" class="directory">{% if crumb.name %}{{ crumb.name }}{% else %}<i class="fa fa-home"></i>{% endif %}</a><span>/</span>{% endif %}
+        {% endfor %}
+      </div>
+      <div class="fm-progress" data-fm-progress><i></i></div>
+      <div class="fm-note" data-fm-note></div>
+      <div class="fm-grid" data-fm-grid>
+        {% for image in images %}
+        <div class="fm-item">
+          <input type="checkbox" class="fm-check" name="path[]" value="{{ image.path }}" title="{{ image.name }}" />
+          {% if image.type == 'directory' %}
+          <a href="{{ image.href }}" class="fm-pick is-folder directory"><i class="fa fa-folder"></i></a>
+          {% elseif image.video %}
+          {# для ролика показуємо кадр із нього самого, на ховері — програвання #}
+          <a href="{{ image.href }}" class="fm-pick" data-fm-video>
+            <video src="{{ image.video }}#t=0.5" preload="metadata" muted playsinline loop></video>
+            <img src="{{ image.thumb }}" alt="{{ image.name }}" hidden />
+            <span class="fm-play"></span>
+          </a>
+          {% else %}
+          <a href="{{ image.href }}" class="fm-pick"><img src="{{ image.thumb }}" alt="{{ image.name }}" /></a>
+          {% endif %}
+          <span class="fm-name" title="{{ image.name }}">{{ image.name }}</span>
+          {% if image.meta %}<span class="fm-meta">{{ image.meta }}</span>{% endif %}
+        </div>
+        {% else %}
+        <div class="fm-empty">{{ text_no_results|default('Тека порожня') }}</div>
+        {% endfor %}
+      </div>
+      <p class="fm-hint"><i class="fa fa-hand-o-up"></i> {{ text_drop_hint|default('Файли можна просто перетягнути сюди') }}</p>
+    </div>
+    <div class="modal-footer">{{ pagination }}</div>
+  </div>
+</div>
+<script type="text/javascript"><!--
+(function () {
+	var note = $('#filemanager [data-fm-note]');
+
+	function say(text, kind) {
+		note.attr('class', 'fm-note is-' + (kind || 'ok')).text(text);
+
+		if (kind !== 'err') {
+			setTimeout(function () { note.attr('class', 'fm-note'); }, 4000);
+		}
+	}
+
+	window.fmNote = say;
+
+	// сервер іноді віддає не JSON, а PHP-попередження — показуємо його текстом,
+	// інакше в консоль летить незрозуміле «Unexpected token '<'»
+	window.fmFail = function (xhr, thrown) {
+		var text = (xhr && xhr.responseText || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+
+		say(text ? text.slice(0, 200) : (thrown || (xhr && xhr.statusText) || 'Помилка'), 'err');
+	};
+
+	var allLabel = $('#filemanager [data-fm-count]').text();
+
+	function refreshCount() {
+		var n = $('#filemanager .fm-check:checked').length;
+		$('#filemanager [data-fm-count]').text(n ? n : allLabel);
+		$('#button-delete').toggleClass('disabled', !n);
+	}
+
+	// підсвічування вибраних карток і лічильник у панелі
+	$('#filemanager').on('change', '.fm-check', function () {
+		$(this).closest('.fm-item').toggleClass('is-checked', this.checked);
+		refreshCount();
+	});
+
+	// «позначити все» в поточній теці
+	$('#filemanager').on('change', '[data-fm-all]', function () {
+		$('#filemanager .fm-check').prop('checked', this.checked).each(function () {
+			$(this).closest('.fm-item').toggleClass('is-checked', this.checked);
+		});
+		refreshCount();
+	});
+
+	// перемикач сортування просто перезавантажує список
+	$('#filemanager').on('change', '[data-fm-sort]', function () {
+		$('#modal-image').load(this.value);
+	});
+
+	refreshCount();
+
+	// прев'ю ролика на ховері
+	$('#filemanager').on('mouseenter', '[data-fm-video]', function () {
+		var v = $(this).find('video')[0];
+		if (v) { var p = v.play(); if (p && p.catch) { p.catch(function () {}); } }
+	}).on('mouseleave', '[data-fm-video]', function () {
+		var v = $(this).find('video')[0];
+		if (v) { v.pause(); v.currentTime = 0.5; }
+	});
+})();
+
+{% if target %}
+$('a.fm-pick').not('.directory').on('click', function(e) {
+	e.preventDefault();
+
+	{% if thumb %}
+	var src = $(this).find('img').attr('src');
+	if (src) { $('#{{ thumb|escape('js') }}').find('img').attr('src', src); }
+	{% endif %}
+
+	$('#{{ target|escape('js') }}').val($(this).closest('.fm-item').find('input[name^=\'path\']').val()).trigger('change');
+
+	$('#modal-image').modal('hide');
+});
+{% endif %}
+
+$('a.directory').on('click', function(e) {
+	e.preventDefault();
+
+	$('#modal-image').load($(this).attr('href'));
+});
+
+$('.pagination a').on('click', function(e) {
+	e.preventDefault();
+
+	$('#modal-image').load($(this).attr('href'));
+});
+
+$('#button-parent').on('click', function(e) {
+	e.preventDefault();
+
+	$('#modal-image').load($(this).attr('href'));
+});
+
+$('#button-refresh').on('click', function(e) {
+	e.preventDefault();
+
+	$('#modal-image').load($(this).attr('href'));
+});
+
+$('input[name=\'search\']').on('keydown', function(e) {
+	if (e.which == 13) {
+		$('#button-search').trigger('click');
+	}
+});
+
+$('#button-search').on('click', function(e) {
+	var url = 'index.php?route=common/filemanager&user_token={{ user_token }}&directory={{ directory }}';
+
+	var filter_name = $('input[name=\'search\']').val();
+
+	if (filter_name) {
+		url += '&filter_name=' + encodeURIComponent(filter_name);
+	}
+
+	{% if thumb %}
+	url += '&thumb=' + '{{ thumb|escape('js') }}';
+	{% endif %}
+
+	{% if target %}
+	url += '&target=' + '{{ target|escape('js') }}';
+	{% endif %}
+
+	$('#modal-image').load(url);
+});
+//--></script>
+<script type="text/javascript"><!--
+// завантаження: кнопка і перетягування файлів у сітку — один шлях
+function fmUpload(files) {
+	var data = new FormData();
+
+	for (var i = 0; i < files.length; i++) {
+		data.append('file[]', files[i]);
+	}
+
+	$.ajax({
+		url: 'index.php?route=common/filemanager/upload&user_token={{ user_token }}&directory={{ directory }}',
+		type: 'post',
+		dataType: 'json',
+		data: data,
+		cache: false,
+		contentType: false,
+		processData: false,
+		xhr: function() {
+			var xhr = $.ajaxSettings.xhr();
+
+			// смужка прогресу: на відео в десятки мегабайтів це єдиний спосіб зрозуміти, що воно йде
+			if (xhr.upload) {
+				xhr.upload.addEventListener('progress', function (e) {
+					if (e.lengthComputable) {
+						$('#filemanager [data-fm-progress]').addClass('is-on').find('i').css('width', (e.loaded / e.total * 100) + '%');
+					}
+				});
+			}
+
+			return xhr;
+		},
+		beforeSend: function() {
+			$('#filemanager [data-fm-progress]').addClass('is-on').find('i').css('width', '0');
+			$('#button-upload i').replaceWith('<i class="fa fa-circle-o-notch fa-spin"></i>');
+			$('#button-upload').prop('disabled', true);
+		},
+		complete: function() {
+			$('#filemanager [data-fm-progress]').removeClass('is-on').find('i').css('width', '0');
+			$('#button-upload i').replaceWith('<i class="fa fa-upload"></i>');
+			$('#button-upload').prop('disabled', false);
+		},
+		success: function(json) {
+			if (json['error']) {
+				window.fmNote(json['error'], 'err');
+			}
+
+			if (json['success']) {
+				window.fmNote(json['success']);
+
+				$('#button-refresh').trigger('click');
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			window.fmFail(xhr, thrownError);
+		}
+	});
+}
+
+$('#button-upload').on('click', function() {
+	$('#form-upload').remove();
+
+	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file[]" value="" multiple="multiple" /></form>');
+
+	$('#form-upload input[name=\'file[]\']').on('change', function () {
+		if (this.files && this.files.length) {
+			fmUpload(this.files);
+		}
+	}).trigger('click');
+});
+
+(function () {
+	var grid = document.querySelector('#filemanager [data-fm-grid]');
+
+	if (!grid) { return; }
+
+	['dragenter', 'dragover'].forEach(function (name) {
+		grid.addEventListener(name, function (e) { e.preventDefault(); grid.classList.add('is-drop'); });
+	});
+
+	['dragleave', 'drop'].forEach(function (name) {
+		grid.addEventListener(name, function (e) { e.preventDefault(); grid.classList.remove('is-drop'); });
+	});
+
+	grid.addEventListener('drop', function (e) {
+		if (e.dataTransfer && e.dataTransfer.files.length) { fmUpload(e.dataTransfer.files); }
+	});
+})();
+
+$('#button-folder').popover({
+	html: true,
+	sanitize: false,
+	placement: 'bottom',
+	trigger: 'click',
+	title: '{{ entry_folder }}',
+	content: function() {
+		html  = '<div class="input-group">';
+		html += '  <input type="text" name="folder" value="" placeholder="{{ entry_folder }}" class="form-control">';
+		html += '  <span class="input-group-btn"><button type="button" title="{{ button_folder }}" id="button-create" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></span>';
+		html += '</div>';
+
+		return html;
+	}
+});
+
+$('#button-folder').on('shown.bs.popover', function() {
+	$('#button-create').on('click', function() {
+		$.ajax({
+			url: 'index.php?route=common/filemanager/folder&user_token={{ user_token }}&directory={{ directory }}',
+			type: 'post',
+			dataType: 'json',
+			data: 'folder=' + encodeURIComponent($('input[name=\'folder\']').val()),
+			beforeSend: function() {
+				$('#button-create').prop('disabled', true);
+			},
+			complete: function() {
+				$('#button-create').prop('disabled', false);
+			},
+			success: function(json) {
+				if (json['error']) {
+					window.fmNote(json['error'], 'err');
+				}
+
+				if (json['success']) {
+					window.fmNote(json['success']);
+
+					$('#button-refresh').trigger('click');
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				window.fmFail(xhr, thrownError);
+			}
+		});
+	});
+});
+
+$('#modal-image #button-delete').on('click', function(e) {
+	if (!$('input[name^=\'path\']:checked').length) {
+		window.fmNote('{{ text_pick_first|default('Спершу познач файли')|escape('js') }}', 'err');
+
+		return;
+	}
+
+	if (confirm('{{ text_confirm }}')) {
+		$.ajax({
+			url: 'index.php?route=common/filemanager/delete&user_token={{ user_token }}',
+			type: 'post',
+			dataType: 'json',
+			data: $('input[name^=\'path\']:checked'),
+			beforeSend: function() {
+				$('#button-delete').prop('disabled', true);
+			},
+			complete: function() {
+				$('#button-delete').prop('disabled', false);
+			},
+			success: function(json) {
+				if (json['error']) {
+					window.fmNote(json['error'], 'err');
+				}
+
+				if (json['success']) {
+					window.fmNote(json['success']);
+
+					$('#button-refresh').trigger('click');
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				window.fmFail(xhr, thrownError);
+			}
+		});
+	}
+});
+//--></script>

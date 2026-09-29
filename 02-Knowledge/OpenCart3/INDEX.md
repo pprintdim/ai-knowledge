@@ -15,6 +15,7 @@
 | [[ajax]] | JSON-ендпоінти: live search, cart, форми | ✅ |
 | [[common-bugs]] | Пастки OC3 — короткий довідник граблів | ✅ |
 | [[theme-launch]] | Еталон натяжки: склад модулів, лого/webp, мови, адмінка, обовʼязкові дрібниці | ✅ |
+| [[starter-kit]] | Стартовий набір файлів + порядок натяжки: що копіювати першим, порядок CSS, конвенції, чого не робити | ✅ |
 | [[performance]] | Продуктивність теми: відео/зображення/шрифти/3rd-party, шум Lighthouse | ✅ |
 | [[sitemap]] | Sitemap-індекс + секції, hreflang, XSL-вигляд, граблі nginx/&amp; | ✅ |
 
@@ -23,3 +24,4 @@ imports, cron, api-integrations, caching, security, performance, debugging, cata
 
 Повний процес натяжки: [[natyazhka-opencart|Натяжка OC3 — чеклист]].
 - [[functional-standard]] — ЄДИНИЙ функціональний стандарт натяжки (OTP-auth, плитки, відгуки, чекаут, СЕО з фільтрами, оверлеї) — читати ПЕРШИМ перед будь-якою натяжкою
+- [[starter-kit]] — стартовий набір коду (`00-System/templates/opencart3-starter/`) і порядок робіт: копіювати ДО порту першої секції

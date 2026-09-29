@@ -1,0 +1,33 @@
+#!/bin/zsh
+# Деплой коду на прод <DOMAIN> (Hetzner 46.224.100.254, CloudPanel).
+# Використання: ./deploy.sh [--full]   (--full = з --delete по кодових теках)
+# Файл у .gitignore (містить пароль site user з .vscode/sftp.json).
+set -e
+LOCAL="/Applications/MAMP/htdocs/hydrophob/<DOMAIN>"
+REMOTE_USER="<SITE_USER>"
+REMOTE_HOST="46.224.100.254"
+REMOTE_PATH="/home/<SITE_USER>/htdocs/<DOMAIN>"
+PASS=$(python3 -c "import json;print(json.load(open('$LOCAL/.vscode/sftp.json'))['password'])")
+
+DELETE=""
+if [[ "$1" == "--full" ]]; then DELETE="--delete"; fi
+
+SSHPASS="$PASS" sshpass -e rsync -az -i $DELETE \
+  --exclude '/config.php' \
+  --exclude '/hp_panel/config.php' \
+  --exclude '.git' \
+  --exclude '.gitignore' \
+  --exclude '.vscode' \
+  --exclude 'image/' \
+  --exclude 'system/storage/' \
+  --exclude 'html/' \
+  --exclude 'backups/' \
+  --exclude 'tools/' \
+  --exclude 'deploy.sh' \
+  --exclude '.DS_Store' \
+  -e "ssh -o StrictHostKeyChecking=no" \
+  "$LOCAL/catalog" "$LOCAL/hp_panel" "$LOCAL/system" "$LOCAL/index.php" "$LOCAL/.htaccess" "$LOCAL/robots.txt" "$LOCAL/robots-live.txt" "$LOCAL/sitemap.xsl" \
+  "$LOCAL/favicon.ico" "$LOCAL/favicon.svg" "$LOCAL/favicon-48.png" "$LOCAL/favicon-96.png" \
+  "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
+
+echo "Deploy OK"
