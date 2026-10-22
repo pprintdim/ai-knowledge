@@ -17,7 +17,7 @@
 **Секрети**: у vault на місці значення стоїть `<REDACTED→secrets/ACCESS.md>`; реальні — тільки в `~/AI-Workspace/secrets/ACCESS.md` і першоджерелах проєкту (config.php, `.vscode/sftp.json`, CloudPanel). У git — ніколи.
 
 Також не чіпати: SSH keys, git/MCP/Claude config, credentials, production-дані, user-created теки, невідомі теки, файли поза AI-Workspace, чужі незакомічені зміни. **Не впевнений, що файл створив поточний workflow — НЕ видаляй.**
-Існуючі повні копії проєктів у `/Applications/MAMP/htdocs/` (MAMP їх СЕРВІТЬ — робочі стенди) і `~/Desktop/vs_projects/` — user-created, лишаються.
+Існуючі повні копії проєктів у `/Applications/MAMP/htdocs/` (з 2026-10-22 це symlink на зовнішній SSD `/Volumes/Projects/MAMP/htdocs/`; MAMP їх СЕРВІТЬ — робочі стенди; без диска MAMP не працює) і `~/Desktop/vs_projects/` — user-created, лишаються.
 
 ## Життєвий цикл задачі
 
