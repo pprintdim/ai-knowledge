@@ -1,6 +1,6 @@
 # nadel — PROJECT
 
-- **Repo**: локально `/Applications/MAMP/htdocs/nadel`, гілка `main` (origin GitHub)
+- **Repo**: локально `/Applications/MAMP/htdocs/other/clients/nadel`, гілка `main` (origin GitHub)
 - **Stack**: OpenCart 3.0.3.9, тема `nadel`
 - **Кастомні модулі** (catalog/controller/extension/module/): about, aboutus, banner, **brief** (specbrief — анкета з полями clarify_single, attachment modes, note-система), google_auth, google_reviews, hero_video, html, production
 - **Кастомні common-контролери**: burger_menu, sprite, maintenance (+ стандартні)

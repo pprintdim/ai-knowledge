@@ -1,0 +1,102 @@
+{
+  "code": "home_brushes",
+  "order": 4,
+  "purpose": "Слайдер щіток на сірому фоні (bg-surface): ліворуч надзаголовок «✦ Щітка», назва щітки великими, опис і CTA «До покупок»; праворуч квадрат із двома пастельними плашками, фото активної щітки (повернуте на -62°) і пульт «Попередня / Наступна» з лічильником 01/05. Автоперемикання кожні 7 с. У OpenCart слайди = товари категорії магазину.",
+  "source": {
+    "html": "index.html — четвертий <section data-noreveal class=\"overflow-hidden bg-surface py-16 md:py-24\">",
+    "tsx": "src/routes/index.tsx → BrushSlider(); дані BRUSHES у src/lib/site-data.ts; фото photos{} ; ціни/назви товарів у src/lib/cart.ts PRODUCTS",
+    "mockup": "Home.jpg — секція PREMIUM з фото щітки й пультом; збігається з HTML"
+  },
+  "layout_position": "content_top, позиція 4",
+  "outer_markup": {
+    "note": "Текстовий блок рендериться лише для активного товару (JS замінює вміст, перезапускаючи .slide-in). Усі фото рендеряться одразу (стек absolute), активне opacity-100 rotate(-62deg) scale(1), решта pointer-events-none opacity-0 rotate(-20deg) scale(0.8). У порті для SEO краще вивести ВСІ текстові блоки (hidden крім першого) — і назви, і посилання на товари будуть у DOM.",
+    "skeleton": [
+      "<section data-noreveal=\"true\" class=\"overflow-hidden bg-surface py-16 md:py-24\" data-brush-slider data-interval=\"7000\">",
+      "  <div class=\"container-site grid gap-12 md:grid-cols-[1.1fr_1fr] md:items-end\">",
+      "    <div class=\"slide-in md:pb-16\" data-brush-text=\"{{ k }}\">    <!-- 1 активний; інші hidden -->",
+      "      <p class=\"flex items-center gap-2 text-xs uppercase\"><span class=\"text-accent\">✦</span> {{ eyebrow }}</p>",
+      "      <h2 class=\"mt-1 font-display text-4xl uppercase md:text-5xl\">{{ product.short_name }}</h2>",
+      "      <div class=\"mt-4 flex flex-col gap-6 md:flex-row md:items-end md:gap-10\">",
+      "        <p class=\"max-w-md text-xs leading-relaxed text-muted-foreground\">{{ product.description_short }}</p>",
+      "        {{ arrow_link(cta_text, product.href) }}",
+      "      </div>",
+      "    </div>",
+      "    <div class=\"relative mx-auto aspect-square w-full max-w-md\">",
+      "      <div class=\"absolute right-0 top-0 h-[78%] w-[62%] rounded-[2rem] bg-gradient-pastel opacity-80 shadow-soft\"></div>",
+      "      <div class=\"absolute bottom-0 left-[6%] h-[70%] w-[70%] rounded-[2rem] bg-gradient-pastel shadow-soft\"></div>",
+      "      <!-- n× -->",
+      "      <img src=\"{{ product.image }}\" alt=\"Щітка {{ product.short_name }}\" loading=\"lazy\" data-brush-img=\"{{ k }}\" class=\"absolute left-1/2 top-[42%] h-[95%] w-auto max-w-none drop-shadow-2xl transition-all duration-700 {{ k==0 ? 'opacity-100' : 'pointer-events-none opacity-0' }}\" style=\"transform:translate(-50%,-50%) rotate({{ k==0 ? -62 : -20 }}deg) scale({{ k==0 ? 1 : 0.8 }})\"/>",
+      "      <div class=\"absolute bottom-[8%] right-0 flex items-center gap-3 rounded-2xl border border-ink-foreground/30 bg-ink/45 px-4 py-3 text-[9px] uppercase text-ink-foreground backdrop-blur-md md:right-[-4%]\">",
+      "        <span class=\"hidden sm:inline\">{{ label_prev }}</span>",
+      "        <button aria-label=\"Попередня щітка\" data-brush-prev class=\"grid h-7 w-7 place-items-center rounded-full border border-ink-foreground/60 transition hover:bg-accent hover:border-accent\">{{ icon arrow-left h-3.5 w-3.5 }}</button>",
+      "        <button aria-label=\"Наступна щітка\" data-brush-next class=\"grid h-7 w-7 place-items-center rounded-full border border-ink-foreground transition hover:bg-accent hover:border-accent\">{{ icon arrow-right h-3.5 w-3.5 }}</button>",
+      "        <span class=\"hidden sm:inline\">{{ label_next }}</span>",
+      "        <span class=\"absolute right-3 top-1 text-[8px] opacity-70\"><span data-brush-current>01</span>/<span data-brush-total>05</span></span>",
+      "      </div>",
+      "    </div>",
+      "  </div>",
+      "</section>"
+    ]
+  },
+  "fields": [
+    {"name": "category_id", "type": "select(category)", "note": "категорія магазину, звідки беруться товари (status=1, store, sort за sort_order); порядок у верстці: PREMIUM, SUEDE, SOLE, CLASSIC, DAUBER"},
+    {"name": "limit", "type": "number", "default": 5},
+    {"name": "eyebrow", "type": "text", "multilang": true, "default": "Щітка"},
+    {"name": "cta_text", "type": "text", "multilang": true, "default": "До покупок"},
+    {"name": "label_prev", "type": "text", "multilang": true, "default": "Попередня"},
+    {"name": "label_next", "type": "text", "multilang": true, "default": "Наступна"},
+    {"name": "interval_ms", "type": "number", "default": 7000},
+    {"name": "name_mode", "type": "select", "options": ["product_name", "strip_brand_prefix", "model_or_attribute"], "note": "у верстці H2 = «PREMIUM», а назва товару в cart.ts = «Brosse Premium». Треба або окреме поле товару (атрибут/model/«коротка назва»), або зрізати префікс бренду і uppercase через CSS (клас uppercase уже є) — див. open_questions"}
+  ],
+  "product_data_defaults": {
+    "note": "Контент із site-data.ts/cart.ts — для сідингу товарів у БД (ціни плейсхолдерні). Описи у джерелі з малої літери; JSX піднімає першу літеру (charAt(0).toUpperCase()).",
+    "products": [
+      {"short_name": "PREMIUM", "name": "Brosse Premium", "model": "BR-01", "price_uah": 899, "image": "brush-premium.png", "description_short": "Ексклюзивна щітка з преміального кінського волосу. Дбайливо очищає делікатні матеріали, універсально підходить для будь-яких виробів, забезпечуючи бездоганний вигляд і довговічність."},
+      {"short_name": "SUEDE", "name": "Brosse Suede", "model": "BR-02", "price_uah": 599, "image": "brush-suede.png", "description_short": "Преміальна щітка для чищення замші і нубука. Ефективно видаляє забруднення, зберігаючи текстуру і колір матеріалу."},
+      {"short_name": "SOLE", "name": "Brosse Sole", "model": "BR-03", "price_uah": 499, "image": "brush-crepe.png", "description_short": "Преміальна щітка з високоякісним штучним ворсом, розроблена для ефективного чищення підошов взуття і неделікатних матеріалів."},
+      {"short_name": "CLASSIC", "name": "Brosse Classic", "model": "BR-04", "price_uah": 699, "image": "brush-classic.png", "description_short": "Універсальна щітка для чищення будь-яких матеріалів, від натуральних до синтетичних."},
+      {"short_name": "DAUBER", "name": "Brosse Dauber", "model": "BR-05", "price_uah": 399, "image": "brush-dauber.png", "description_short": "Спеціалізована щітка-намазок для чищення важкодоступних місць і поверхонь з невеликою площею."}
+    ]
+  },
+  "assets": [
+    {"file": "brush-premium.png", "path": ".output/public/__l5e/assets-v1/afad185a-aad1-4352-afa0-836996955bc5/brush-premium.png", "meta": "310×888 PNG alpha"},
+    {"file": "brush-suede.png", "path": ".output/public/__l5e/assets-v1/09c67513-64ee-4c30-8f9d-e8aff073fc8a/brush-suede.png", "meta": "340×896"},
+    {"file": "brush-crepe.png", "path": ".output/public/__l5e/assets-v1/3d8aff6a-e5c7-4631-880f-87d8eb3ddf88/brush-crepe.png", "meta": "207×893 (SOLE)"},
+    {"file": "brush-classic.png", "path": ".output/public/__l5e/assets-v1/cbb0e6ee-8f3c-4c34-ad0c-b721e16a4c01/brush-classic.png", "meta": "311×890"},
+    {"file": "brush-dauber.png", "path": ".output/public/__l5e/assets-v1/6ee7da9a-90b4-4d9a-9eac-1ed0271133af/brush-dauber.png", "meta": "241×894"},
+    {"file": "(не використані, але є в білді)", "path": ".output/public/__l5e/assets-v1/{1728bd7d…/brush-mixed.png, 31ae65e1…/brush-horse.png, c59696dd…/brush-dark.png, ec7a8ca7…/brush-light.png}", "meta": "альтернативні фото щіток — можуть піти в галерею товару"}
+  ],
+  "behaviour": {
+    "autoplay": "setTimeout 7000 мс → next; таймер перевстановлюється після КОЖНОГО рендера (у React — без deps), тобто клік prev/next теж скидає відлік.",
+    "navigation": "prev: (i-1+n)%n, next: (i+1)%n — циклічно; лічильник padStart(2,'0') → «01/05».",
+    "image_switch": "активне фото: opacity-100, transform translate(-50%,-50%) rotate(-62deg) scale(1); інші: pointer-events-none opacity-0, rotate(-20deg) scale(0.8); transition-all duration-700.",
+    "text_switch": "блок .slide-in перемальовується → анімація slide-in .9s (перша дитина), друга дитина +.15s.",
+    "reveal": "data-noreveal на секції — авто-reveal всередині не чіпати.",
+    "no_touch_swipe": "свайпу у верстці нема — лише кнопки."
+  },
+  "responsive": {
+    "base": "одна колонка: текст зверху (CTA під описом, flex-col gap-6), квадрат з фото під ним (max-w-md); підписи «Попередня/Наступна» сховані (<sm), лишаються стрілки й лічильник; py-16",
+    "sm": "показуються слова Попередня/Наступна",
+    "md": "grid-cols-[1.1fr_1fr] items-end; текстовий блок md:pb-16; h2 text-5xl; опис і CTA в ряд (md:flex-row items-end gap-10); пульт зсунутий за край md:right-[-4%]; py-24"
+  },
+  "accessibility": {
+    "buttons": "aria-label «Попередня щітка» / «Наступна щітка»",
+    "img_alt": "«Щітка PREMIUM» (= «Щітка » + short_name; у OC — name товару)",
+    "h2": "назва активного товару — h2 (якщо виводити всі блоки, h2 має бути лише в активному або решта aria-hidden)"
+  },
+  "opencart": {
+    "module_type": "single-instance home_brushes, content_top sort 4",
+    "data_source": "model catalog/product getProducts(['filter_category_id'=>category_id, 'filter_sub_category'=>false, 'sort'=>'p.sort_order', 'order'=>'ASC', 'start'=>0, 'limit'=>limit]) — тільки status=1 і до поточного store (стандартна модель уже фільтрує).",
+    "per_product": {
+      "short_name": "див. name_mode; рекомендовано: якщо є атрибут/поле «Коротка назва» — його; інакше name без префікса «Brosse » (preg_replace('/^Brosse\\s+/iu', '', name))",
+      "description_short": "у HTML один абзац ~150–200 символів. Джерело: поле «meta_description» АБО перші N символів strip_tags(html_entity_decode(description)) (стандарт latest/featured: utf8_substr(..., config_product_description_length)). Рекомендовано окреме поле/атрибут, щоб не різати фразу.",
+      "image": "PNG з альфою: НЕ ганяти через tool/image resize (він пише jpg/png без гарантії прозорості у старих версіях — у OC 3.0.3.9 png зберігається з альфою, але все одно на h-[95%] квадрата max-w-md ≈ 430px висоти → resize(image, 240, 700) приблизно; краще віддати оригінал без resize або webp із альфою, пропорції 1:3 вертикальні).",
+      "price": "НЕ показується в цій секції у верстці, але контролер має віддати price (currency->format(tax->calculate(price, tax_class_id, config_tax), session currency)) і special — щоб twig міг додати за бажанням замовника без переробки контролера",
+      "href": "url->link('product/product', 'product_id=' . product_id) — CTA «До покупок» веде на картку АКТИВНОГО товару (у верстці всі ведуть на /product, бо там одна сторінка; в OC логічніше на сам товар; альтернатива — категорія)"
+    },
+    "empty_state": "якщо товарів 0 — секцію не виводити (return '' з контролера)",
+    "counter_total": "data-brush-total = count(products), padStart 2",
+    "js": "[data-brush-slider] у theme.js: prev/next/auto; текстові блоки — або всі в DOM з hidden, або шаблон у <template> + заміна innerHTML",
+    "admin_form": "category select (як у стандартному «Товари з категорії»/featured через autocomplete або select дерева), limit, мультимовні eyebrow/cta/label_prev/label_next, interval, name_mode"
+  }
+}

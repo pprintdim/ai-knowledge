@@ -2,7 +2,7 @@
 
 - OpenCart 3.0.4.1, прод: Hetzner 46.224.100.254, CloudPanel, site user `hydrophobcom`, root `/home/hydrophobcom/htdocs/hydrophob.com.ua`, БД `hydrophobcom` (мігровано 2026-08-11 зі старого 5.101.116.201).
 - DNS вже на Hetzner (A @/www → 46.224.100.254). **Lets Encrypt SSL встановлено 2026-08-20.**
-- Репо: `pprintdim/hydrophob.com.ua` (SSH remote), гілка `main`. Локалка: `/Applications/MAMP/htdocs/hydrophob/hydrophob.com.ua`, MAMP порт **8892**, PHP 8.3 (прод — 7.4!).
+- Репо: `pprintdim/hydrophob.com.ua` (SSH remote), гілка `main`. Локалка: `/Applications/MAMP/htdocs/NanoChemicalGroup/products/nanochemical/hydrophob/hydrophob.com.ua`, MAMP порт **8892**, PHP 8.3 (прод — 7.4!).
 - Локалка за стандартом (див. `02-Knowledge/OpenCart3/local-dev.md`): БД серверна через тунель 3307, картинки з прод-фолбеком `DEV_IMAGE_FALLBACK`.
 - **Адмінка перейменована `admin` → `hp_panel`** (локально і на проді; деплой через site-user rsync). У ній: панелька Кеш/Модифікатори (controller/common/refresh.php + header) і drag&drop сортування модулів у лояутах (layout_form.twig) — перенесено з hydrophob.net.
 - Стокові платіжні модулі видалено (лишено cod, liqpay, free_checkout) + викинуто system/library/paypal, squareup. Доставка — кастомний `s_shipping`.

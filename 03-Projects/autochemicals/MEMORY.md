@@ -1,7 +1,7 @@
 # autochemicals — MEMORY
 
 ## 2026-08-10 — розгортання з бекапу eHoster (продовження Codex-сесії 2026-08-09)
-- Локально: `/Applications/MAMP/htdocs/autochemicals` — OpenCart 3, відновлений з бекапу eHoster `m366.2026-08-09_05-19-32.tar` (FTP s3.ehoster.com.ua, m366_user). Локальна БД MAMP `autochemicals` (root/root, порт 8889), DB-креди винесені в гітігнорений `db.php` (require з index.php та admin/index.php), є `db.example.php`.
+- Локально: `/Applications/MAMP/htdocs/NanoChemicalGroup/products/nanochemical/autochemicals` — OpenCart 3, відновлений з бекапу eHoster `m366.2026-08-09_05-19-32.tar` (FTP s3.ehoster.com.ua, m366_user). Локальна БД MAMP `autochemicals` (root/root, порт 8889), DB-креди винесені в гітігнорений `db.php` (require з index.php та admin/index.php), є `db.example.php`.
 - GitHub: `pprintdim/autochemicals`, main. Коміт `b3ccad4` — повний код (6519 файлів). `.gitignore`: *.tar, db.php, *.sql, storage-runtime, image/cache.
 - **Картинок товарів НЕМАЄ ніде**: БД очікує 3344 шляхи виду `6926811234_shampun-pena...jpg` (prom.ua-стиль), а на FTP eHoster лежав чужий каталог (shokeru, електрошокери) — 1041 файл викачано помилково і видалено, НЕ комітити. РОЗВ'ЯЗАНО 2026-08-10: всі картинки живі на CDN prom.ua — викачано 5015/5015 файлів через `https://images.prom.ua/<імʼя-файлу>` у локальний `image/` (шляхи в БД — голі імена файлів без підкаталогів). 984MB, у git НЕ комітяться (/image/*.jpg у .gitignore, патерн hydrophob) — на сервер переносити окремим rsync.
 - Сервер: Hetzner 46.224.100.254 (CloudPanel), сайт `autochemicals.com.ua` створено 2026-08-10 (`clpctl site:add:php`, PHP 8.3, site user `autochemicals`, креди в secrets/ACCESS.md). Код задеплоєно через `git archive main | tar -x`, права autochemicals:autochemicals, dirs 750/files 640, storage+image/cache 770.
@@ -58,7 +58,7 @@
 ## 2026-08-10 — СТРУКТУРА ГІЛОК (фінальна, за явним рішенням користувача)
 - `main` = секційна верстка з Lovable (ex autocheckout-pro, 9c62461) — джерело редизайну для майбутньої натяжки (патерн hydrophob).
 - `openCart` = ВЕСЬ код магазину OpenCart (вся історія комітів; 808d8e4+) — з неї деплой на прод.
-- ЛОКАЛЬНО в /Applications/MAMP/htdocs/autochemicals checked out `openCart` (НЕ main!) — MAMP і деплой працюють з неї. Не перемикати на main у цій теці (знесе робочі файли магазину з working tree).
+- ЛОКАЛЬНО в /Applications/MAMP/htdocs/NanoChemicalGroup/products/nanochemical/autochemicals checked out `openCart` (НЕ main!) — MAMP і деплой працюють з неї. Не перемикати на main у цій теці (знесе робочі файли магазину з working tree).
 - Історія плутанини: користувач перейменував autocheckout-pro → autochemicals у GitHub UI (старе репо звільнив), я відновлював з локалу; потім за уточненням користувача гілки поміняно місцями force-push-ем. Гілку lovable-fallback (авто-створена Lovable-інтеграцією при force-push) видалено.
 
 ## 2026-08-10 — main очищено, сабдомен верстки

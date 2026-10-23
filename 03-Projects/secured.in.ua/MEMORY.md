@@ -5,7 +5,7 @@ The user explicitly changed the deployment target to a NEW SUBDOMAIN and confirm
 
 ## Branches and local checkout
 - Repository: pprintdim/secured.in.ua.
-- Root: /Applications/MAMP/htdocs/secured.in.ua, now on orphan branch `openCart`, pushed commit `9c1bef2`.
+- Root: /Applications/MAMP/htdocs/NanoChemicalGroup/central-office/trading-house/secured.in.ua, now on orphan branch `openCart`, pushed commit `9c1bef2`.
 - `html/`: ignored worktree `main`, sectional PHP layout (19 pages), commit `66f5ad5`, served at https://html.secured.in.ua.
 - `lovable`: original React/TanStack/Tailwind v4 design source; preserved.
 - Layout data: html/data/*.json; photos: html/img/; CSS: html/css/style.css. Layout CSS builder uses Tailwind CLI from the prior Claude scratchpad.
@@ -114,7 +114,7 @@ Guest HTTPS 503 with branded maintenance; admin login 200 -> dashboard; authenti
 - **Свідома різниця**: інфо-сторінки у верстці — картки у 2 колонки, у магазині один блок редакторського HTML (`info-content`), бо текст живе в БД.
 - **Бек модулів**: поля всіх адмін-форм (hero зі слайдами й відео+інтервал, hits, advantages, cta, design/welcome, shipping/delivery з цінами по 5 способах, theme/secured) збігаються з тим, що читає каталог; мовні ключі є в uk/ru/en. Скрипт-аудит спершу дав хибні позитиви: шаблонні цикл-змінні (`slide_index`, `item`, `icon`) і поля з динамічними іменами (`name="{{ cost.name }}"`) — перевіряти треба з урахуванням twig-циклів.
 - **Виправлено в беку** (коміт 1b3b35c): `delivery` — `text_none`/`text_all_zones` (підписи селектів зон були порожні) ×3 мови; `config_webp` — не мав керування в адмінці, тепер перемикач у Налаштування → Сервер; `quick_order_email` — не мав поля, тепер «Email для заявок в один клік» у Налаштування → Пошта як `config_quick_order_email` (старий ключ лишився фолбеком у `common/quick_order.php`).
-- **Профільний агент `page-auditor` двічі відмовився** виконувати аудит: сесія відкрита в `/Applications/MAMP/htdocs/shokeru`, а проєкт — `/Applications/MAMP/htdocs/secured.in.ua`, і він спрацював на глобальне правило «не чіпати сусідній проєкт» (навіть після уточнення від координатора — вважає, що потрібне слово самого користувача). Висновок: для secured.in.ua субагентам-аудиторам або запускати сесію з теки проєкту, або робити звірку самому.
+- **Профільний агент `page-auditor` двічі відмовився** виконувати аудит: сесія відкрита в `/Applications/MAMP/htdocs/shokeru`, а проєкт — `/Applications/MAMP/htdocs/NanoChemicalGroup/central-office/trading-house/secured.in.ua`, і він спрацював на глобальне правило «не чіпати сусідній проєкт» (навіть після уточнення від координатора — вважає, що потрібне слово самого користувача). Висновок: для secured.in.ua субагентам-аудиторам або запускати сесію з теки проєкту, або робити звірку самому.
 
 ## Trello: звідки беру правки (2026-10-01)
 - Борд **«MAX All Basic Testing»** (`6abb7bf481487defe6ecf2f9`, https://trello.com/b/xrl6HY2J/max-all-basic-testing), колонки: `Необхідно` `6abb7bf481487defe6ecf2ff`, **`Правки` `6abb7bf481487defe6ecf300`** (звідти беруться завдання), `Готово` `6abb7bf481487defe6ecf301`.

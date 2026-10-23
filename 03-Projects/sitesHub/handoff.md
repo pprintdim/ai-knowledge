@@ -38,7 +38,7 @@ rsync -az --exclude .git --exclude node_modules --exclude tests --exclude .env \
 ```
 
 ### Старий хостинг (ukraine.com.ua) — DECOMMISSIONED, лишити як холодний бекап
-- SSH/SFTP: `cc623309@cc623309.ftp.tools` (пароль у `/Applications/MAMP/htdocs/pprintdim/.vscode/sftp.json`; тільки password-auth, `<REDACTED — див. ~/AI-Workspace/secrets/ACCESS.md>`).
+- SSH/SFTP: `cc623309@cc623309.ftp.tools` (пароль у `/Applications/MAMP/htdocs/other/own/pprintdim/.vscode/sftp.json`; тільки password-auth, `<REDACTED — див. ~/AI-Workspace/secrets/ACCESS.md>`).
 - Структура була: `/home/cc623309/pprintdim.com/{sites/, sites_apps/, sites_gate/, promParser/}`.
 - **`bot:start`/`queue:work` там ЗУПИНЕНІ вручну 2026-07-27** (щоб не було двох живих Telegram-ботів після переїзду). Код і БД (`cc623309_prom`/`cc623309_sites` @ `cc623309.mysql.tools`) НЕ видалені — лишені як холодний бекап на випадок відкату. DNS `sites.pprintdim.com` більше на цей сервер НЕ вказує.
 

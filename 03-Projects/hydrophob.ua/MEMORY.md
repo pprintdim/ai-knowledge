@@ -2,7 +2,7 @@
 
 Факти для наступних задач (повна історія — `handoff.md`, технічка верстки — `project.md`).
 
-- Розташування (з 2026-08-07): усі три сайти в `/Applications/MAMP/htdocs/hydrophob/` — `hydrophob.ua` (цей, sectional-PHP), `hydrophob.net` (OpenCart-порт), `hydrophob.net.ua` (лендінг), і **спільна `materials/`** (content/, products.csv, reviews-prom.csv, seo/, source-images/, video-new/) — шлях з репо `../materials/`. Усередині репо materials більше нема.
+- Розташування (з 2026-08-07): усі три сайти в `/Applications/MAMP/htdocs/NanoChemicalGroup/products/nanochemical/hydrophob/` — `hydrophob.ua` (цей, sectional-PHP), `hydrophob.net` (OpenCart-порт), `hydrophob.net.ua` (лендінг), і **спільна `materials/`** (content/, products.csv, reviews-prom.csv, seo/, source-images/, video-new/) — шлях з репо `../materials/`. Усередині репо materials більше нема.
 - PSD-макети: тека `Fin PSD/` перейменована на `maket/` (1920/PSD/*.psd, Fonts/Montserrat, mobile) — лежить у репо, **не в git і не в `.gitignore`** → перед `git add -A` перевіряти, щоб не залетіла в коміт.
 - Стек: PHP без фреймворку, секції в `sections/*.php`, дані — `data/*.json`; `css/style.css` = десктоп, `css/media.css` підключений з `media="(max-width: 767px)"` (у ньому без `@media`-обгорток); JS — один `js/index.js`.
 - Спільні дата-хелпери винесені в `sections/helpers.php` (`hp_cache_bust`, `hp_find_filter`, ...) — задумано так, щоб при порті на OpenCart 3 кожна функція 1:1 ставала методом Model/Helper.

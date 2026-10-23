@@ -56,7 +56,7 @@
 - Модуль `extension/shipping/delivery` (НП/Укрпошта/Meest/кур'єр 150 ₴/самовивіз в одному getQuote) портовано з hydrophob.net (`hp_panel` → `admin`), три мови; стоковий `flat` вимкнено (`shipping_flat_status=0`), `free`/`pickup` не встановлені. Платежі: cod + free_checkout (bank_transfer не встановлений — без реквізитів). `config_checkout_guest=1`.
 - Чекаут односторінковий (`checkout/checkout.twig`, 3 панелі + підсумок), без jQuery; сабміт — fetch-ланцюг стокових ендпоінтів за `02-Knowledge/OpenCart3/checkout.md` (guest/save з `shipping_address=1` → GET shipping_method → save → GET payment_method → save → GET confirm → POST extension/payment/<code>/confirm). Власні мовні ключі з префіксом `co_*` (43 шт/мова). Стокові покрокові twig і `js/checkout.js` лишились як fallback.
 - Посів — `catalog/view/theme/shoker/shipping.sql` (ідемпотентно). Перевірено HTTP-ланцюгом на проді: 5 способів доставки + cod у формі.
-- 2026-09-15: `html.shoker.in.ua` повернуто (DNS A html у зоні 1462714, сайт CloudPanel, LE, верстка з гілки `main` репо `/Applications/MAMP/htdocs/shokeru/ shoker.in.ua` — у назві теки є пробіл на початку); креди в ACCESS.md.
+- 2026-09-15: `html.shoker.in.ua` повернуто (DNS A html у зоні 1462714, сайт CloudPanel, LE, верстка з гілки `main` репо `/Applications/MAMP/htdocs/NanoChemicalGroup/central-office/trading-house/shoker.in.ua` — у назві теки є пробіл на початку); креди в ACCESS.md.
 
 ## 2026-10-03 — нова натяжка на сабдомені oc.shoker.in.ua (домен не чіпаємо)
 - Вереснева натяжка (тема `shoker`, модулі, delivery, чекаут) була НЕзакомічена 198 файлів → закомічено знімком у `openCart` (56288ca/6bfc1e6), кореневий checkout = `openCart` = домен (shoker-deploy.sh rsync-ає робочу теку — не перемикати кореневий checkout на іншу гілку!).
@@ -102,7 +102,7 @@
 - Аудити UX (headless) по shoker/secured/shokstore/shokeru → правки двома агентами на сайт (каркас/головна vs каталог/чекаут, розділення файлів).
 - Фільтри всієї групи: `filterCondition()` — одна умова GROUP BY/HAVING замість вкладених IN по групах (35 id клали сайт на 70 с). Аліас НЕ `groups` (MySQL 8 reserved).
 - shoker: listingRedirect санітизує sort/order/limit/page/filter і не редиректить на ту саму адресу (була петля); сорт — `[data-sort-nav]` + location.href; фільтри будуються від `filter_base`; `shoker_block` (відео/формати/консультація/кроки/переглянуті/підписка, `common/quick_order/consult|subscribe`), drawer-меню, FAB, топбар, success з деталями (контракт `order.order_id`, `order_items`, `order_totals`, `account_href`), контакти `/contacts?sent=1`. Пастка: у каталозі `DIR_CATALOG` немає — `DIR_APPLICATION`.
-- secured: вкладки товару як у Lovable (Відео/Комплектація завжди, фолбеки), слайдери/FAQ/відгуки/консультація на головній (`home_modules.sql`), success з деталями; локальний репо — `/Applications/MAMP/htdocs/secured.in.ua` (гілка openCart, деплой `tools/deploy.py` після push).
+- secured: вкладки товару як у Lovable (Відео/Комплектація завжди, фолбеки), слайдери/FAQ/відгуки/консультація на головній (`home_modules.sql`), success з деталями; локальний репо — `/Applications/MAMP/htdocs/NanoChemicalGroup/central-office/trading-house/secured.in.ua` (гілка openCart, деплой `tools/deploy.py` після push).
 - shokstore: пошук розширюється на ПК, повноекранний на телефоні; тулбар каталогу в 2 рядки; `min-width:0` для секцій (стрічка категорій розтягувала сторінку).
 - Видалено `shockstore.pprintdim.com` (старий макет), архів у `shokstore/backups/`.
 - Відгуки засіяно (6) на shoker/secured/shokstore; `config_review_guest=1` на трьох.

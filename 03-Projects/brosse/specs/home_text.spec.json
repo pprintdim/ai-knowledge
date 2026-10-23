@@ -1,0 +1,45 @@
+{
+  "code": "home_text",
+  "order": 3,
+  "purpose": "Центрований текстовий маніфест: великий display-абзац із інлайн-піґулкою «brosse», підзаголовок дрібним і CTA «Детальніше» → сторінка «Про нас».",
+  "source": {
+    "html": "index.html — третій <section class=\"container-site py-16 text-center\">",
+    "tsx": "src/routes/index.tsx рядки 60–66",
+    "mockup": "Home.jpg — у макеті в абзац вплетений ще бейдж із кросівком (як у hero); у HTML його НЕМА. Істина — HTML; за потреби додати опційне поле badge_image."
+  },
+  "layout_position": "content_top, позиція 3",
+  "outer_markup": {
+    "skeleton": [
+      "<section class=\"container-site py-16 text-center\">",
+      "  <p data-reveal=\"true\" class=\"mx-auto max-w-3xl font-display text-xl leading-relaxed md:text-3xl\">{{ heading_html }}</p>",
+      "  <p class=\"mx-auto mt-6 max-w-lg text-xs text-muted-foreground\">{{ text }}</p>",
+      "  <div class=\"mt-10\">{{ arrow_link(cta_text, cta_href) }}</div>",
+      "</section>"
+    ],
+    "pill": "Інлайн-піґулка в heading: <span class=\"rounded-full bg-ink px-3 text-ink-foreground\">brosse</span>. Поле heading — textarea з HTML або текст із плейсхолдером {pill:brosse}.",
+    "auto_reveal_note": "Другий <p> і <a.group> без data-reveal — їх підхоплює глобальний авто-reveal (useRevealAll: усі main h1,h2,h3,p,img,video,form,li,button.group,a.group без явного data-reveal/.slide-in/data-noreveal отримують data-reveal=\"\" і --d = (i%4)*0.08s). При порті або відтворити авто-тегер у theme.js, або проставити data-reveal явно."
+  },
+  "fields": [
+    {"name": "heading", "type": "textarea_html", "multilang": true, "default": "Lorem Ipsum is simply <span class=\"rounded-full bg-ink px-3 text-ink-foreground\">brosse</span> dummy text of the printing and typesetting industry. Ipsum has been the industry's", "note": "плейсхолдерний текст — замовник має дати реальний"},
+    {"name": "text", "type": "textarea", "multilang": true, "default": "Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."},
+    {"name": "cta_text", "type": "text", "multilang": true, "default": "Детальніше"},
+    {"name": "cta_link", "type": "link", "default": "/about → index.php?route=information/information&information_id={{ about }} (у hydrophob-еталоні окремий модуль/роут about; тут достатньо information page з власним шаблоном)"}
+  ],
+  "assets": [],
+  "behaviour": {
+    "reveal": "heading data-reveal (translateY(40px)→0, .9s); решта через авто-reveal з каскадною затримкою",
+    "arrow_link": "hover: текст -translate-x-1, коло translate-x-2 scale-110, заливка .magnet-fill::before scale(0→1) акцентом, стрілка -rotate-45 (див. README)"
+  },
+  "responsive": {
+    "base": "text-xl heading, max-w-3xl; текст text-xs max-w-lg",
+    "md": "heading md:text-3xl"
+  },
+  "accessibility": {
+    "cta": "звичайне <a> з текстом «Детальніше» — доступне; піґулка — просто span"
+  },
+  "opencart": {
+    "module_type": "single-instance home_text, content_top sort 3",
+    "admin_form": "heading — textarea (або CKEditor із обмеженням), text — textarea, cta_text — text, cta_link — text (route або URL); мультимовність через вкладки",
+    "route": "information/information&information_id=<ID сторінки «Про нас»>; ID зберігати в налаштуванні модуля (select зі списку information pages), не хардкодити 4"
+  }
+}

@@ -1,6 +1,6 @@
 # stocrm (Mechora) — PROJECT
 
-- **Repo**: `pprintdim/stocrm` (`main` = Laravel; `lovable` = React UI джерело); локально `/Applications/MAMP/htdocs/stocrm`
+- **Repo**: `pprintdim/stocrm` (`main` = Laravel; `lovable` = React UI джерело); локально `/Applications/MAMP/htdocs/other/own/stocrm`
 - **Stack**: Laravel 13 + Inertia.js + React + TypeScript — міні-CRM для СТО
 - **Прод**: Hetzner `46.224.100.254` (той самий сервер, що hydrophob.net), CloudPanel :8443, домен `sto.pprintdim.com`
 - **Патерн розробки** (стояча інструкція): модель за моделлю повним стеком — міграція → модель (`toFrontendArray`) → Policy → Form Request → контролер → реальні Inertia props (не mock) → curl CRUD-перевірка по ролях → коміт → періодичний деплой

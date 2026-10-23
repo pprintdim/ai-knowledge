@@ -28,3 +28,17 @@
 
 ## 2026-09-09 — html-сабдомен верстки знято
 - Верстка = гілка `main` репо pprintdim/realchem. 2026-09-15 `html.realchem.com.ua` повертали на сервер, 2026-10-04 знову знято (сайт + сертифікат + DNS `html`) — еталон тільки з git.
+## 2026-10-17 — відео у hero (одноразово з сесії brosse, за прямим проханням)
+- Hero-слайдер: у схемі слайдів нове поле `video` (медіа-плитка «Відео слайда» в адмінці, підписи uk/ru/en). Якщо задане — у twig замість `<img>` вертикальний `<video>` 9:16 (max-width 440px, inline-стилі, картинка = постер); `index.js` грає лише активний слайд. Коміт `fc6e11f` на `openCart`, задеплоєно.
+- Ролик `image/catalog/video/hero-man.mp4` (1080×1920, 6 с, 9,7 МБ, з brosse) — на проді й локально (не в git). У БД slides[0].video проставлено скриптом у всіх трьох мовах (oc_module id=32); бекап рядка — `realChem/backups/backup-oc_module-home_hero-20261017112032.json`.
+- Граблі: `db.php` не містить `DB_PREFIX` (він у config.php) — CLI-скриптам брати префікс з config.php.
+## 2026-10-22 — бренди групи Nano Max Systems: Real Chem ⇄ Brosse (коміт 405066c на openCart, задеплоєно)
+- Шапка: пігулка-перемикач біля лого (`.brand-switch--header`, активний Real Chem, посилання Brosse) — лише від **1360px**: на 1100–1360 лого 320px + 6 пунктів меню з трекінгом не влазять (на 1180 «О НАС» переносилось і перемикач налазив на меню). Нижче — перемикач у меню-оверлеї під навігацією (36px, 12px). Підвал: картка `.footer-sister` у колонці «Контакти». CSS — кінець `custom.css` (свої класи, не Tailwind).
+- Адреса — `system/library/realchem/sister.php` (`RealchemSister::get($registry)`), мова зберігається: поточна `config_language` ≠ `config_language_default` (реєстр, ставить seo_url) → додається `/ru/`.
+- Налаштування → Загальне → «Brosse: адреса сайту», ключ **`config_rc_sister_url`** (не `realchem_*`: editSetting('config') пише лише ключі з префіксом `config`). Рядка в БД ще нема — код бере https://brosse.com.ua/; при збереженні форми невалідне/порожнє → дефолт.
+- Тексти: `brands_aria` у content realchem_header/menu_overlay/footer, `sister_lead`/`sister_text` у realchem_footer (uk/ru/en).
+- Граблі деплою: у zsh `$(git diff --name-only)` не розбивається на слова → rsync «strlcat: File name too long»; заливати `tar czf - -T список | ssh ... tar xzf -`. Twig-кеш: `/home/realchem/htdocs/storage/cache/template/`. Локальний клон: `~/AI-Workspace/worktrees/realchem-openCart`.
+
+## 2026-10-22 — плавна анімація перемикача брендів (як на brosse)
+- `javascript/index.js` (окремий IIFE в кінці): у кожен `.brand-switch` вставляється `.brand-switch__ind`, позиція через `--ind-x/--ind-w` (offsetLeft/Width; load, fonts.ready, ResizeObserver — оверлей прихований на старті). Hover/focus Brosse → пігулка їде й стає `--lavender`. Клік → `is-going`, через 220 мс `html.site-leaving` (згасання+blur), через 620 мс перехід; reduced-motion — одразу; `pageshow.persisted` скидає.
+- `header.twig` одразу після `<meta charset>` — інлайн-скрипт: referrer `(^|\.)brosse\.com\.ua$` → `html.site-enter` (поява .6s). CSS — останній блок `custom.css`.

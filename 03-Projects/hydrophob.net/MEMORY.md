@@ -2,7 +2,7 @@
 
 Факти для наступних задач (reusable-частина винесена в [[02-Knowledge/OpenCart3/INDEX|Knowledge]]).
 
-- Розташування (з 2026-08-07): усі три сайти в `/Applications/MAMP/htdocs/hydrophob/` — `hydrophob.net` (OpenCart), `hydrophob.ua` (sectional-PHP, джерело верстки), `hydrophob.net.ua` (лендінг), і **спільна `materials/`** (content/, products.csv, reviews-prom.csv, seo/, source-images/, video-new/) — шлях з репо `../materials/`.
+- Розташування (з 2026-08-07): усі три сайти в `/Applications/MAMP/htdocs/NanoChemicalGroup/products/nanochemical/hydrophob/` — `hydrophob.net` (OpenCart), `hydrophob.ua` (sectional-PHP, джерело верстки), `hydrophob.net.ua` (лендінг), і **спільна `materials/`** (content/, products.csv, reviews-prom.csv, seo/, source-images/, video-new/) — шлях з репо `../materials/`.
 - Верстку звіряти з `git show main:<файл>` (sections/*, helper/general.php — іконки, контакти).
 - Патерн сторінок: route-контролер + модулі `<page>_*` через layout ([[02-Knowledge/OpenCart3/modules|modules]]); About-layout 14 ділять виробник і дилери.
 - Route-слаги: `/katalog`, `/vidguky|/otzyvy`, `/poshuk`, `/kontakty`, `/koshyk|/korzina`, `/staty-dylerom|/stat-dilerom`, `/pro-vyrobnyka`; account-слаги vhid/kabinet/zamovlennia/obrane/moi-dani (+ru). Нові route → у safe-list `startup/seo_url.php`.
@@ -28,7 +28,7 @@
 - Піддомен-вітрина верстки: **html.hydrophob.net** (2026-08-13) — CloudPanel-сайт, site user `htmlhydrophobnet`, корінь `/home/htmlhydrophobnet/htdocs/html.hydrophob.net`, PHP 8.3, Lets Encrypt стоїть. Джерело — гілка **`main` ЦЬОГО репо** (sectional-PHP, `sections/*`), НЕ тека `hydrophob.ua` — це різні верстки, не плутати, синк `rsync --delete` з виключенням `.git/maket/backups`. DNS-зона hydrophob.net у Hetzner (zone_id 1455625), API вже НЕ `dns.hetzner.com`, а `https://api.hetzner.cloud/v1/zones/<id>/rrsets` з `Authorization: Bearer` і тілом `{"name","type","ttl","records":[{"value"}]}`.
 - Домен `hydrophob.ua` більше не віддає верстку: у vhost `location /` замінено на `301 https://html.hydrophob.net$request_uri` (бекап конфіга — `/root/hydrophob.ua.conf.bak-*`), htdocs очищено. Локальна тека `hydrophob.ua` лишилась як є.
 - Гілка `lovable` (React) ЖИВА і продовжує оновлюватись — ПЕРЕД будь-яким порівнянням робити `git fetch origin`, інакше аналіз буде по застарілому стану (наступив на це 2026-08-13). Портовано в main: слайдер «Популярні відгуки» (5ed1843), hero-слайдер `hp-heroslider` + FAQ-акордеон `hp-faq` (f1f0e95). Решта відмінностей lovable — заглушки (широка картка `hp-card--wide`, `hp-facts`, текстове лого) або місця, де main пішов далі.
-- Робоча локальна тека верстки — **git worktree гілки `main`**: `/Applications/MAMP/htdocs/hydrophob/html.hydrophob.net`, усередині `deploy.sh` (rsync на сабдомен, `--full` = з `--delete`). Тека `hydrophob.ua` до сабдомена стосунку не має.
+- Робоча локальна тека верстки — **git worktree гілки `main`**: `/Applications/MAMP/htdocs/NanoChemicalGroup/products/nanochemical/hydrophob/html.hydrophob.net`, усередині `deploy.sh` (rsync на сабдомен, `--full` = з `--delete`). Тека `hydrophob.ua` до сабдомена стосунку не має.
 - Hero в OC — той самий інстансний модуль, але з опційними слайдами: у формі два додаткові слоти (`slides[i][image]` + per-language title/text); заповнені → рендериться `hp-heroslider` (Swiper fade, autoplay 6s), порожні → звичайний одноекранний hero. FAQ — окремий модуль `faq` (repeater `items`: question/answer) у layout Головна.
 - Верстка живе в `<проєкт>/html` (git worktree гілки `main`) + `deploy.sh` усередині; `/html/` у .gitignore.
 

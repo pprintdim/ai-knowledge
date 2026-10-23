@@ -1,4 +1,4 @@
-> [!note] Імпортовано з `/Applications/MAMP/htdocs/starlife/handoff.md` 2026-08-07 (DOCS-POLICY). Санітизовано секретів: 1. Оригінал: untracked, видалений.
+> [!note] Імпортовано з `/Applications/MAMP/htdocs/other/clients/starlife/handoff.md` 2026-08-07 (DOCS-POLICY). Санітизовано секретів: 1. Оригінал: untracked, видалений.
 
 # Handoff — starlife (WordPress)
 

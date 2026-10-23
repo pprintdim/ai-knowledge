@@ -1,11 +1,11 @@
 # galaxymarket — команди локального розгортання (MAMP)
 
-Проєкт: Drupal 10.6 (composer, web-root = корінь репо). Локально: `/Applications/MAMP/htdocs/galaxymarket`, repo `git@github.com:YakovDY/galaxymarket.git`.
+Проєкт: Drupal 10.6 (composer, web-root = корінь репо). Локально: `/Applications/MAMP/htdocs/other/clients/galaxymarket`, repo `git@github.com:YakovDY/galaxymarket.git`.
 Гілки: `master` = прод (push → CI/CD авто-деплой на Mirohost), робоча — `redesign`.
 
 ## 0. Git
 ```bash
-cd /Applications/MAMP/htdocs/galaxymarket
+cd /Applications/MAMP/htdocs/other/clients/galaxymarket
 git checkout redesign            # робоча гілка
 git fetch origin && git rebase origin/master   # підтягнути прод-зміни
 # мердж у master — ТІЛЬКИ після перевірки й команди власника

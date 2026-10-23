@@ -37,7 +37,7 @@ _Останнє оновлення: 2026-07-25_
 ## 🖥 Локальний стенд MAMP (підготовлений, чекає дамп БД)
 
 Зроблено:
-- Симлінк `/Applications/MAMP/htdocs/well` → `/Users/pprintdim/Desktop/vs_projects/well`.
+- Симлінк `/Applications/MAMP/htdocs/other/clients/well` → `/Users/pprintdim/Desktop/vs_projects/well`.
 - MAMP: Apache `localhost:8888`, MySQL 8.0 `127.0.0.1:8889` (root/root), PHP 8.3 (як буде ламатись OC3 — переключити на 7.4, встановлений).
 - Локальні `config.php` + `admin/config.php` під MAMP написані (URL `http://localhost:8888/well/`, БД `well_ua@127.0.0.1:8889`).
 - Серверні конфіги збережені: `config.server.php.bak`, `admin/config.server.php.bak` (в .gitignore).

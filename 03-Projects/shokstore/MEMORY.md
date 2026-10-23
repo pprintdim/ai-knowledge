@@ -1,7 +1,7 @@
 # shokstore — MEMORY
 
 ## Репозиторій і гілки (2026-09-22)
-- Репо `pprintdim/radiant-redesign` (тека `/Applications/MAMP/htdocs/shokeru/shokstore`, всередині контейнера shokeru).
+- Репо `pprintdim/radiant-redesign` (тека `/Applications/MAMP/htdocs/NanoChemicalGroup/central-office/trading-house/shokstore`, всередині контейнера shokeru).
 - `main` — попереднє покоління верстки (`site/` — секційний PHP з блоками, `analysis/` — аудит живого shokstore.com.ua від 11.07.2026).
 - `html` — **нова верстка від Lovable**: 24 самодостатні макети `html/shokstore-*.html` (дублюються в `public/html/`), 6 старих без префікса — попереднє покоління; плюс обгортка TanStack Start (`src/`, `.lovable/`), `roadmap.md` зі статусом сторінок.
 - `lovable` — знімок гілки `html` станом на 2026-09-22 (`a06d651`), зроблений перед портом, щоб джерело Lovable не загубилось.

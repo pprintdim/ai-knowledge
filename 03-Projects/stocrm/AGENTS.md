@@ -1,4 +1,4 @@
-> [!note] Імпортовано з `/Applications/MAMP/htdocs/stocrm/AGENTS.md` 2026-08-07 (DOCS-POLICY). Санітизовано секретів: 0. Оригінал: tracked, лишився в repo.
+> [!note] Імпортовано з `/Applications/MAMP/htdocs/other/own/stocrm/AGENTS.md` 2026-08-07 (DOCS-POLICY). Санітизовано секретів: 0. Оригінал: tracked, лишився в repo.
 
 <!-- LOVABLE:BEGIN -->
 > [!IMPORTANT]

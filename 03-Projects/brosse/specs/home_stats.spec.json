@@ -1,0 +1,56 @@
+{
+  "code": "home_stats",
+  "order": 5,
+  "purpose": "Три цифри-досягнення (Взуття + 24k, Одяг + 12k, Клієнтів 98%) з count-up анімацією при появі у в'юпорті, кожна з підписом.",
+  "source": {
+    "html": "index.html — п'ятий <section class=\"container-site grid gap-10 py-20 md:grid-cols-3\"> (у пререндері цифри = 0, бо count-up стартує з 0)",
+    "tsx": "src/routes/index.tsx рядки 70–74 (масив [[\"Взуття\",24,\"+ \",\"k\"],[\"Одяг\",12,\"+ \",\"k\"],[\"Клієнтів\",98,\"\",\"%\"]]); src/components/brand.tsx → CountUp",
+    "mockup": "Home.jpg — під цифрами є другий дрібний рядок «DAUBER / CLASSIC SUEDE / PREMIUM / SOLE», у HTML його нема; істина — HTML"
+  },
+  "layout_position": "content_top, позиція 5",
+  "outer_markup": {
+    "skeleton": [
+      "<section class=\"container-site grid gap-10 py-20 md:grid-cols-3\">",
+      "  <!-- n× (k = 0..n-1) -->",
+      "  <div data-reveal=\"true\" style=\"--d:{{ k*0.15 }}s\">",
+      "    <p class=\"text-xs uppercase\">{{ item.label }}</p>",
+      "    <p class=\"font-display text-4xl\"><span data-countup=\"{{ item.value }}\" data-prefix=\"{{ item.prefix }}\" data-suffix=\"{{ item.suffix }}\">{{ item.prefix }}0{{ item.suffix }}</span></p>",
+      "    <p class=\"mt-2 text-[10px] text-muted-foreground\">{{ item.text }}</p>",
+      "  </div>",
+      "</section>"
+    ],
+    "ssr_note": "У пререндері span містить «+ 0k» / «0%» (пробіл після плюса — частина prefix «+ »). Для noscript/SEO можна одразу вивести кінцеве значення і анімувати від 0 у JS."
+  },
+  "fields": [
+    {"name": "items", "type": "repeater", "count_default": 3, "fields": [
+      {"name": "label", "type": "text", "multilang": true},
+      {"name": "value", "type": "number", "note": "ціле; анімується від 0"},
+      {"name": "prefix", "type": "text", "note": "зберігати з пробілом, напр. «+ »"},
+      {"name": "suffix", "type": "text"},
+      {"name": "text", "type": "textarea", "multilang": true}
+    ], "default": [
+      {"label": "Взуття",   "value": 24, "prefix": "+ ", "suffix": "k", "text": "Lorem Ipsum is simply dummy text of the printing"},
+      {"label": "Одяг",     "value": 12, "prefix": "+ ", "suffix": "k", "text": "Lorem Ipsum is simply dummy text of the printing"},
+      {"label": "Клієнтів", "value": 98, "prefix": "",   "suffix": "%", "text": "Lorem Ipsum is simply dummy text of the printing"}
+    ]},
+    {"name": "duration_ms", "type": "number", "default": 1400}
+  ],
+  "assets": [],
+  "behaviour": {
+    "countup": "IntersectionObserver (без threshold → будь-який перетин) на span; при першому перетині disconnect, далі rAF-цикл 1400 мс: v = round(to * (1 - (1-p)^3)) (easeOutCubic); текст = prefix + v + suffix.",
+    "reveal": "кожна картка data-reveal з каскадом --d 0 / .15s / .3s",
+    "reduced_motion": "у верстці count-up НЕ вимикається при prefers-reduced-motion (лише reveal). Можна одразу ставити кінцеве значення — не критично."
+  },
+  "responsive": {
+    "base": "одна колонка, gap-10, py-20; цифри text-4xl; підпис text-[10px] (на телефоні це 10px — нижче за правило ≥12px, див. open_questions)",
+    "md": "grid-cols-3"
+  },
+  "accessibility": {
+    "numbers": "span із текстом — читається скрінрідером у поточному стані; для стабільності можна додати aria-live=\"off\" або одразу фінальне значення в DOM і анімувати візуально"
+  },
+  "opencart": {
+    "module_type": "single-instance home_stats, content_top sort 5",
+    "admin_form": "репітер 3+ рядків: label (мультимовно), value, prefix, suffix, text (мультимовно); duration",
+    "js": "[data-countup] у theme.js — універсальний хук (може знадобитись і на /about)"
+  }
+}

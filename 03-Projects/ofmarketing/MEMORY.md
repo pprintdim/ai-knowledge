@@ -1,6 +1,6 @@
 # ofmarketing — стан (2026-08-28)
 
-- Репо `pprintdim/ofmarketing` (SSH remote). Локалка: `/Applications/MAMP/htdocs/ofmarketing`. Домену поки нема — садимо саму верстку на голий Hetzner shared хостинг.
+- Репо `pprintdim/ofmarketing` (SSH remote). Локалка: `/Applications/MAMP/htdocs/other/clients/ofmarketing`. Домену поки нема — садимо саму верстку на голий Hetzner shared хостинг.
 - **`main` = Lovable-проєкт**, і це не звичайний Vite SPA, а **TanStack Start** (SSR, React 19, Tailwind v4, `@lovable.dev/vite-tanstack-config`). Node на shared-хостингу нема → SSR-збірка туди не поїде, тому й робилась окрема верстка.
 - `AGENTS.md` у репо: **не переписувати опубліковану історію `main`** (force-push / rebase / amend) — це ламає історію на боці Lovable. Коміти в `main` синхронізуються назад у редактор Lovable.
 - **`html` — orphan-гілка**, worktree `<проєкт>/html`, у корені `/html/` в .gitignore. Це посекційна PHP-верстка (порт з `main`), одразу під майбутню натяжку на WordPress.

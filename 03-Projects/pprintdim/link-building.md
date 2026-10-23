@@ -1,4 +1,4 @@
-> [!note] Імпортовано з `/Applications/MAMP/htdocs/pprintdim/docs/link-building.md` 2026-08-07 (DOCS-POLICY). Санітизовано секретів: 0. Оригінал: untracked, видалений.
+> [!note] Імпортовано з `/Applications/MAMP/htdocs/other/own/pprintdim/docs/link-building.md` 2026-08-07 (DOCS-POLICY). Санітизовано секретів: 0. Оригінал: untracked, видалений.
 
 # Посилальна маса для pprintdim.com — де і як закупати
 

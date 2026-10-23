@@ -1,4 +1,4 @@
-> [!note] Імпортовано з `/Applications/MAMP/htdocs/stores.crm/opencart-hub/AGENTS.md` 2026-08-07 (DOCS-POLICY). Санітизовано секретів: 0. Оригінал: untracked, видалений.
+> [!note] Імпортовано з `/Applications/MAMP/htdocs/NanoChemicalGroup/central-office/it-digital/stores.crm/opencart-hub/AGENTS.md` 2026-08-07 (DOCS-POLICY). Санітизовано секретів: 0. Оригінал: untracked, видалений.
 
 <!-- LOVABLE:BEGIN -->
 > [!IMPORTANT]

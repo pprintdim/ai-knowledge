@@ -1,4 +1,4 @@
-> [!note] Імпортовано з `/Applications/MAMP/htdocs/stores.crm/CURRENT_STATE.md` 2026-08-07 (DOCS-POLICY). Санітизовано секретів: 2. Оригінал: untracked, видалений.
+> [!note] Імпортовано з `/Applications/MAMP/htdocs/NanoChemicalGroup/central-office/it-digital/stores.crm/CURRENT_STATE.md` 2026-08-07 (DOCS-POLICY). Санітизовано секретів: 2. Оригінал: untracked, видалений.
 
 # Поточний стан CRM
 

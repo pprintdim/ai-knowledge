@@ -2,7 +2,7 @@
 
 ## Репозиторій (з 2026-10-09)
 - GitHub: `pprintdim/startlife` — `main` = WordPress-сайт, `lovable` = Lovable React-джерело дизайну (не чіпати). Старий репо `pprintdim/starlife` підлягає видаленню користувачем (з сесії неможливо — gh не авторизований).
-- Локально: `/Applications/MAMP/htdocs/starlife`; lovable-гілка розгорнута як гітігнорений worktree `lovable-app/` (dev: `bun run dev --port 5181`).
+- Локально: `/Applications/MAMP/htdocs/other/clients/starlife`; lovable-гілка розгорнута як гітігнорений worktree `lovable-app/` (dev: `bun run dev --port 5181`).
 - Локальний рантайм: БД `starlife` у MAMP MySQL (root/root, сокет), гітігнорений `wp-config-local.php` (wp-config.php підхоплює його, інакше — старі проді-креди np588371, той хостинг мертвий/locked). Сайт: http://localhost:8888/starlife
 
 ## Редизайн 2026-10-09 (commit a588963)

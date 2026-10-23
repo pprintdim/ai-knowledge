@@ -1,4 +1,4 @@
-> [!note] Імпортовано з `/Applications/MAMP/htdocs/stores.crm/PHASE_1_READ_ONLY_DB.md` 2026-08-07 (DOCS-POLICY). Санітизовано секретів: 0. Оригінал: untracked, видалений.
+> [!note] Імпортовано з `/Applications/MAMP/htdocs/NanoChemicalGroup/central-office/it-digital/stores.crm/PHASE_1_READ_ONLY_DB.md` 2026-08-07 (DOCS-POLICY). Санітизовано секретів: 0. Оригінал: untracked, видалений.
 
 # Етап 1: read-only CRM напряму з баз OpenCart
 

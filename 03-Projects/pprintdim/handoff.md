@@ -1,4 +1,4 @@
-> [!note] Імпортовано з `/Applications/MAMP/htdocs/pprintdim/handoff.md` 2026-08-07 (DOCS-POLICY). Санітизовано секретів: 4. Оригінал: untracked, видалений.
+> [!note] Імпортовано з `/Applications/MAMP/htdocs/other/own/pprintdim/handoff.md` 2026-08-07 (DOCS-POLICY). Санітизовано секретів: 4. Оригінал: untracked, видалений.
 
 # Handoff — pprintdim.com
 
@@ -11,7 +11,7 @@
   MFA Google Authenticator **обовʼязковий**: перший вхід примусово покаже QR-налаштування.
 
 ## Архітектура (ключове)
-- Laravel 13 + Filament 5.6. Локалка: `/Applications/MAMP/htdocs/pprintdim` (MAMP, serve на :8123).
+- Laravel 13 + Filament 5.6. Локалка: `/Applications/MAMP/htdocs/other/own/pprintdim` (MAMP, serve на :8123).
 - **Одна спільна MySQL** для локалки і проду: `cc623309_pprintdim` @ `cc623309.mysql.tools` (креди в `.env`). Локальні правки контенту = одразу на проді!
 - Контент: `site_pages` (content_html з blade через сидер) + `site_content_fields` (тексти, по секціях) + `site_blocks` (репітери: картки/ціни/FAQ) + `site_cases` (портфоліо) + `site_reviews` (відгуки) + `site_settings` (key-value).
 - Джерело правди — blade у `resources/views/pages/`. Після зміни blade → пайплайн (порядок у README.md) → залити blade на сервер.

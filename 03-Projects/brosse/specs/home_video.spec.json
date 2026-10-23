@@ -1,0 +1,67 @@
+{
+  "code": "home_video",
+  "order": 6,
+  "purpose": "Повноширинний відеобанер у заокругленому темному контейнері на сірому фоні: відео з постером, великий логотип поверх (ховається коли грає), пульт Play / Pause / Звук / смуга прогресу.",
+  "source": {
+    "html": "index.html — шостий <section class=\"bg-surface py-4 md:py-6\">",
+    "tsx": "src/components/site.tsx → VideoBanner(), useVideo(src=brosse.mp4, poster=poster.jpg)",
+    "mockup": "Home.jpg — темне відео з черевиком і лого «brosse» поверх; пульт праворуч знизу. Збігається."
+  },
+  "layout_position": "content_top, позиція 6 (одразу за home_stats; відступи py-4/py-6 малі, бо bg-surface має майже стикатись із сусідніми секціями)",
+  "outer_markup": {
+    "skeleton": [
+      "<section class=\"bg-surface py-4 md:py-6\">",
+      "  <div class=\"container-site\" data-reveal=\"scale\">",
+      "    <div class=\"relative overflow-hidden rounded-[2.5rem] bg-ink\" data-video-banner>",
+      "      <video src=\"{{ video }}\" poster=\"{{ poster }}\" muted loop playsinline preload=\"metadata\" data-vb-video class=\"h-[420px] w-full object-cover md:h-[600px]\"></video>",
+      "      <div data-vb-overlay class=\"pointer-events-none absolute inset-0 grid place-items-center text-[22vw] text-ink-foreground/85 md:text-[13rem]\">{{ logo_svg }}</div>   <!-- видалити/сховати коли playing -->",
+      "      <div class=\"absolute bottom-6 right-6 flex items-center gap-4 rounded-2xl border border-ink-foreground/30 bg-ink/40 px-5 py-3 text-ink-foreground backdrop-blur\">",
+      "        <button aria-label=\"Play\"  data-vb-play  class=\"grid h-8 w-8 place-items-center rounded-full border border-ink-foreground\">{{ icon play h-3 w-3 }}</button>      <!-- playing → + bg-accent border-accent -->",
+      "        <button aria-label=\"Pause\" data-vb-pause class=\"grid h-6 w-6 place-items-center rounded-full border border-ink-foreground/60\">{{ icon pause h-3 w-3 }}</button>",
+      "        <button aria-label=\"Звук\"  data-vb-mute  class=\"opacity-50\">{{ icon volume-2 h-4 w-4 }}</button>                                                           <!-- muted → opacity-50, unmuted → без класу -->",
+      "        <span class=\"relative hidden h-px w-24 bg-ink-foreground/30 sm:block\"><span data-vb-progress class=\"absolute inset-y-0 left-0 bg-accent\" style=\"width:0%\"></span></span>",
+      "      </div>",
+      "    </div>",
+      "  </div>",
+      "</section>"
+    ]
+  },
+  "fields": [
+    {"name": "video", "type": "video", "default": "brosse.mp4"},
+    {"name": "poster", "type": "image", "default": "poster.jpg"},
+    {"name": "show_logo_overlay", "type": "toggle", "default": true},
+    {"name": "label_play", "type": "text", "default": "Play", "note": "aria-label; у верстці англійською"},
+    {"name": "label_pause", "type": "text", "default": "Pause"},
+    {"name": "label_sound", "type": "text", "multilang": true, "default": "Звук"}
+  ],
+  "assets": [
+    {"file": "brosse.mp4", "path": ".output/public/__l5e/assets-v1/8974d59f-7602-4dc3-9607-db2975ed1e28/brosse.mp4", "meta": "h264, потік 568×320 з rotation=-90 у метаданих → відтворюється ВЕРТИКАЛЬНО 320×568; 24.3 s, aac, 2.7 MB. Це єдине джерело розпаковки (MEMORY: «кращого нема»); у банері 600px заввишки з object-cover картинка буде помітно м'яка, а по боках обрізана — див. open_questions у README"},
+    {"file": "poster.jpg", "path": ".output/public/__l5e/assets-v1/30d55b24-7487-4b7c-bcfb-b166fad7f028/poster.jpg", "meta": "320×568; дубль у .output/public/media/unboxing-poster.jpg"}
+  ],
+  "behaviour": {
+    "initial": "не грає автоматично; показаний постер + лого-оверлей; muted=true (кнопка звуку opacity-50); прогрес 0%",
+    "play": "video.play(), playing=true → оверлей з лого прибирається (у React — не рендериться), кнопка Play отримує bg-accent border-accent",
+    "pause": "video.pause(), playing=false → оверлей повертається, Play без акценту",
+    "mute": "toggle muted; клас opacity-50 на кнопці коли muted",
+    "progress": "timeupdate → width = currentTime / (duration || 1) * 100 %",
+    "loop": "loop playsinline preload=metadata",
+    "reveal": "контейнер data-reveal=\"scale\" (scale .92 → 1)"
+  },
+  "responsive": {
+    "base": "h-[420px], лого text-[22vw], смуга прогресу схована (<sm), py-4",
+    "sm": "смуга прогресу видима (w-24)",
+    "md": "h-[600px], лого text-[13rem], py-6",
+    "mobile_mockup": "у мобільному макеті — одна кругла кнопка play по центру; HTML лишає пульт у куті. Істина — HTML."
+  },
+  "accessibility": {
+    "buttons": "aria-label Play / Pause / Звук (можна локалізувати через поля)",
+    "overlay": "pointer-events-none, svg role=img aria-label brosse",
+    "video": "без controls — керування лише кастомне; клавіатура: кнопки — звичайні <button>, фокусовані"
+  },
+  "opencart": {
+    "module_type": "single-instance home_video, content_top sort 6",
+    "admin_form": "video — шлях у image/catalog/video/ (текст або медіатека), poster — image picker, toggle оверлею, 3 підписи",
+    "video_hosting": "mp4 кладеться в image/catalog/video/ (не в git — deploy.sh синкає image/ лише лого/фавікон; відео заливати окремо як у hydrophob: постери/мобільні відео вже є в стартовому наборі)",
+    "js": "[data-video-banner] у theme.js; useVideo-логіка спільна з /product (там теж відео) — винести у функцію initVideo(root)"
+  }
+}

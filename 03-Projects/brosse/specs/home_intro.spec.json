@@ -1,0 +1,90 @@
+{
+  "code": "home_intro",
+  "order": 2,
+  "purpose": "Блок-«розпаковка»: ліворуч 3D-коробка набору (CSS preserve-3d з 6 граней, обертається скролом і drag-ом), праворуч квадрат із лого по центру і п'ятьма «літаючими» щітками з підписами по колу.",
+  "source": {
+    "html": "index.html — другий <section class=\"container-site grid gap-10 py-16 md:grid-cols-[1fr_2fr] md:items-center\">",
+    "tsx": "src/routes/index.tsx (масив brushes + JSX секції), src/components/brand.tsx → Box3D(width=300)",
+    "mockup": "Home.jpg — коробка ліворуч (плоска ілюстрація), щітки по колу навколо лого"
+  },
+  "layout_position": "content_top, позиція 2",
+  "outer_markup": {
+    "skeleton": [
+      "<section class=\"container-site grid gap-10 py-16 md:grid-cols-[1fr_2fr] md:items-center\">",
+      "  <div data-reveal=\"left\">",
+      "    <div data-box3d class=\"relative mx-auto cursor-grab touch-pan-y select-none active:cursor-grabbing\" style=\"width:384px;height:399px;perspective:1400px\">",
+      "      <div data-box3d-cube class=\"absolute inset-0\" style=\"transform-style:preserve-3d;transform:rotateX(14deg) rotateY(-28deg);transition:transform .4s cubic-bezier(.2,.7,.2,1)\">",
+      "        <div class=\"absolute left-1/2 top-1/2 border border-border/40 bg-card\" style=\"background-image:url({{ box_front }});background-size:100% 100%;width:300px;height:315px;margin:-157.5px 0 0 -150px;transform:translateZ(42px)\"></div>",
+      "        <div class=\"absolute left-1/2 top-1/2 border border-border/40 bg-card\" style=\"background-image:url({{ box_back }});background-size:100% 100%;width:300px;height:315px;margin:-157.5px 0 0 -150px;transform:rotateY(180deg) translateZ(42px)\"></div>",
+      "        <div class=\"absolute left-1/2 top-1/2 border border-border/40 bg-card\" style=\"background-image:url({{ box_side }});background-size:100% 100%;width:84px;height:315px;margin:-157.5px 0 0 -42px;transform:rotateY(90deg) translateZ(150px)\"></div>",
+      "        <div class=\"absolute left-1/2 top-1/2 border border-border/40 bg-card\" style=\"background-image:url({{ box_side }});background-size:100% 100%;width:84px;height:315px;margin:-157.5px 0 0 -42px;transform:rotateY(-90deg) translateZ(150px)\"></div>",
+      "        <div class=\"absolute left-1/2 top-1/2 border border-border/40 bg-card\" style=\"background-size:100% 100%;width:300px;height:84px;margin:-42px 0 0 -150px;transform:rotateX(90deg) translateZ(157.5px)\"><div class=\"grid h-full place-items-center text-[length:var(--s)] text-foreground\" style=\"--s:21.428571428571427px\">{{ logo_svg }}</div></div>",
+      "        <div class=\"absolute left-1/2 top-1/2 border border-border/40 bg-card\" style=\"background-size:100% 100%;width:300px;height:84px;margin:-42px 0 0 -150px;transform:rotateX(-90deg) translateZ(157.5px);box-shadow:0 0 75px oklch(0 0 0 / .35)\"></div>",
+      "      </div>",
+      "    </div>",
+      "  </div>",
+      "  <div class=\"relative mx-auto aspect-square w-full max-w-xl\">",
+      "    <div class=\"absolute inset-0 grid place-items-center\"><span class=\"inline-flex text-5xl\">{{ logo_svg }}</span></div>",
+      "    <!-- 5× -->",
+      "    <div data-reveal=\"scale\" style=\"--d:{{ i*0.12 }}s\" class=\"absolute {{ item.position_classes }} flex flex-col items-center gap-2 text-[10px]\">",
+      "      <img src=\"{{ item.image }}\" alt=\"Щітка {{ item.label }}\" loading=\"lazy\" style=\"--r:{{ item.rotate }};transform:rotate({{ item.rotate }})\" class=\"float h-28 w-auto drop-shadow-xl md:h-40\" data-parallax=\"0.08\"/><span>{{ item.label }}</span>",
+      "    </div>",
+      "  </div>",
+      "</section>"
+    ],
+    "box_geometry": "Box3D(width=300): h = round(300*472/450) = 315, d = round(300*126/450) = 84; контейнер width+d = 384, height h+d = 399; грані: front translateZ(d/2=42), back rotateY(180) translateZ(42), sides w=84 rotateY(±90) translateZ(width/2=150), top rotateX(90) translateZ(h/2=157.5) з лого розміром width/14 = 21.43px, bottom rotateX(-90) translateZ(157.5) + box-shadow 0 0 width/4=75px. Якщо width зробити полем — усі числа перераховувати у контролері/twig за цими формулами."
+  },
+  "fields": [
+    {"name": "box_front", "type": "image", "default": "box-front2.jpg (450×472)"},
+    {"name": "box_back", "type": "image", "default": "box-back2.jpg (450×472)"},
+    {"name": "box_side", "type": "image", "default": "box-side2.jpg (128×472)"},
+    {"name": "box_width", "type": "number", "default": 300, "note": "необов'язково; якщо є — геометрія з формул вище"},
+    {"name": "items", "type": "repeater", "count_default": 5, "fields": [
+      {"name": "label", "type": "text", "default_note": "великими літерами, як у HTML"},
+      {"name": "image", "type": "image"},
+      {"name": "rotate", "type": "text", "note": "CSS-кут, напр. -35deg"},
+      {"name": "position_classes", "type": "select_or_text", "note": "Tailwind-класи позиції; у safelist мають бути всі 5 дефолтних комбінацій"}
+    ], "default": [
+      {"label": "SUEDE",   "image": "brush-suede.png",   "rotate": "-35deg", "position_classes": "left-[42%] top-0"},
+      {"label": "SOLE",    "image": "brush-crepe.png",   "rotate": "55deg",  "position_classes": "right-0 top-[18%]"},
+      {"label": "CLASSIC", "image": "brush-classic.png", "rotate": "-50deg", "position_classes": "right-[2%] bottom-[8%]"},
+      {"label": "DAUBER",  "image": "brush-dauber.png",  "rotate": "30deg",  "position_classes": "left-[22%] bottom-0"},
+      {"label": "PREMIUM", "image": "brush-premium.png", "rotate": "-60deg", "position_classes": "left-0 top-[22%]"}
+    ]}
+  ],
+  "assets": [
+    {"file": "box-front2.jpg", "path": ".output/public/__l5e/assets-v1/272d7729-964c-4514-89c6-3abacdb0f7ff/box-front2.jpg", "meta": "450×472"},
+    {"file": "box-back2.jpg", "path": ".output/public/__l5e/assets-v1/eef25bfb-2872-405f-ae4b-4123381be0b1/box-back2.jpg", "meta": "450×472"},
+    {"file": "box-side2.jpg", "path": ".output/public/__l5e/assets-v1/21291596-fecc-49ca-8173-6d2341acfc8a/box-side2.jpg", "meta": "128×472"},
+    {"file": "brush-suede.png", "path": ".output/public/__l5e/assets-v1/09c67513-64ee-4c30-8f9d-e8aff073fc8a/brush-suede.png", "meta": "340×896 PNG alpha, 434 KB"},
+    {"file": "brush-crepe.png (= SOLE)", "path": ".output/public/__l5e/assets-v1/3d8aff6a-e5c7-4631-880f-87d8eb3ddf88/brush-crepe.png", "meta": "207×893"},
+    {"file": "brush-classic.png", "path": ".output/public/__l5e/assets-v1/cbb0e6ee-8f3c-4c34-ad0c-b721e16a4c01/brush-classic.png", "meta": "311×890"},
+    {"file": "brush-dauber.png", "path": ".output/public/__l5e/assets-v1/6ee7da9a-90b4-4d9a-9eac-1ed0271133af/brush-dauber.png", "meta": "241×894"},
+    {"file": "brush-premium.png", "path": ".output/public/__l5e/assets-v1/afad185a-aad1-4352-afa0-836996955bc5/brush-premium.png", "meta": "310×888"},
+    {"file": "logo (inline SVG)", "path": "src/components/logo-paths.ts; у OpenCart image/catalog/logo.svg", "meta": "viewBox 0 0 331 61, fill currentColor — див. README"}
+  ],
+  "behaviour": {
+    "box_scroll": "Без drag: на scroll (rAF) p = clamp(0,1, 1 - (rect.top + rect.height/2)/innerHeight); rotateX = 14 - p*6; rotateY = -55 + p*40 + extra. Початково при завантаженні теж викликається (onScroll()).",
+    "box_drag": "pointerdown → setPointerCapture, запам'ятати стартові x/y і кути; pointermove → rotateX = startRx - dy*0.3, rotateY = startRy + dx*0.5, transition:none; pointerup → extra += (rotY - startRy), transition повертається .4s cubic-bezier(.2,.7,.2,1).",
+    "reveal": "Обгортка коробки data-reveal=\"left\" (translateX(-60px) → 0 при .is-in). Кожна щітка data-reveal=\"scale\" з --d 0, .12, .24, .36, .48s.",
+    "float": "клас .float — keyframes float 6s ease-in-out infinite: на 50% translateY(-14px) rotate(var(--r)); тому inline --r обов'язковий, інакше кут скидається на 0 у середині анімації.",
+    "parallax": "data-parallax=\"0.08\" — глобальний хук: на scroll el.style.translate = `0 ${(centerOffset * -0.08)}px`; вимкнено при prefers-reduced-motion. Конфліктує з transform? Ні: translate — окрема CSS-властивість, transform rotate лишається.",
+    "reduced_motion": "[data-reveal] одразу видимі, .float без анімації, parallax не стартує."
+  },
+  "responsive": {
+    "base": "одна колонка: коробка зверху (фіксовані 384×399 px по центру — на екранах <400px виходить за край контейнера на кілька px; overflow-x-hidden на обгортці сторінки це ховає), квадрат щіток під нею на всю ширину (max-w-xl); щітки h-28.",
+    "md": "grid-cols-[1fr_2fr] items-center; щітки md:h-40; лого text-5xl без змін."
+  },
+  "accessibility": {
+    "img_alt": "«Щітка SUEDE» тощо (alt = «Щітка » + label)",
+    "logo": "svg role=img aria-label=\"brosse\"",
+    "box": "грані — декоративні div без тексту; drag не має клавіатурного аналога (у верстці теж)"
+  },
+  "opencart": {
+    "module_type": "single-instance module home_intro, content_top sort 2",
+    "admin_form": "3 image picker для коробки + репітер із 5 рядків (label, image, rotate, position select з 5 пресетами)",
+    "images": "PNG щіток з альфою — НЕ ганяти через tool/image resize у jpg; віддавати оригінал або заздалегідь підготовлений webp тієї ж висоти (~900px) з альфою. Рендер-висота 160px на md → можна зменшити до ~400px заввишки.",
+    "labels_vs_products": "Підписи SUEDE/SOLE/… тут статичні (не з товарів) — це декоративний блок; за бажанням лінкувати на товари, але у HTML лінків немає.",
+    "js": "ініціалізація [data-box3d] (scroll + pointer) у theme.js; спільні хуки data-reveal / data-parallax — глобальні (README)"
+  }
+}

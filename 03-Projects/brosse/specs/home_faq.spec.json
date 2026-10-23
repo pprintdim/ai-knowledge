@@ -1,0 +1,64 @@
+{
+  "code": "home_faq",
+  "order": 7,
+  "purpose": "Акордеон «Поширені питання»: заголовок вирівняний праворуч із пастельною піґулкою «•••», далі рядки з номером ліворуч і питанням + іконкою +/− праворуч; відкрите одне питання (перше за замовчуванням), відповідь центрована max-w-2xl.",
+  "source": {
+    "html": "index.html — сьомий (останній) <section class=\"container-site py-20\"> у <main>",
+    "tsx": "src/components/site.tsx → Faq(), faqs = 4 однакові плейсхолдери",
+    "mockup": "Home.jpg — збігається (01…04, перша відповідь розгорнута)"
+  },
+  "layout_position": "content_top, позиція 7 (останній модуль перед footer; footer має mt-24)",
+  "outer_markup": {
+    "skeleton": [
+      "<section class=\"container-site py-20\" data-faq>",
+      "  <div data-reveal=\"true\" class=\"flex items-end justify-end gap-3 border-b border-border pb-4\">",
+      "    <h2 class=\"text-right font-display text-3xl uppercase leading-none md:text-5xl\"><span class=\"block text-xs\">{{ eyebrow }}</span>{{ heading }}</h2>",
+      "    <span class=\"grid h-10 w-14 place-items-center rounded-full bg-gradient-pastel text-xs text-accent\">•••</span>",
+      "  </div>",
+      "  <!-- n× -->",
+      "  <div class=\"border-b border-border\" data-faq-item>",
+      "    <button type=\"button\" aria-expanded=\"{{ open ? 'true' : 'false' }}\" aria-controls=\"faq-a-{{ k }}\" data-faq-toggle class=\"flex w-full items-center justify-between gap-4 py-6 text-left text-xs uppercase md:text-sm\">",
+      "      <span>{{ '%02d'|format(k+1) }}</span>",
+      "      <span class=\"flex items-center gap-3\">{{ item.question }}{{ open ? icon minus h-4 w-4 : icon plus h-4 w-4 }}</span>",
+      "    </button>",
+      "    <p id=\"faq-a-{{ k }}\" data-faq-answer {{ open ? '' : 'hidden' }} class=\"pb-8 text-xs leading-relaxed text-muted-foreground md:mx-auto md:max-w-2xl\">{{ item.answer }}</p>",
+      "  </div>",
+      "</section>"
+    ],
+    "html_as_rendered": "У пререндері закриті відповіді ВІДСУТНІ в DOM (React не рендерить), а aria-expanded/aria-controls немає. Для порту рекомендовано вивести всі відповіді з hidden + aria (кращий SEO і a11y), візуально ідентично."
+  },
+  "fields": [
+    {"name": "eyebrow", "type": "text", "multilang": true, "default": "Поширені"},
+    {"name": "heading", "type": "text", "multilang": true, "default": "Питання"},
+    {"name": "open_first", "type": "toggle", "default": true},
+    {"name": "items", "type": "repeater", "count_default": 4, "fields": [
+      {"name": "question", "type": "text", "multilang": true},
+      {"name": "answer", "type": "textarea", "multilang": true}
+    ], "default": [
+      {"question": "What is Lorem Ipsum?", "answer": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."},
+      {"question": "What is Lorem Ipsum?", "answer": "(той самий текст)"},
+      {"question": "What is Lorem Ipsum?", "answer": "(той самий текст)"},
+      {"question": "What is Lorem Ipsum?", "answer": "(той самий текст)"}
+    ]}
+  ],
+  "assets": [],
+  "behaviour": {
+    "accordion": "один відкритий одночасно (state open = index, -1 = жодного). Клік по відкритому — закриває (open = -1). Іконка: відкрите → minus, закрите → plus. Без анімації висоти у верстці (просто show/hide).",
+    "reveal": "шапка data-reveal; кнопки — НЕ .group, тож авто-reveal їх не чіпає; p відповіді потрапляє під авто-reveal (main p) — у порті можна дати data-reveal явно або лишити без анімації",
+    "numbering": "01, 02… padStart(2,'0')"
+  },
+  "responsive": {
+    "base": "h2 text-3xl, питання text-xs, відповідь text-xs на всю ширину",
+    "md": "h2 text-5xl, питання text-sm, відповідь центрована md:mx-auto md:max-w-2xl"
+  },
+  "accessibility": {
+    "button": "додати aria-expanded + aria-controls (у верстці відсутні); текст питання у <button> — доступний",
+    "heading": "h2 з блоковим надзаголовком text-xs усередині"
+  },
+  "opencart": {
+    "module_type": "instance module home_faq (як faq у hydrophob — може бути перевикористаний на /product чи /about з іншим набором питань), content_top sort 7",
+    "admin_form": "eyebrow/heading мультимовні, open_first, репітер question/answer (мультимовно, answer — textarea; HTML не потрібен)",
+    "schema": "опційно вивести FAQPage JSON-LD з items (лише коли контент реальний, не lorem)",
+    "js": "[data-faq] у theme.js: делегування кліків, один відкритий, перемикання svg plus/minus (тримати обидві іконки в DOM і toggle hidden)"
+  }
+}

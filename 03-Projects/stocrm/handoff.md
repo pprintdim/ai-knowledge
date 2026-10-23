@@ -1,4 +1,4 @@
-> [!note] Імпортовано з `/Applications/MAMP/htdocs/stocrm/handoff.md` 2026-08-07 (DOCS-POLICY). Санітизовано секретів: 5. Оригінал: untracked, видалений.
+> [!note] Імпортовано з `/Applications/MAMP/htdocs/other/own/stocrm/handoff.md` 2026-08-07 (DOCS-POLICY). Санітизовано секретів: 5. Оригінал: untracked, видалений.
 
 # Mechora — handoff
 
@@ -202,7 +202,7 @@ CloudPanel master-admin) — в `../hydrophob-landing/handoff.md`, звірят�
 ### Процес деплою коду (без пересоздання сайту/БД)
 
 ```sh
-cd /Applications/MAMP/htdocs/stocrm
+cd /Applications/MAMP/htdocs/other/own/stocrm
 npm run build
 sshpass -p '<REDACTED — див. ~/AI-Workspace/secrets/ACCESS.md> з hydrophob-landing/handoff.md>' rsync -az --delete \
   --exclude='.git' --exclude='.env' --exclude='node_modules' --exclude='vendor' \

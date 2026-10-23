@@ -1,0 +1,112 @@
+{
+  "code": "home_hero",
+  "order": 1,
+  "purpose": "Перший екран головної: ліворуч — заголовок/текст поточного слайда, крапки-таби, два мінікартки; праворуч — вертикальна картка 9:10 з трьома відеокліпами (автозміна кожні 6.5 с), кнопкою звуку, вертикальними підписами й помаранчевим кутом; під карткою — CTA «Детальніше» → сторінка продукту.",
+  "source": {
+    "html": "/Applications/MAMP/htdocs/NanoChemicalGroup/products/realchem/care/brosse/html/.output/public/index.html — перший <section data-noreveal> у <main>",
+    "tsx": "/Applications/MAMP/htdocs/NanoChemicalGroup/products/realchem/care/brosse/html/src/routes/index.tsx → HeroSlider(), масив slides",
+    "mockup": "materials/Jpg/1920/Home.jpg (у макеті фото чоловіка; у HTML — відео, HTML є істиною)"
+  },
+  "layout_position": "content_top, позиція 1 (одразу після header; header займає h-20 через обгортку)",
+  "outer_markup": {
+    "note": "Класи Tailwind вказані дослівно. {{ }} — місця підстановки з модуля. Слайди рендеряться всі три: текстовий блок — ТІЛЬКИ активний (JS перемальовує innerHTML з data-атрибутів або показує/ховає три .slide-in блоки), відео — всі три одночасно, активне scale-100 opacity-100, інші scale-110 opacity-0.",
+    "skeleton": [
+      "<section data-noreveal=\"true\" class=\"container-site grid gap-8 pb-16 md:grid-cols-[1fr_minmax(0,460px)] md:items-center md:gap-12\" data-hero-slider data-interval=\"6500\">",
+      "  <div class=\"min-w-0\">",
+      "    <div class=\"slide-in\" data-hero-slide=\"0\">   <!-- для слайдів 1..2 — той самий блок із hidden; при перемиканні JS знімає hidden і перезапускає .slide-in (replace node / reflow) -->",
+      "      <h1 class=\"font-display text-3xl leading-tight md:text-[2.6rem]\">{{ slide.title_html }}</h1>",
+      "      <p class=\"mt-6 max-w-md text-xs leading-relaxed text-muted-foreground\">{{ slide.text }}</p>",
+      "    </div>",
+      "    <div class=\"mt-8 flex gap-2\" role=\"tablist\" aria-label=\"Слайди\">",
+      "      <button role=\"tab\" aria-selected=\"true\"  aria-label=\"Слайд 1\" data-hero-dot=\"0\" class=\"h-2 rounded-full transition-all duration-500 w-10 bg-accent\"></button>",
+      "      <button role=\"tab\" aria-selected=\"false\" aria-label=\"Слайд 2\" data-hero-dot=\"1\" class=\"h-2 rounded-full transition-all duration-500 w-2 bg-foreground/25 hover:bg-foreground/50\"></button>",
+      "      <button role=\"tab\" aria-selected=\"false\" aria-label=\"Слайд 3\" data-hero-dot=\"2\" class=\"h-2 rounded-full transition-all duration-500 w-2 bg-foreground/25 hover:bg-foreground/50\"></button>",
+      "    </div>",
+      "    <div class=\"mt-10 grid grid-cols-2 gap-3 md:max-w-md\">",
+      "      <div class=\"flex overflow-hidden rounded-2xl bg-card shadow-soft\">",
+      "        <div class=\"flex-1 p-3 text-[10px]\"><span class=\"text-accent\">✦</span><p class=\"mt-4 text-xs uppercase\">{{ card1_title }}</p><p class=\"text-muted-foreground\">{{ card1_text }}</p></div>",
+      "        <img src=\"{{ card1_image }}\" alt=\"\" class=\"w-1/2 object-cover\" loading=\"lazy\"/>",
+      "      </div>",
+      "      <div class=\"rounded-2xl bg-ink p-3 text-ink-foreground\"><span class=\"text-accent\">✦</span><p class=\"mt-4 text-xs uppercase\">{{ card2_title }}</p><p class=\"text-[10px] text-ink-foreground/70\">{{ card2_text }}</p></div>",
+      "    </div>",
+      "  </div>",
+      "  <div class=\"relative w-full\">",
+      "    <div class=\"relative aspect-[9/10] overflow-hidden rounded-[2.5rem] bg-ink/80 shadow-soft\">",
+      "      <span aria-hidden=\"true\" class=\"pointer-events-none absolute inset-x-0 top-[32%] select-none text-center font-display text-[9rem] leading-none text-ink-foreground/10\">{{ watermark }}</span>",
+      "      <video src=\"{{ slide0.video }}\" poster=\"{{ slide0.poster }}\" muted loop playsinline preload=\"auto\"     data-hero-video=\"0\" class=\"absolute inset-0 h-full w-full object-cover object-top transition-all duration-1000 scale-100 opacity-100\"></video>",
+      "      <video src=\"{{ slide1.video }}\"                           muted loop playsinline preload=\"metadata\" data-hero-video=\"1\" class=\"absolute inset-0 h-full w-full object-cover object-top transition-all duration-1000 scale-110 opacity-0\"></video>",
+      "      <video src=\"{{ slide2.video }}\"                           muted loop playsinline preload=\"metadata\" data-hero-video=\"2\" class=\"absolute inset-0 h-full w-full object-cover object-top transition-all duration-1000 scale-110 opacity-0\"></video>",
+      "      <button aria-label=\"Увімкнути звук\" data-hero-mute class=\"absolute right-5 top-5 z-10 grid h-10 w-10 place-items-center rounded-full border border-ink-foreground/40 bg-ink/40 text-ink-foreground backdrop-blur transition hover:scale-110 hover:bg-accent hover:border-accent\">{{ icon volume-x h-4 w-4 }} / {{ icon volume-2 h-4 w-4 }}</button>",
+      "      <span aria-hidden=\"true\" class=\"absolute right-6 top-1/4 text-[9px] uppercase tracking-[0.3em] text-ink-foreground/70 [writing-mode:vertical-rl]\">{{ side_label_1 }}</span>",
+      "      <span aria-hidden=\"true\" class=\"absolute bottom-[30%] left-[13%] rotate-180 text-[9px] uppercase tracking-[0.3em] text-ink-foreground/80 [writing-mode:vertical-rl]\">{{ side_label_2 }}</span>",
+      "      <div class=\"absolute bottom-0 left-0 h-[27%] w-[36%] rounded-tr-[2rem] bg-accent\"></div>",
+      "    </div>",
+      "    <div class=\"absolute bottom-[5%] left-4 text-accent-foreground md:left-auto md:right-[calc(100%-6rem)] md:text-foreground\">",
+      "      {{ arrow_link(cta_text, cta_href) }}   <!-- спільний партіал ArrowLink, див. README -->",
+      "    </div>",
+      "  </div>",
+      "</section>"
+    ],
+    "title_inline_badge": "Заголовок слайда 1 містить інлайн-бейдж: <span class=\"inline-flex h-10 w-20 items-center justify-center rounded-full bg-gradient-pastel align-middle shadow-soft md:h-14 md:w-28\"><img src=\"{{ badge_image }}\" alt=\"\" class=\"h-12 w-auto -translate-y-2 -rotate-12 md:h-20\"/></span>. Інші слайди бейджа не мають. Рекомендація: поле title як textarea з дозволеним HTML (<br>, <span>, <img>) АБО окреме поле badge_image для слайда + плейсхолдер {badge} у тексті заголовка — другий варіант безпечніший для редактора."
+  },
+  "fields": [
+    {"name": "slides", "type": "repeater", "min": 1, "max": 3, "note": "кількість крапок = кількість слайдів; перший слайд — preload=auto + poster, інші preload=metadata", "fields": [
+      {"name": "title", "type": "textarea_html", "multilang": true, "note": "дозволити <br> і плейсхолдер {badge}"},
+      {"name": "badge_image", "type": "image", "note": "картинка в піґулці заголовка; порожнє = без бейджа"},
+      {"name": "text", "type": "textarea", "multilang": true},
+      {"name": "video", "type": "video", "note": "mp4 (h264+aac), вертикальне 1080×1920"},
+      {"name": "poster", "type": "image", "note": "тільки для 1-го слайда фактично використовується"}
+    ], "default": [
+      {"title": "Преміальний {badge}<br>догляд одягу та взуття", "badge_image": "sneaker.png (assets/sneaker-CyQm9C6_.png, 1024×1024)", "text": "Набір із п'яти щіток Brosse для одягу та взуття: натуральний ворс, бук і бездоганний результат щодня.", "video": "hero-block-care.mp4", "poster": "intro-block-brush.jpg"},
+      {"title": "Натуральний ворс<br>та дерево бука", "badge_image": "", "text": "Кінський волос, щетина та латунь — кожна щітка створена під свій матеріал: шкіра, замша, нубук, текстиль.", "video": "hero-boot.mp4", "poster": ""},
+      {"title": "Догляд, який<br>продовжує життя речей", "badge_image": "", "text": "Регулярне чищення зберігає колір, фактуру та форму улюблених виробів на роки.", "video": "hero-coat.mp4", "poster": ""}
+    ]},
+    {"name": "interval_ms", "type": "number", "default": 6500},
+    {"name": "card1_title", "type": "text", "multilang": true, "default": "Взуття"},
+    {"name": "card1_text", "type": "text", "multilang": true, "default": "щітки для шкіри"},
+    {"name": "card1_image", "type": "image", "default": "boot.jpg (assets/boot-BL01gE9v.jpg, 1600×768)", "note": "відображається w-1/2 object-cover у картці ~ 200×90 → resize ~400×180 достатньо"},
+    {"name": "card2_title", "type": "text", "multilang": true, "default": "Brosse"},
+    {"name": "card2_text", "type": "text", "multilang": true, "default": "Dauber / Classic / Suede"},
+    {"name": "watermark", "type": "text", "default": "brosse", "note": "текст-водяний знак у картці відео"},
+    {"name": "side_label_1", "type": "text", "default": "Premium brushes"},
+    {"name": "side_label_2", "type": "text", "default": "Brosse"},
+    {"name": "cta_text", "type": "text", "multilang": true, "default": "Детальніше"},
+    {"name": "cta_link", "type": "link", "default": "/product → у OpenCart: product/product&product_id=<набір> або product/category&path=<shop category>", "note": "див. open_questions"}
+  ],
+  "assets": [
+    {"file": "hero-block-care.mp4", "path": ".output/public/__l5e/assets-v1/731f0a51-42a0-4eae-ad2b-feef456ade32/hero-block-care.mp4", "meta": "h264 1080×1920 7 s, aac, 4.6 MB"},
+    {"file": "hero-boot.mp4", "path": ".output/public/__l5e/assets-v1/37ddd48c-11d1-4c38-b32e-6b254c88e2d2/hero-boot.mp4", "meta": "h264 1080×1920 6 s, aac, 7.4 MB"},
+    {"file": "hero-coat.mp4", "path": ".output/public/__l5e/assets-v1/db760f21-b5c7-42d0-b4b0-258753270814/hero-coat.mp4", "meta": "h264 1080×1920 6 s, aac, 8.3 MB"},
+    {"file": "intro-block-brush.jpg", "path": ".output/public/__l5e/assets-v1/f5816652-a3e4-424d-a7e6-72f1be42ed0e/intro-block-brush.jpg", "meta": "1920×1920, 1.28 MB — постер слайда 1; варто перетиснути до ~1080 px / webp"},
+    {"file": "sneaker.png", "path": ".output/public/assets/sneaker-CyQm9C6_.png", "meta": "1024×1024 PNG, 1.08 MB — бейдж у заголовку, рендериться h-12/h-20 → resize 160×160 webp"},
+    {"file": "boot.jpg", "path": ".output/public/assets/boot-BL01gE9v.jpg", "meta": "1600×768, картка «Взуття»"}
+  ],
+  "behaviour": {
+    "autoplay": "setTimeout 6500 мс після кожної зміни індексу → (i+1) % n. Клік по крапці — миттєвий перехід, таймер перезапускається.",
+    "video_switch": "При зміні індексу: активне відео currentTime=0 → play(); інші pause(). Класи: активне scale-100 opacity-100, решта scale-110 opacity-0 (transition-all duration-1000).",
+    "text_switch": "Текстовий блок перемальовується з ключем (React key=i) → заново спрацьовує CSS-анімація .slide-in > * (slide-in .9s, друга дитина із затримкою .15s). У ванільному JS: замінити вузол або зняти/повернути клас slide-in через reflow.",
+    "dots": "Активна крапка w-10 bg-accent; неактивні w-2 bg-foreground/25 hover:bg-foreground/50; aria-selected синхронізувати.",
+    "mute": "Кнопка перемикає muted для АКТИВНОГО відео (неактивні завжди muted). Стан пам'ятається в sessionStorage('brosse-sound' = '1' для увімкненого звуку). Якщо play() з увімкненим звуком відхилено браузером — повернутись у muted і грати без звуку. Іконка: muted → volume-x, aria-label «Увімкнути звук»; зі звуком → volume-2, aria-label «Вимкнути звук».",
+    "reveal": "Секція має data-noreveal — авто-reveal по h1/p/img/video НЕ застосовувати всередині. Вхід анімується лише .slide-in.",
+    "reduced_motion": "prefers-reduced-motion: .slide-in лишається (у CSS не вимкнено), autoplay відео триває."
+  },
+  "responsive": {
+    "base": "одна колонка: текст → крапки → картки → відеокартка; CTA абсолютно позиційований у лівому нижньому куті картки, колір text-accent-foreground (білий поверх помаранчевого кута).",
+    "md": "дві колонки grid-cols-[1fr_minmax(0,460px)], items-center, gap-12; h1 2.6rem; бейдж h-14 w-28; CTA виноситься ліворуч від картки (md:right-[calc(100%-6rem)]), колір md:text-foreground.",
+    "mobile_mockup": "materials/Jpg/mob/Home Page.jpg — у макеті картки під відео горизонтально скролять, у HTML — grid 2 колонки. Істина — HTML."
+  },
+  "accessibility": {
+    "tablist": "role=tablist aria-label=\"Слайди\"; кнопки role=tab aria-selected aria-label=\"Слайд N\"",
+    "mute_button": "aria-label «Увімкнути звук» / «Вимкнути звук»",
+    "decorative": "watermark і вертикальні підписи aria-hidden; img бейджа і картки alt=\"\"",
+    "h1": "єдиний h1 сторінки — тут"
+  },
+  "opencart": {
+    "module_type": "instance module (extension/module/home_hero), одна інстанція на layout Home, position content_top, sort 1",
+    "admin_form": "вкладки по мовах для title/text/cta_text/card*; відео — текстове поле шляху у image/catalog/video/ або медіатека (hydro-*), постери — стандартний image picker (thumb через tool/image resize)",
+    "images": "resize: badge 160×160, card1 400×180 (object-cover — зберігати пропорцію джерела), poster без resize (tool/image не вміє >? — віддавати як є або заздалегідь оптимізований файл)",
+    "link_routes": "cta_link: за замовчуванням index.php?route=product/product&product_id={{ набір }} якщо «Продукція» = одна картка набору; інакше category. Крапка в адмінці — текстове поле URL/route з підстановкою через $this->url->link()",
+    "js": "catalog/view/theme/brosse/js/home.js (або theme.js) — ініціалізація по [data-hero-slider]; sessionStorage ключ лишити 'brosse-sound'",
+    "css": "класи Tailwind — збірка CSS теми має містити їх (safelist або статичний styles.css з верстки assets/styles-DCYc-3BJ.css)"
+  }
+}
