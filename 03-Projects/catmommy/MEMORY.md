@@ -2,7 +2,7 @@
 
 ## Стан (2026-09-30)
 - WP (en_GB) + WooCommerce 11.1 на Hetzner 46.224.100.254, CloudPanel, site user `catmommy`, PHP 8.4, vhost-шаблон WooCommerce. Креди — ACCESS.md.
-- Донор натяжки: https://piddlepatch.com (WP + Woo + Divi, підписки). У `/Applications/MAMP/htdocs/other/clients/catmommy/materials/` — лише загальне: 49 сторінок (pages/<slug>/text.md, content.html, meta.json, images/), common/ (шапка, футер, меню, лого), README.md з індексом. Товарку донора прибрано — товари користувач дасть посиланнями, парсити в materials.
+- Донор натяжки: https://piddlepatch.com (WP + Woo + Divi, підписки). У `/Volumes/Projects/materials/other/clients/catmommy/` — лише загальне: 49 сторінок (pages/<slug>/text.md, content.html, meta.json, images/), common/ (шапка, футер, меню, лого), README.md з індексом. Товарку донора прибрано — товари користувач дасть посиланнями, парсити в materials.
 - LE-сертифікат (catmommy.co.uk + www) встановлено 2026-09-30.
 - БД лише на сервері, локально тільки materials і майбутня тема.
 - Плагіни (усі безкоштовні): WooCommerce, Stripe Gateway, Subscriptions for WooCommerce (WP Swings), ACF, Rank Math, Redis Object Cache (увімкнено, prefix catmommy_), Converter for Media (webp), WP Mail SMTP (Brevo ще НЕ налаштовано).

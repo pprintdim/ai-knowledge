@@ -49,3 +49,6 @@
 
 ## 2026-10-23 — локальні проєкти перегруповано за /branches
 `/Volumes/Projects/MAMP/htdocs/` тепер: `NanoChemicalGroup/` (1:1 як дерево /branches: `nanochemical.group`, `central-office/it-digital/stores.crm`, `central-office/trading-house/{secured.in.ua,shoker.in.ua,shokeru.in.ua,shokstore,materials}`, `products/nanochemical/{autochemicals,hydrophob/*}`, `products/realchem/{realchem.com.ua,care/brosse}`) і `other/` (`clients/` catmommy, e-star, galaxymarket, nadel, ofmarketing, starlife, well→symlink; `own/` pprintdim, stocrm, googlenest; `tools/obsidianSystem`). Абсолютні шляхи переписано в config.php/deploy.sh/.claude/.vscode/vhost-ах/worktree gitdir/knowledge/memory; теки сесій Claude — нові слаги, старі імена symlink; бекап конфігів `/Volumes/Projects/_archive/regroup-20261023133030/`. realchem відновлено локально: клон `openCart` + розпакований архів матеріалів (760 файлів) у `products/realchem/realchem.com.ua`.
+
+## 2026-10-25 — materials/backups винесено з проєктів
+Усі `materials/` і `backups/` (25 тек) перенесено в `/Volumes/Projects/materials/<шлях у htdocs>/` (3.6 ГБ) і `/Volumes/Projects/backups/<шлях у htdocs>/` (1.7 ГБ), без копій і symlink-ів; усередині проєктів цих тек більше нема. Шляхи в нотатках переписано.
