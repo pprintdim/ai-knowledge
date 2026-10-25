@@ -52,3 +52,8 @@
 
 ## 2026-10-25 — materials/backups винесено з проєктів
 Усі `materials/` і `backups/` (25 тек) перенесено в `/Volumes/Projects/materials/<шлях у htdocs>/` (3.6 ГБ) і `/Volumes/Projects/backups/<шлях у htdocs>/` (1.7 ГБ), без копій і symlink-ів; усередині проєктів цих тек більше нема. Шляхи в нотатках переписано.
+
+## 2026-10-25 — прогрів відео на всіх сайтах + велком brosse
+- Велком brosse: накладка всередині відфільтрованого `<main>` → `position: fixed` від main (висота сторінки, блюр/темно). Фікс — перенос у `<body>` при старті (fe63e63), задеплоєно.
+- `video-warmup.js` вбудовано у 10 сайтів (brosse, realchem, autochemicals, hydrophob ×4, shoker, secured, shokeru), задеплоєно, md5 однаковий. Деталі й граблі — `02-Knowledge/Frontend/video-warmup.md`. Прод-перевірки: shoker/secured/shokeru/brosse — hero→blob ок; hydrophob — великі десктопні ролики за 6 с не встигають.
+- Уроки: субагенти успадковують Fable → 429; паралельний sshpass від 3 агентів → fail2ban бан Tailscale-IP (~10 хв).
