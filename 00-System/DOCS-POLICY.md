@@ -21,7 +21,7 @@
 
 ## Імпорт 2026-08-07 (виконано)
 
-Службові .md з усіх проєктів перенесені в `03-Projects/<repo>/` і санітизовані (26 секретів → `~/AI-Workspace/secrets/ACCESS.md`). Untracked-оригінали видалені з проєктів; tracked AI-документація видалена комітом. **Залишені навмисно**: `AGENTS.md` (читає Codex CLI — toolchain-виняток), `materials/*.md` і `shokstore/analysis/*.md` (контент-дані, не AI-память), README.md.
+Службові .md з усіх проєктів перенесені в `03-Projects/<repo>/` і санітизовані (26 секретів → `~/AI-Workspace/secrets/ACCESS-*.md (NCG / SERVERS / OTHER)`). Untracked-оригінали видалені з проєктів; tracked AI-документація видалена комітом. **Залишені навмисно**: `AGENTS.md` (читає Codex CLI — toolchain-виняток), `materials/*.md` і `shokstore/analysis/*.md` (контент-дані, не AI-память), README.md.
 
 ## Тест перед створенням будь-якого .md
 

@@ -14,7 +14,7 @@
 └── secrets/      ← ACCESS.md: єдине місце паролів/ключів (0600, ПОЗА git) — НЕ видаляти
 ```
 
-**Секрети**: у vault на місці значення стоїть `<REDACTED→secrets/ACCESS.md>`; реальні — тільки в `~/AI-Workspace/secrets/ACCESS.md` і першоджерелах проєкту (config.php, `.vscode/sftp.json`, CloudPanel). У git — ніколи.
+**Секрети**: у vault на місці значення стоїть `<REDACTED→secrets/ACCESS-*.md (NCG / SERVERS / OTHER)>`; реальні — тільки в `~/AI-Workspace/secrets/ACCESS-*.md (NCG / SERVERS / OTHER)` і першоджерелах проєкту (config.php, `.vscode/sftp.json`, CloudPanel). У git — ніколи.
 
 Також не чіпати: SSH keys, git/MCP/Claude config, credentials, production-дані, user-created теки, невідомі теки, файли поза AI-Workspace, чужі незакомічені зміни. **Не впевнений, що файл створив поточний workflow — НЕ видаляй.**
 Існуючі повні копії проєктів у `/Applications/MAMP/htdocs/` (з 2026-10-22 це symlink на зовнішній SSD `/Volumes/Projects/MAMP/htdocs/`; MAMP їх СЕРВІТЬ — робочі стенди; без диска MAMP не працює) і `~/Desktop/vs_projects/` — user-created, лишаються.
@@ -65,3 +65,6 @@ Worktree не створювати без потреби: git show з mirror / G
 ```
 Repository / Branch / Commit / Remote status / Tests / Knowledge updated / Cleanup
 ```
+
+## Розташування на диску (2026-11-11)
+Фізично все лежить на SSD у `/Volumes/Projects/AI-Workspace/` (`knowledge`, `mirrors`, `worktrees`, `claude-home` зі скілами й плагінами, `whisper` з моделями, `scripts`, історія сесій `claude-home/.claude/projects`). Шляхи `~/AI-Workspace/knowledge|mirrors|worktrees|scripts`, `~/.claude/skills|plugins|projects`, `~/.agents` — симлінки туди, тому всі шляхи в цьому документі чинні. На внутрішньому диску свідомо лишились тільки `~/AI-Workspace/secrets` (SSD не зашифрований). Без підключеного SSD нічого не відновлювати на внутрішній диск.
