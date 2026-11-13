@@ -32,3 +32,5 @@ Shared Knowledge Layer (`~/AI-Workspace/knowledge` = repo `pprintdim/ai-knowledg
 
 1. Задача → workflow/автороутинг → память+знання → worktree → код → qa → push → cleanup → звіт.
 2. Нове знання → Knowledge (за [[MEMORY-RULES]]); нове про проєкт → Projects; нове ПРАВИЛО роботи → Agents (рідко).
+
+- **Розташування на диску (2026-11-11):** усе на SSD у `/Volumes/Projects/AI-Workspace/`, старі шляхи — симлінки; деталі — `WORKSPACE.md` → «Розташування на диску».

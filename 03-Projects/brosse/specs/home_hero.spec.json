@@ -3,8 +3,8 @@
   "order": 1,
   "purpose": "Перший екран головної: ліворуч — заголовок/текст поточного слайда, крапки-таби, два мінікартки; праворуч — вертикальна картка 9:10 з трьома відеокліпами (автозміна кожні 6.5 с), кнопкою звуку, вертикальними підписами й помаранчевим кутом; під карткою — CTA «Детальніше» → сторінка продукту.",
   "source": {
-    "html": "/Applications/MAMP/htdocs/NanoChemicalGroup/products/realchem/care/brosse/html/.output/public/index.html — перший <section data-noreveal> у <main>",
-    "tsx": "/Applications/MAMP/htdocs/NanoChemicalGroup/products/realchem/care/brosse/html/src/routes/index.tsx → HeroSlider(), масив slides",
+    "html": "/Applications/MAMP/htdocs/NanoChemicalGroup/products/realchem/care/brosse.com.ua/html/.output/public/index.html — перший <section data-noreveal> у <main>",
+    "tsx": "/Applications/MAMP/htdocs/NanoChemicalGroup/products/realchem/care/brosse.com.ua/html/src/routes/index.tsx → HeroSlider(), масив slides",
     "mockup": "materials/Jpg/1920/Home.jpg (у макеті фото чоловіка; у HTML — відео, HTML є істиною)"
   },
   "layout_position": "content_top, позиція 1 (одразу після header; header займає h-20 через обгортку)",

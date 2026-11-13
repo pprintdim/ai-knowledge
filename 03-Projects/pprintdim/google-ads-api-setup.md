@@ -173,3 +173,9 @@ If GTM tracking is preferred later:
 - Do not commit credentials.
 - Before making API mutations, first run read-only checks and print the target account name/id.
 
+
+## Стан доступів (2026-11-01)
+- Search Console + GA4: service account `pprintdim-analytics@pprintdim.iam.gserviceaccount.com` (GCP project `pprintdim`), ключ `secrets/google-pprintdim-sa.json`, ID — `secrets/google-pprintdim.txt`. Токен: `python3 ~/AI-Workspace/scripts/google/sa-token.py`. GSC — siteFullUser на `sc-domain:pprintdim.com`; GA4 property 544324536 (G-C9RQRZT06T).
+- Зроблено 2026-11-01: sitemap перевідправлено; GA4 event retention 2 → 14 міс; `generate_lead` = key event (ONCE_PER_SESSION). Рішення користувача: на modules.pprintdim.com GA4 не ставити, окремих GSC-властивостей не треба.
+- Google Ads API: OAuth desktop-клієнт `secrets/client_secret_*.json` (consent screen у Testing — refresh token живе 7 днів, поки не Publish app), refresh token у `secrets/google-ads-pprintdim.json`, скрипти `scripts/google/ads-oauth.py` (вхід) і `ads-token.py`. Доступний акаунт `customers/6282777841`. Версія API v26. Мутації/читання блокує `CLOUD_PROJECT_NOT_APPROVED_FOR_PRODUCTION` — потрібна заявка користувача на Explorer/Basic access.
+- Чернетка кампанії для Ads Editor: `/Volumes/Projects/materials/other/own/pprintdim/google-ads/pprintdim-search-ua.csv` (+ `-assets.csv`): Search UA, Paused, 8/день, Maximize conversions, 7 груп, 47 ключів, 18 мінус-слів, RSA на групу.
