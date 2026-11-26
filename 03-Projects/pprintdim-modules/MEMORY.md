@@ -38,7 +38,7 @@
 - Перевірка: `tools/oc-smoke/install.php` (install/uninstall/reinstall, збереження налаштувань, сторінки вітрини, error.log) + `tools/oc-smoke/checkout.php` (гостьовий checkout) на чистому OC 3.0.3.9 / PHP 8.4 (MAMP php8.4.17, MAMP MySQL порт 8889, тестова БД `pptest_oc3` — залишена, стенд-файли видалені). Усі 24 — без PHP-помилок; фіди валідний XML; NP-віджет, OTP, quick order, ajax search, schema/lazy/webp/sitemap працюють. НЕ перевірено: живі API перевізників/платіжок, реальна пошта/Telegram, сторонні теми й one-page чекаути.
 - Граблі OC 3.0.3.9 на PHP 8.1+: бандлений Twig сипле deprecation у відповідь, якщо в магазині увімкнено «Показувати помилки» — ламає AJAX JSON. Примітка додана в install-тексти всіх модулів.
 - E2E оплати на проді (2026-11-01): підписаний Approved → підписка active на місяць, повтор не продовжує, підміна суми → 400; тестові рядки прибрані.
-- Аналітика (рішення користувача): на modules GA4-тег НЕ ставити, окремої property не треба; Search Console — достатньо `sc-domain:pprintdim.com`. Service account `pprintdim-analytics@pprintdim.iam.gserviceaccount.com` (GCP project `pprintdim`), ID у `secrets/google-pprintdim.txt`, ключ `secrets/google-pprintdim-sa.json` — користувач перевипускає (старий світився в чаті).
+- Аналітика (рішення користувача): на modules GA4-тег НЕ ставити, окремої property не треба; Search Console — достатньо `sc-domain:pprintdim.com`. Service account `pprintdim-analytics@pprintdim.iam.gserviceaccount.com` (GCP project `pprintdim`), ID — у `secrets/ACCESS-SERVERS.md` (секція «pprintdim.com — Google Analytics / Search Console»), ключ `secrets/google-pprintdim-sa.json` — користувач перевипускає (старий світився в чаті).
 
 ## Блокери
 - Ключі мерчанта WayForPay (account, secret) → ACCESS.md.

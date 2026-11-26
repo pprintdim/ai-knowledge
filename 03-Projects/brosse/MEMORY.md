@@ -54,3 +54,4 @@
 - «Розроблено: pprintdim.com» у підвалі сайту й адмінки; кнопка «У кошик» → «Додано ✓» на 2.5 с.
 - До запуску: `config_noindex=1`, robots Disallow — знімаємо за командою; Search Console + sitemap.
 - 2026-10-19: листи не йшли — Brevo відхиляв відправника owner@brosse.com.ua (домен не автентифікований). У Hetzner DNS додано: @ TXT SPF include:spf.brevo.com + brevo-code (спільний код акаунта, як у realchem/hydrophob), brevo1/brevo2._domainkey CNAME → b1/b2.brosse-com-ua.dkim.brevo.com, _dmarc p=none. Ключ API без прав «account» — домен у Brevo треба додати й автентифікувати вручну в кабінеті.
+- 2026-11-25: Tailscale прибрано (сервер вийшов з tailnet) — `HETZNER_HOST=root@100.64.35.62` більше не працює, лише публічний IP.

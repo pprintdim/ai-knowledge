@@ -8,7 +8,7 @@
   - `html.brosse.com.ua` — site user `htmlbrossecomua`, статика.
   - Обидва під LE-сертифікатом; basic-auth замки ЗНЯТО на прохання користувача (2026-10-14), індексацію тримають `config_noindex=1` і robots Disallow до запуску.
 - DNS: зона Hetzner id `1642648` (@, www, html → 46.224.100.254); NS у реєстратора вже hetzner.
-- Деплой: `~/AI-Workspace/scripts/brosse-deploy.sh` (OpenCart, main), `brosse-html-deploy.sh` (статика html) — root через Keychain + chown; при блокованому публічному SSH — `HETZNER_HOST=root@100.64.35.62` (Tailscale). Скрипти посадки в репо `scripts/` (home-layout, about-page, seo-brosse, product-media, hero-slides, checkout-setup.sql).
+- Деплой: `~/AI-Workspace/scripts/brosse-deploy.sh` (OpenCart, main), `brosse-html-deploy.sh` (статика html) — root через Keychain + chown; Tailscale прибрано 2026-11-25 — лише публічний IP. Скрипти посадки в репо `scripts/` (home-layout, about-page, seo-brosse, product-media, hero-slides, checkout-setup.sql).
 - Креди: `~/AI-Workspace/secrets/ACCESS.md`, розділ «brosse.com.ua».
 - Еталон OpenCart-конвенцій: `/Applications/MAMP/htdocs/NanoChemicalGroup/products/nanochemical/autochemicals-carshop/autochemicals.com.ua` (гілка openCart), стартовий набір `00-System/templates/opencart3-starter/`.
 
