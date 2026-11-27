@@ -479,3 +479,8 @@ Noindex НЕ знімати, поки не пройдено ВСЕ: (1) ауди
 - Реквізити оплати переказом (ФОП, НоваПей) — у payment_bank_transfer_bank1/2; показ у чекауті/«Дякуємо»/листі (81d646a).
 - 2026-11-26: телефон autochemicals → +380 (93) 130-36-28. Merchant: політика повернення 14 днів створена (id 9537568583); доставку чекаємо від користувача (ціна НП); джерело даних top-500 видалено — новий фід після списку груп товарів.
 - Merchant доставка 2026-11-26: «Нова Пошта», UA, фіксовано 90 грн, відправка 0–1 дн (до 15:00 Europe/Kyiv, Пн–Сб), транзит 1–3 дн; безкоштовної доставки нема (на сайті теж нема).
+
+## 2026-11-27 — GSC: чому не індексується + 5xx
+- GSC через SA: `~/AI-Workspace/scripts/gsc/gsc.py` (sitemaps, searchAnalytics, URL Inspection `inspect(url)`). Карта 10 722 URL без помилок, проіндексовано одиниці (головна, /brendy, /farby-ta-pokryttia); решта — «Невідома Google URL-адреса» / «Виявлено – не проіндексовано». Googlebot ходить 4–26 запитів/добу — молодий сайт, малий краулінговий бюджет. Карту перенадіслано 27.11.
+- 26.11 19:03–19:06 UTC: розподілений скрапер (тисячі IP, браузерні UA) → MySQL «Too many connections» (max_connections=150 у `/etc/mysql/mysql.conf.d/zz-ncg-tuning.cnf`) → 2038×500. Фікс: `system/library/db/mysqli.php` — повтор і 503 + Retry-After (47ed7b8); пул FPM `/etc/php/8.3/fpm/pool.d/autochemicals.com.ua.conf` pm.max_children 250→24, request_terminate_timeout 7200→900s (бекап /root/autochemicals.com.ua.pool.conf.bak-*). **CloudPanel перезаписує пул при зміні PHP-налаштувань сайту в UI — перевіряти.**
+- Від розподілених скраперів реально рятує лише Cloudflare (Bot Fight Mode / WAF) — токену бракує прав Bot Management / Analytics Read.
